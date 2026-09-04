@@ -1,0 +1,163 @@
+/* ---------------------------------------------------------------------------
+ * CoreMushroom - base del sistema de diseno
+ *
+ * Las variables de color, tipografia y espaciado NO se declaran aqui.
+ * Viven en theme.json y WordPress las publica como custom properties:
+ *   --wp--preset--color--<slug>
+ *   --wp--preset--font-size--<slug>
+ *   --wp--preset--font-family--<slug>
+ *   --wp--preset--spacing--<slug>
+ *   --wp--custom--<grupo>--<clave>
+ *
+ * Este archivo solo aplica esas variables y define comportamiento base.
+ * Los componentes (boton, badge, tarjeta) llegan en la Fase 2.
+ * ------------------------------------------------------------------------- */
+
+/* --- Puente hacia las variables de Blocksy ---------------------------------
+ * Blocksy pinta sus propios componentes con --theme-palette-color-N. Al
+ * apuntarlas a nuestra paleta, la cabecera, el pie y los widgets del padre
+ * heredan el color de CoreMushroom sin tocar el tema padre ni el Customizer.
+ * Si Blocksy renombra estas variables, las reglas quedan inertes y no rompen
+ * nada. Verificar contra la version instalada antes de dar la Fase 2 por buena.
+ * ------------------------------------------------------------------------- */
+:root {
+  --theme-palette-color-1: var(--wp--preset--color--bosque);
+  --theme-palette-color-2: var(--wp--preset--color--cordyceps);
+  --theme-palette-color-3: var(--wp--preset--color--tinta);
+  --theme-palette-color-4: var(--wp--preset--color--grafito);
+  --theme-palette-color-5: var(--wp--preset--color--hueso);
+  --theme-palette-color-6: var(--wp--preset--color--crema);
+  --theme-palette-color-7: var(--wp--preset--color--lima);
+  --theme-palette-color-8: var(--wp--preset--color--blanco);
+
+  --theme-font-family: var(--wp--preset--font-family--texto);
+  --theme-text-color: var(--wp--preset--color--tinta);
+  --theme-content-width: var(--wp--custom--contenido--ancho);
+  --theme-normal-container-max-width: var(--wp--custom--contenido--ancho);
+}
+
+/* --- Reglas de contraste ---------------------------------------------------
+ * Verificado con el algoritmo de luminancia relativa de WCAG 2.1.
+ *
+ *   Sobre crema, hueso, blanco y lima  -> texto tinta   (13.5:1 o mas)
+ *   Sobre bosque                        -> texto crema   (12.6:1)
+ *   Sobre cordyceps, hericium, trametes -> texto tinta   (5.7:1 a 6.5:1)
+ *
+ * Blanco sobre cordyceps da 2.87:1, sobre trametes 3.09:1 y sobre hericium
+ * 3.26:1. Ninguno alcanza el minimo AA de 4.5:1 para texto normal, asi que
+ * NUNCA se pone texto blanco sobre los tres colores de linea de producto.
+ * ------------------------------------------------------------------------- */
+.has-cordyceps-background-color,
+.has-hericium-background-color,
+.has-trametes-background-color,
+.has-lima-background-color {
+  color: var(--wp--preset--color--tinta);
+}
+
+.has-bosque-background-color {
+  color: var(--wp--preset--color--crema);
+}
+
+/* --- Base ------------------------------------------------------------------ */
+html {
+  scroll-behavior: smooth;
+  /* Evita que iOS agrande el texto al girar el telefono. */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--wp--preset--font-family--texto);
+  font-size: var(--wp--preset--font-size--base);
+  line-height: var(--wp--custom--tipografia--altura-texto);
+  color: var(--wp--preset--color--tinta);
+  background-color: var(--wp--preset--color--crema);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Esto repite a proposito lo que ya declara elements.heading en theme.json.
+   No es descuido.
+
+   WordPress emite los selectores de elemento SIN envolverlos en :root :where(),
+   asi que 'h1, h2, ...' de theme.json sale con especificidad 0-0-1, la misma
+   que tendria un reset de titulares del tema padre. Con especificidad
+   empatada gana el orden de carga, y el orden entre global-styles y la hoja
+   de Blocksy no esta garantizado. base.css se encola despues de ambas, asi
+   que repetir aqui las cuatro propiedades es lo unico que asegura que los
+   titulares salgan en Fraunces pase lo que pase en el padre.
+
+   Fraunces es variable: opsz sube el contraste optico en tamanos grandes,
+   SOFT redondea los terminales y WONK activa las formas caprichosas. Es lo
+   que le da caracter al titular sin cargar una segunda fuente. */
+h1, h2, h3, h4, h5,
+.cm-display {
+  font-family: var(--wp--preset--font-family--display);
+  font-weight: var(--wp--custom--tipografia--peso-titular);
+  line-height: var(--wp--custom--tipografia--altura-titular);
+  letter-spacing: var(--wp--custom--tipografia--tracking-titular);
+  font-variation-settings: "opsz" 96, "SOFT" 40, "WONK" 1;
+  text-wrap: balance;
+}
+
+/* .cm-display sobre un elemento que no es titular no hereda ningun tamano de
+   theme.json y se quedaria en 17px con el interlineado apretado de un titular
+   de 60px. Se le da un tamano propio. Sobre un h1..h5 el tamano del elemento
+   gana por orden de cascada y esta regla no estorba. */
+:where(:not(h1, h2, h3, h4, h5, h6)).cm-display {
+  font-size: var(--wp--preset--font-size--xxl);
+}
+
+p, li {
+  text-wrap: pretty;
+}
+
+/* Etiqueta corta en mayusculas para categorias y metadatos de producto. */
+.cm-etiqueta {
+  font-family: var(--wp--preset--font-family--texto);
+  font-size: var(--wp--preset--font-size--xs);
+  font-weight: var(--wp--custom--tipografia--peso-fuerte);
+  letter-spacing: var(--wp--custom--tipografia--tracking-etiqueta);
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+/* --- Accesibilidad --------------------------------------------------------- */
+
+/* Anillo de foco visible y con contraste sobre cualquier fondo de la paleta.
+   Se usa :focus-visible para que no aparezca al hacer clic con el raton. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid var(--wp--preset--color--cordyceps);
+  outline-offset: 3px;
+  border-radius: var(--wp--custom--radio--sm);
+}
+
+::selection {
+  background-color: var(--wp--preset--color--lima);
+  color: var(--wp--preset--color--tinta);
+}
+
+/* Respeta la preferencia del sistema de reducir movimiento. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Contenedor de utilidad para saltar al contenido con el teclado. */
+.cm-saltar-al-contenido:not(:focus):not(:active) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

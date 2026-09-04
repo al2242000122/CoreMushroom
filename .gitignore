@@ -1,0 +1,43 @@
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*~
+
+# Credenciales y configuracion. wp-config.php vive fuera de esta carpeta,
+# se lista igual por si la estructura de despliegue cambia algun dia.
+wp-config.php
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+id_rsa
+id_rsa.*
+.htpasswd
+sftp-config.json
+.ftpconfig
+.remote-sync.json
+
+# Volcados y respaldos. Un plugin de respaldo que escriba dentro de la
+# carpeta del tema meteria la base de datos completa en el repositorio.
+*.sql
+*.sql.gz
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.sqlite
+*.db
+*.bak
+*.orig
+
+# Artefactos locales
+node_modules/
+*.log

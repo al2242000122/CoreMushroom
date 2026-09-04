@@ -1,0 +1,16 @@
+# Normaliza finales de linea. El desarrollo puede pasar por Windows pero
+# Termux y Hostinger son Linux: en el repositorio todo va con LF.
+* text=auto eol=lf
+
+# Archivos binarios: git no debe tocarlos ni intentar diferenciarlos.
+*.woff2 binary
+*.woff  binary
+*.ttf   binary
+*.otf   binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.webp  binary
+*.avif  binary
+*.ico   binary
+*.pdf   binary

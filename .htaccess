@@ -1,0 +1,42 @@
+# CoreMushroom - proteccion del directorio del tema.
+#
+# El repositorio se clona dentro de public_html, asi que todo lo que hay aqui
+# queda servido por HTTP salvo que se bloquee. La lista de abajo refleja la
+# del .gitignore: los archivos que este ignora son justo los que pueden
+# existir en el servidor sin estar en GitHub, y por eso nadie los revisaria.
+#
+# Si editas el .gitignore, edita tambien esta lista.
+#
+# theme.json NO se bloquea a proposito: WordPress lo lee desde disco con PHP,
+# no por HTTP, y solo contiene tokens de diseno.
+
+# MultiViews permitiria pedir /CLAUDE sin extension y que el servidor negocie
+# la entrega de CLAUDE.md saltandose FilesMatch, que evalua el nombre pedido.
+Options -Indexes -MultiViews
+
+# RedirectMatch mira la URL completa ya normalizada, no el nombre de archivo,
+# asi que no depende de MultiViews ni del modulo de autorizacion. Es la capa
+# principal. (?i) porque las directivas de Apache son sensibles a mayusculas
+# y en un espejo local sobre Windows o macOS el sistema de archivos no lo es.
+RedirectMatch 404 (?i)/\.git
+RedirectMatch 404 (?i)/\.github
+RedirectMatch 404 (?i)/\.(env|ht|remote-sync|ftpconfig)
+RedirectMatch 404 (?i)/(id_rsa|sftp-config\.json)
+RedirectMatch 404 (?i)~$
+RedirectMatch 404 (?i)\.(md|sql|sh|bash|log|bak|orig|lock|dist|save|swp|swo|gz|bz2|zip|tar|tgz|sqlite|db|pem|key|crt|p12|pfx|ini|yml|yaml)$
+
+# Segunda capa por si el hosting no concede FileInfo a mod_alias.
+# Apache 2.4 y LiteSpeed, que es lo que corre Hostinger.
+<IfModule mod_authz_core.c>
+  <FilesMatch "(?i)(^\.|^id_rsa|^sftp-config\.json$|~$|\.(md|sql|sh|bash|log|bak|orig|lock|dist|save|swp|swo|gz|bz2|zip|tar|tgz|sqlite|db|pem|key|crt|p12|pfx|ini|yml|yaml)$)">
+    Require all denied
+  </FilesMatch>
+</IfModule>
+
+# Apache 2.2 y anteriores.
+<IfModule !mod_authz_core.c>
+  <FilesMatch "(?i)(^\.|^id_rsa|^sftp-config\.json$|~$|\.(md|sql|sh|bash|log|bak|orig|lock|dist|save|swp|swo|gz|bz2|zip|tar|tgz|sqlite|db|pem|key|crt|p12|pfx|ini|yml|yaml)$)">
+    Order allow,deny
+    Deny from all
+  </FilesMatch>
+</IfModule>
