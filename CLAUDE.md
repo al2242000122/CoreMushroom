@@ -61,10 +61,18 @@ Se renderizan en la ficha con el componente `cm-datos`, que ya existe. Además
 hay que hacer la tarjeta de producto del catálogo, heredando de `cm-tarjeta`,
 mostrando especie y disponibilidad.
 
-Decidir antes de empezar: si los campos se hacen con código propio mediante
-la API de metaboxes de WordPress, o con un plugin de campos personalizados.
-Hay que planteárselo al cliente antes de escribir, según sus reglas de
-trabajo.
+**Decidido: código propio.** Sin Advanced Custom Fields ni ningún otro
+plugin de campos. Se usa la API de metaboxes de WordPress. El motivo es que
+los campos son pocos y estables, y el criterio de trabajar en texto
+versionado pesa más que la comodidad de una interfaz de administración.
+
+### Pendientes de verificación manual
+
+- **Insertar los seis patterns en el editor** y confirmar que ninguno muestra
+  el aviso de contenido inesperado o inválido. Es lo único de la Fase 3 que no
+  se puede comprobar desde fuera del navegador. Quedó pendiente porque el
+  cliente estaba en el celular. Si alguno falla, corregir el marcado y volver
+  a validar con `tools/valida-patterns.py`.
 
 ### Verificar durante la Fase 4
 
