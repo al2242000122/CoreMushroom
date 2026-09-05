@@ -40,8 +40,12 @@
      Blocksy dibuja con ese color. */
   --theme-palette-color-1: var(--wp--preset--color--bosque);
   --theme-palette-color-2: var(--wp--preset--color--cordyceps);
-  --theme-palette-color-3: var(--wp--preset--color--tinta);
-  --theme-palette-color-4: var(--wp--preset--color--grafito);
+  /* Ojo con el orden de estos dos. Blocksy usa el 4 como color mas oscuro y
+     de ahi saca --theme-headings-color, asi que el 4 es el de los titulares.
+     El 3 es el tono intermedio. Tenerlos al reves pinta los titulares en el
+     cafe secundario en vez del negro calido. */
+  --theme-palette-color-3: var(--wp--preset--color--grafito);
+  --theme-palette-color-4: var(--wp--preset--color--tinta);
   --theme-palette-color-5: var(--wp--preset--color--hueso);
   --theme-palette-color-6: var(--wp--preset--color--hueso);
   --theme-palette-color-7: var(--wp--preset--color--crema);
