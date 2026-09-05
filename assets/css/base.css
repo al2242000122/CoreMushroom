@@ -17,10 +17,20 @@
  * Blocksy pinta sus propios componentes con --theme-palette-color-N. Al
  * apuntarlas a nuestra paleta, la cabecera, el pie y los widgets del padre
  * heredan el color de CoreMushroom sin tocar el tema padre ni el Customizer.
+ *
+ * Verificado contra Blocksy 2.1.56 en el sitio: usa exactamente estos nombres.
+ *
+ * El selector es :root:root a proposito, no :root. Blocksy declara su paleta
+ * en un bloque en linea con id ct-main-styles-inline-css que el navegador
+ * recibe DESPUES de esta hoja, aunque esta hoja dependa de su handle. Con
+ * :root a secas empatariamos en especificidad y ganaria el ultimo en llegar,
+ * que es Blocksy. Repetir :root sube la especificidad a 0-2-0 y hace que el
+ * puente gane sin depender del orden de impresion.
+ *
  * Si Blocksy renombra estas variables, las reglas quedan inertes y no rompen
- * nada. Verificar contra la version instalada antes de dar la Fase 2 por buena.
+ * nada.
  * ------------------------------------------------------------------------- */
-:root {
+:root:root {
   --theme-palette-color-1: var(--wp--preset--color--bosque);
   --theme-palette-color-2: var(--wp--preset--color--cordyceps);
   --theme-palette-color-3: var(--wp--preset--color--tinta);

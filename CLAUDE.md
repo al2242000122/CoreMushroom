@@ -74,8 +74,22 @@ proveedores.
 
 ## Pendientes conocidos
 
-- El puente hacia las variables de Blocksy en `assets/css/base.css` está
-  escrito contra los nombres documentados (`--theme-palette-color-N`) pero no
-  se ha verificado contra una instalación real. Comprobar en cuanto Blocksy
-  esté instalado.
-- Falta confirmar la versión de PHP del hosting.
+Ninguno abierto en la Fase 1.
+
+## Hechos verificados contra el servidor
+
+- Hosting: Hostinger, LiteSpeed, PHP 8.3.30, copias diarias activas.
+- El subdominio de desarrollo vive en `public_html/core/`, no en
+  `domains/core.bancodeesporas.com/`. El campo Directory del despliegue por
+  Git lleva el prefijo `core/`. Es relativo al `public_html` de la cuenta,
+  que es compartida entre el dominio principal y el subdominio.
+- Blocksy 2.1.56. Su handle de estilos es `ct-main-styles` y usa las
+  variables `--theme-palette-color-1` a `-8`, `--theme-font-family`,
+  `--theme-text-color` y `--theme-normal-container-max-width`.
+- Blocksy declara su paleta en un bloque en línea con id
+  `ct-main-styles-inline-css` que llega **después** de nuestras hojas, aunque
+  estas dependan de su handle. Por eso el puente de color usa `:root:root`.
+  No lo bajes a `:root` o Blocksy vuelve a ganar.
+- El `.htaccess` funciona en LiteSpeed: documentación y dotfiles bloqueados,
+  activos servidos, `functions.php` ejecutado y no expuesto como texto.
+- LiteSpeed Cache no está instalado todavía. Se usará en la Fase 7.
