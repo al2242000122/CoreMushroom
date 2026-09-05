@@ -176,6 +176,7 @@ python3 tools/valida-patterns.py .     # block patterns
 php tools/prueba-arranque.php . con-woo   # los módulos se cargan
 php tools/prueba-arranque.php . sin-woo   # y no se cargan sin WooCommerce
 php tools/prueba-lote.php .            # campos de lote, tabla y tarjeta
+php tools/prueba-patterns.php .        # los patterns renderizan limpio
 ```
 
 Qué cubre cada uno:
@@ -196,6 +197,10 @@ Qué cubre cada uno:
 - **prueba-lote** ejercita el guardado y el renderizado de los campos de lote
   contra WordPress y WooCommerce simulados: nonce, capacidad, autoguardado,
   saneado por tipo, escapado de salida y las guardas del shortcode.
+- **prueba-patterns** incluye cada pattern igual que hace WordPress, con
+  captura de salida, y comprueba que no quedan avisos, ni PHP sin ejecutar, ni
+  variables sin resolver, y que los bloques siguen balanceados después de
+  ejecutarse el PHP.
 
 Un pattern con marcado roto no falla al desplegarse: falla en el editor,
 cuando ya lo insertaste. Lo mismo con un token que no existe. Por eso se
@@ -366,10 +371,20 @@ pattern guardado con marcado viejo se rompe en el editor al actualizar el
 plugin. Cuando ya tengas productos cargados puedes sustituirlo por el bloque
 desde el editor, sin tocar el archivo.
 
+Los enlaces a la tienda, el carrito y la cuenta **no están escritos a mano**.
+Se resuelven al registrarse el pattern con `wc_get_page_permalink()`, porque
+los slugs de esas páginas se pueden traducir y un enlace fijo se convierte en
+un 404 en cuanto alguien lo hace.
+
+Los enlaces legales del pie sí son rutas fijas. Apuntan a páginas que se
+crean en la Fase 6 y hoy devuelven 404 a propósito: es preferible a borrarlos
+y olvidarlos.
+
 Si editas un pattern a mano, valida antes de subir:
 
 ```bash
 python3 tools/valida-patterns.py .
+php tools/prueba-patterns.php .
 ```
 
 ---

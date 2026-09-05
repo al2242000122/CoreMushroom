@@ -16,6 +16,21 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+// Las URL de la tienda se resuelven en tiempo de registro, no se escriben a
+// mano. WooCommerce permite cambiar los slugs de tienda, carrito y cuenta, y
+// un enlace fijo se vuelve un 404 en cuanto alguien los traduce.
+$cm_url = static function ( $pagina, $respaldo ) {
+	if ( function_exists( 'wc_get_page_permalink' ) ) {
+		$url = wc_get_page_permalink( $pagina );
+
+		if ( is_string( $url ) && '' !== $url ) {
+			return $url;
+		}
+	}
+
+	return home_url( $respaldo );
+};
 ?>
 <!-- wp:group {"backgroundColor":"crema","style":{"spacing":{"padding":{"top":"var:preset|spacing|65","bottom":"var:preset|spacing|65"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group has-crema-background-color has-background" style="padding-top:var(--wp--preset--spacing--65);padding-bottom:var(--wp--preset--spacing--65)"><!-- wp:paragraph {"textColor":"cordyceps","fontSize":"xs","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.08em","fontWeight":"700"},"spacing":{"margin":{"bottom":"var:preset|spacing|40"}}}} -->
@@ -32,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <!-- wp:buttons {"layout":{"type":"flex","flexWrap":"wrap"}} -->
 <div class="wp-block-buttons"><!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/tienda">Ver catalogo</a></div>
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( $cm_url( 'shop', '/shop/' ) ); ?>">Ver catalogo</a></div>
 <!-- /wp:button -->
 
 <!-- wp:button {"className":"is-style-outline"} -->

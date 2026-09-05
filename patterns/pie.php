@@ -19,6 +19,21 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+// Las URL de la tienda se resuelven en tiempo de registro, no se escriben a
+// mano. WooCommerce permite cambiar los slugs de tienda, carrito y cuenta, y
+// un enlace fijo se vuelve un 404 en cuanto alguien los traduce.
+$cm_url = static function ( $pagina, $respaldo ) {
+	if ( function_exists( 'wc_get_page_permalink' ) ) {
+		$url = wc_get_page_permalink( $pagina );
+
+		if ( is_string( $url ) && '' !== $url ) {
+			return $url;
+		}
+	}
+
+	return home_url( $respaldo );
+};
 ?>
 <!-- wp:group {"backgroundColor":"bosque","textColor":"crema","style":{"spacing":{"padding":{"top":"var:preset|spacing|65","bottom":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group has-crema-color has-bosque-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--65);padding-bottom:var(--wp--preset--spacing--60)"><!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|55","left":"var:preset|spacing|55"}}}} -->
@@ -39,15 +54,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <!-- wp:list {"style":{"typography":{"lineHeight":"2"}},"fontSize":"sm"} -->
 <ul class="wp-block-list has-sm-font-size" style="line-height:2"><!-- wp:list-item -->
-<li><a href="/tienda">Catalogo</a></li>
+<li><a href="<?php echo esc_url( $cm_url( 'shop', '/shop/' ) ); ?>">Catalogo</a></li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li><a href="/carrito">Carrito</a></li>
+<li><a href="<?php echo esc_url( $cm_url( 'cart', '/cart/' ) ); ?>">Carrito</a></li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li><a href="/mi-cuenta">Mi cuenta</a></li>
+<li><a href="<?php echo esc_url( $cm_url( 'myaccount', '/my-account/' ) ); ?>">Mi cuenta</a></li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list --></div>
 <!-- /wp:column -->
