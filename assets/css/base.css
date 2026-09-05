@@ -31,13 +31,20 @@
  * nada.
  * ------------------------------------------------------------------------- */
 :root:root {
+  /* El orden de la paleta de Blocksy no es arbitrario y hay que respetarlo:
+     1 y 2 son el acento y su hover, 3 y 4 el texto, 5 los bordes, y 6, 7 y 8
+     son fondos, de mas oscuro a mas claro.
+
+     lima NO entra aqui. Es un acento de badge, y meterlo en un hueco de fondo
+     pinta de verde limon el lienzo entero del editor y las secciones que
+     Blocksy dibuja con ese color. */
   --theme-palette-color-1: var(--wp--preset--color--bosque);
   --theme-palette-color-2: var(--wp--preset--color--cordyceps);
   --theme-palette-color-3: var(--wp--preset--color--tinta);
   --theme-palette-color-4: var(--wp--preset--color--grafito);
   --theme-palette-color-5: var(--wp--preset--color--hueso);
-  --theme-palette-color-6: var(--wp--preset--color--crema);
-  --theme-palette-color-7: var(--wp--preset--color--lima);
+  --theme-palette-color-6: var(--wp--preset--color--hueso);
+  --theme-palette-color-7: var(--wp--preset--color--crema);
   --theme-palette-color-8: var(--wp--preset--color--blanco);
 
   --theme-font-family: var(--wp--preset--font-family--texto);
