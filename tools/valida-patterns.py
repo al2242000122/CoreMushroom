@@ -45,6 +45,10 @@ for ruta in archivos:
     if m and not m.group(1).startswith("coremushroom/"):
         problemas.append("el slug %s no empieza por coremushroom/" % m.group(1))
 
+    # Sin guarda de ABSPATH, pedir el archivo por URL devuelve su marcado.
+    if "ABSPATH" not in cab:
+        problemas.append("falta la guarda de ABSPATH: el archivo se sirve por URL")
+
     cuerpo = txt.split("?>", 1)[1] if "?>" in txt else txt
 
     # --- 2 y 3. Balance de bloques y JSON de atributos ---

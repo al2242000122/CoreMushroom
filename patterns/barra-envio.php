@@ -11,6 +11,12 @@
  * cambia sin previo aviso y debe poder editarse desde el editor sin tocar
  * codigo ni volver a desplegar.
  */
+
+// Corta si el archivo se pide por URL. WordPress lo incluye durante init,
+// cuando ABSPATH ya existe, asi que al registrarse el patron no se corta.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 ?>
 <!-- wp:group {"backgroundColor":"bosque","textColor":"crema","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|45","right":"var:preset|spacing|45"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group has-crema-color has-bosque-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--45);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--45)"><!-- wp:paragraph {"align":"center","fontSize":"xs","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.08em","fontWeight":"700"}}} -->

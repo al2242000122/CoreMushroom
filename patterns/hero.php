@@ -10,6 +10,12 @@
  * COPY PROVISIONAL. El definitivo se escribe en la Fase 6 y lo revisa un
  * abogado. No agregar aqui nada sobre efectos, beneficios ni resultados.
  */
+
+// Corta si el archivo se pide por URL. WordPress lo incluye durante init,
+// cuando ABSPATH ya existe, asi que al registrarse el patron no se corta.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 ?>
 <!-- wp:group {"backgroundColor":"crema","style":{"spacing":{"padding":{"top":"var:preset|spacing|65","bottom":"var:preset|spacing|65"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group has-crema-background-color has-background" style="padding-top:var(--wp--preset--spacing--65);padding-bottom:var(--wp--preset--spacing--65)"><!-- wp:paragraph {"textColor":"cordyceps","fontSize":"xs","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.08em","fontWeight":"700"},"spacing":{"margin":{"bottom":"var:preset|spacing|40"}}}} -->

@@ -17,6 +17,12 @@
  *
  * COPY PROVISIONAL.
  */
+
+// Corta si el archivo se pide por URL. WordPress lo incluye durante init,
+// cuando ABSPATH ya existe, asi que al registrarse el patron no se corta.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 ?>
 <!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)"><!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|50","left":"var:preset|spacing|50"}}}} -->

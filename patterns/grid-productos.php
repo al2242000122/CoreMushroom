@@ -15,6 +15,12 @@
  * Cuando haya productos cargados se puede sustituir por el bloque desde el
  * editor, sin tocar este archivo.
  */
+
+// Corta si el archivo se pide por URL. WordPress lo incluye durante init,
+// cuando ABSPATH ya existe, asi que al registrarse el patron no se corta.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 ?>
 <!-- wp:group {"backgroundColor":"hueso","style":{"spacing":{"padding":{"top":"var:preset|spacing|65","bottom":"var:preset|spacing|65"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group has-hueso-background-color has-background" style="padding-top:var(--wp--preset--spacing--65);padding-bottom:var(--wp--preset--spacing--65)"><!-- wp:heading {"level":2,"fontSize":"xxl"} -->

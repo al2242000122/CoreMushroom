@@ -17,6 +17,12 @@
  *
  * COPY PROVISIONAL.
  */
+
+// Corta si el archivo se pide por URL. WordPress lo incluye durante init,
+// cuando ABSPATH ya existe, asi que al registrarse el patron no se corta.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 ?>
 <!-- wp:group {"backgroundColor":"crema","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}},"border":{"top":{"color":"var:preset|color|tinta","width":"2px","style":"solid"},"bottom":{"color":"var:preset|color|tinta","width":"2px","style":"solid"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group has-crema-background-color has-background" style="border-top-color:var(--wp--preset--color--tinta);border-top-style:solid;border-top-width:2px;border-bottom-color:var(--wp--preset--color--tinta);border-bottom-style:solid;border-bottom-width:2px;padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)"><!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|55","left":"var:preset|spacing|55"}}}} -->
