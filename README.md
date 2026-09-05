@@ -177,6 +177,8 @@ php tools/prueba-arranque.php . con-woo   # los módulos se cargan
 php tools/prueba-arranque.php . sin-woo   # y no se cargan sin WooCommerce
 php tools/prueba-lote.php .            # campos de lote, tabla y tarjeta
 php tools/prueba-patterns.php .        # los patterns renderizan limpio
+php tools/prueba-checkout.php .        # constancia de terminos
+php tools/prueba-spei.php .            # CLABE, estado e instrucciones
 ```
 
 Qué cubre cada uno:

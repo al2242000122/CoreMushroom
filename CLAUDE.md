@@ -68,13 +68,28 @@ Para una categoría que de verdad sea difícil, como el banco de esporas, la
 salida legal es un adquirente de alto riesgo que suscriba la categoría a
 sabiendas, no un dominio pantalla.
 
+### Hecho
+
+- Constancia de aceptación de términos, guardada en el pedido.
+- Pasarela SPEI propia, en `inc/pago-spei.php`. Estado de pedido propio
+  `wc-cm-spei`, "esperando comprobante", para poder filtrarlos en el panel.
+  Instrucciones con banco, beneficiario, CLABE, monto exacto y referencia,
+  tanto en la página de gracias como en el correo, incluida versión de texto
+  plano. La CLABE se valida con su dígito verificador antes de guardarse: una
+  CLABE mal capturada manda el dinero de los clientes a otra cuenta.
+- Hueco de tarjeta registrado pero con `is_available()` en false siempre. No
+  se le muestra al cliente un método que no cobra. El día que haya cuenta con
+  un procesador se sustituye por su plugin oficial y esta entrada se retira.
+
 ### Lo que falta construir
 
-- Cobro por SPEI: instrucciones con CLABE, subida de comprobante por el
-  cliente, verificación desde el panel y cambio de estado del pedido.
+- Subida del comprobante por el cliente y verificación desde el panel, con el
+  cambio de estado del pedido.
 - Los comprobantes son documentos bancarios: no pueden quedar en un
   directorio servido por HTTP. Van con nombre aleatorio y acceso por PHP
   autenticado.
+- Configurar la pasarela requiere que el cliente dé beneficiario, banco y
+  CLABE. Sin CLABE la pasarela no se ofrece en el checkout, a propósito.
 
 ## Reglas del código PHP
 

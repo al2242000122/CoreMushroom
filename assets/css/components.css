@@ -517,3 +517,35 @@
 .woocommerce ul.products li.product.cm-producto--agotado a img {
   opacity: 0.75;
 }
+
+/* ===========================================================================
+ * 7. INSTRUCCIONES DE PAGO POR SPEI
+ * Se imprimen en la pagina de gracias y en el correo del pedido. Reusan
+ * cm-datos, asi que aqui solo va lo que envuelve a la tabla.
+ * ======================================================================== */
+
+.cm-spei {
+  margin-block: var(--wp--preset--spacing--55);
+}
+
+.cm-spei__titulo {
+  margin: 0 0 var(--wp--preset--spacing--45);
+  font-family: var(--wp--preset--font-family--display);
+  font-size: var(--wp--preset--font-size--lg);
+  font-weight: var(--wp--custom--tipografia--peso-titular);
+  line-height: var(--wp--custom--tipografia--altura-compacta);
+  letter-spacing: var(--wp--custom--tipografia--tracking-titular);
+}
+
+.cm-spei__nota {
+  margin: var(--wp--preset--spacing--40) 0 0;
+  color: var(--wp--preset--color--grafito);
+  font-size: var(--wp--preset--font-size--sm);
+}
+
+/* La CLABE y la referencia se seleccionan enteras al dar doble clic, y se
+   leen en cifras de ancho fijo para que no se confunda un 1 con un 7. */
+.cm-spei .cm-datos td {
+  font-variant-numeric: tabular-nums;
+  user-select: all;
+}
