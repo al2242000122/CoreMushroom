@@ -23,19 +23,19 @@ RedirectMatch 404 (?i)/\.github
 RedirectMatch 404 (?i)/\.(env|ht|remote-sync|ftpconfig)
 RedirectMatch 404 (?i)/(id_rsa|sftp-config\.json)
 RedirectMatch 404 (?i)~$
-RedirectMatch 404 (?i)\.(md|sql|sh|bash|log|bak|orig|lock|dist|save|swp|swo|gz|bz2|zip|tar|tgz|sqlite|db|pem|key|crt|p12|pfx|ini|yml|yaml)$
+RedirectMatch 404 (?i)\.(md|sql|sh|bash|log|bak|orig|lock|dist|save|swp|swo|gz|bz2|zip|tar|tgz|sqlite|db|pem|key|crt|p12|pfx|ini|yml|yaml|py)$
 
 # Segunda capa por si el hosting no concede FileInfo a mod_alias.
 # Apache 2.4 y LiteSpeed, que es lo que corre Hostinger.
 <IfModule mod_authz_core.c>
-  <FilesMatch "(?i)(^\.|^id_rsa|^sftp-config\.json$|~$|\.(md|sql|sh|bash|log|bak|orig|lock|dist|save|swp|swo|gz|bz2|zip|tar|tgz|sqlite|db|pem|key|crt|p12|pfx|ini|yml|yaml)$)">
+  <FilesMatch "(?i)(^\.|^id_rsa|^sftp-config\.json$|~$|\.(md|sql|sh|bash|log|bak|orig|lock|dist|save|swp|swo|gz|bz2|zip|tar|tgz|sqlite|db|pem|key|crt|p12|pfx|ini|yml|yaml|py)$)">
     Require all denied
   </FilesMatch>
 </IfModule>
 
 # Apache 2.2 y anteriores.
 <IfModule !mod_authz_core.c>
-  <FilesMatch "(?i)(^\.|^id_rsa|^sftp-config\.json$|~$|\.(md|sql|sh|bash|log|bak|orig|lock|dist|save|swp|swo|gz|bz2|zip|tar|tgz|sqlite|db|pem|key|crt|p12|pfx|ini|yml|yaml)$)">
+  <FilesMatch "(?i)(^\.|^id_rsa|^sftp-config\.json$|~$|\.(md|sql|sh|bash|log|bak|orig|lock|dist|save|swp|swo|gz|bz2|zip|tar|tgz|sqlite|db|pem|key|crt|p12|pfx|ini|yml|yaml|py)$)">
     Order allow,deny
     Deny from all
   </FilesMatch>

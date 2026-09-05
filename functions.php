@@ -191,3 +191,49 @@ function coremushroom_precargar_fuentes() {
 	}
 }
 add_action( 'wp_head', 'coremushroom_precargar_fuentes', 1 );
+
+/**
+ * Registra la categoria bajo la que se agrupan los patterns de CoreMushroom.
+ *
+ * Los patterns en si NO se registran aqui. WordPress recorre solo el
+ * directorio /patterns del tema y lee la cabecera de cada archivo. Lo unico
+ * que hace falta en PHP es que la categoria exista, porque si no, los
+ * patterns caen en "Sin categoria" y se pierden entre los del nucleo.
+ */
+function coremushroom_categoria_patterns() {
+	if ( ! function_exists( 'register_block_pattern_category' ) ) {
+		return;
+	}
+
+	register_block_pattern_category(
+		'coremushroom',
+		array(
+			'label'       => __( 'CoreMushroom', 'coremushroom' ),
+			'description' => __( 'Bloques del home y de las paginas de la tienda.', 'coremushroom' ),
+		)
+	);
+}
+add_action( 'init', 'coremushroom_categoria_patterns' );
+
+/**
+ * Retira el patron de la reticula de productos si WooCommerce no esta activo.
+ *
+ * Ese patron usa el shortcode [products]. Sin WooCommerce el shortcode no
+ * existe y WordPress imprime el texto crudo entre corchetes en mitad del
+ * home, a la vista de cualquiera. Mas vale que el patron no aparezca.
+ *
+ * Se engancha tarde en init porque WordPress registra los patterns del tema
+ * durante init y no se puede retirar algo que todavia no existe.
+ */
+function coremushroom_patrones_condicionales() {
+	if ( class_exists( 'WooCommerce' ) ) {
+		return;
+	}
+
+	if ( function_exists( 'unregister_block_pattern' ) ) {
+		unregister_block_pattern( 'coremushroom/grid-productos' );
+	}
+}
+add_action( 'init', 'coremushroom_patrones_condicionales', 20 );
+
+

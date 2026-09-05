@@ -168,6 +168,18 @@ Validar que `theme.json` sigue siendo JSON correcto:
 python3 -c "import json; json.load(open('theme.json')); print('ok')"
 ```
 
+Validar los block patterns. Comprueba la cabecera, que los bloques abran y
+cierren balanceados, que el JSON de atributos parsee, que todo preset de
+color, tipografía y espaciado exista en `theme.json`, y que el copy no
+contenga promesas de efecto:
+
+```bash
+python3 tools/valida-patterns.py .
+```
+
+Un pattern con marcado roto no falla al desplegarse: falla en el editor,
+cuando ya lo insertaste. Por eso se valida antes.
+
 ---
 
 ## Fuentes
@@ -294,6 +306,50 @@ El botón de agregar al carrito, el precio, el distintivo de oferta y los tres
 avisos ya heredan el sistema. No hace falta ponerles clases: se sobrescriben
 por selector. Los avisos se distinguen por una barra lateral además del
 color, para que se lean también sin percepción de color.
+
+---
+
+## Block patterns
+
+Viven en `patterns/`. WordPress recorre ese directorio solo y lee la cabecera
+de cada archivo: no se registran con PHP. Lo único que hace `functions.php` es
+crear la categoría bajo la que se agrupan y retirar el de productos si
+WooCommerce no está activo.
+
+Para insertarlos: en el editor, botón **+**, pestaña **Patrones**, categoría
+**CoreMushroom**.
+
+| Archivo | Qué es |
+|---|---|
+| `barra-envio.php` | Franja superior con el umbral de envío gratis |
+| `hero.php` | Apertura del home con titular y dos acciones |
+| `tiles-formato.php` | Tres tiles: chocolate, tisana y cápsula |
+| `grid-productos.php` | Título de sección y retícula de productos |
+| `franja-confianza.php` | Envío, pago seguro y trazabilidad por lote |
+| `pie.php` | Pie con navegación y enlaces legales |
+
+Tres cosas que conviene saber antes de editarlos.
+
+**Los tiles dividen por formato, no por especie.** Los colores conservan los
+nombres de las especies porque así se llaman en la paleta, y porque los badges
+de producto sí van por especie. En los tiles el color solo distingue el
+formato.
+
+**El copy es provisional.** El definitivo se escribe en la Fase 6 y lo revisa
+un abogado. Ningún pattern lleva ni debe llevar afirmaciones sobre efectos,
+beneficios o resultados.
+
+**La retícula usa el shortcode `[products]`, no el bloque de WooCommerce.**
+El shortcode es API estable; el marcado del bloque cambia entre versiones y un
+pattern guardado con marcado viejo se rompe en el editor al actualizar el
+plugin. Cuando ya tengas productos cargados puedes sustituirlo por el bloque
+desde el editor, sin tocar el archivo.
+
+Si editas un pattern a mano, valida antes de subir:
+
+```bash
+python3 tools/valida-patterns.py .
+```
 
 ---
 

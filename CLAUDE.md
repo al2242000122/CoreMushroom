@@ -40,37 +40,51 @@ subdominio de desarrollo con la indexación bloqueada.
 - La raíz del repositorio es la carpeta del tema hijo. Se despliega a
   `public_html/wp-content/themes/coremushroom`.
 
-## SIGUIENTE PASO: Fase 3, block patterns del home
+## SIGUIENTE PASO: Fase 4, ficha de producto con metadatos de lote
 
-Estado: Fases 1 y 2 terminadas, verificadas y desplegadas. La Fase 3 está
-aprobada y decidida. Ante un `CONTINUA` a secas, se arranca por aquí sin
-volver a preguntar nada de lo que ya está resuelto abajo.
+Estado: Fases 1, 2 y 3 terminadas, verificadas y desplegadas.
 
-Se registran como block patterns en el directorio `/patterns` del tema, para
-que se inserten desde el editor sin tocar código. WordPress los detecta solo,
-no hace falta registrarlos con PHP.
+La Fase 4 es la que diferencia el proyecto. Falta acordarla contigo antes de
+escribir nada. Campos por producto, propuesta a confirmar:
 
-1. **Barra superior.** Umbral de envío gratis desde 900 pesos.
-2. **Hero.**
-3. **Tres tiles, divididos POR FORMATO.** Chocolate, tisana y cápsula.
-   Decisión tomada: no por especie. Cada tile toma uno de los tres colores de
-   línea, pero el color ya no significa especie, solo distingue el formato.
-4. **Retícula de productos.**
-5. **Franja de confianza.** Tres puntos: envío a todo México, pago seguro y
-   producto lote a lote. Fuera la autorización de investigación, que no
-   aplica sin esporas. Fuera también la reposición garantizada: una garantía
-   mal redactada se lee como promesa de resultado.
-6. **Pie de página.**
+- Código de lote
+- Especie: Cordyceps, Hericium o Trametes
+- Formato: chocolate, tisana o cápsula
+- Contenido neto
+- Ingredientes
+- Extracto por pieza
+- Alérgenos
+- Fecha de elaboración y consumo preferente
+- Enlace a certificado de análisis cuando exista
 
-Todo el copy de estos patterns es provisional y se marca como tal. El
-definitivo se escribe en la Fase 6 y lo revisa un abogado.
+Se renderizan en la ficha con el componente `cm-datos`, que ya existe. Además
+hay que hacer la tarjeta de producto del catálogo, heredando de `cm-tarjeta`,
+mostrando especie y disponibilidad.
 
-### Verificar durante la Fase 3
+Decidir antes de empezar: si los campos se hacen con código propio mediante
+la API de metaboxes de WordPress, o con un plugin de campos personalizados.
+Hay que planteárselo al cliente antes de escribir, según sus reglas de
+trabajo.
+
+### Verificar durante la Fase 4
 
 La hoja `ct-entries-styles` de Blocksy carga DESPUÉS de las nuestras. Hoy no
 estorba porque nuestras clases son propias, pero la retícula del catálogo sí
 compite por los mismos selectores. Hay que comprobarlo con productos reales
-en pantalla antes de dar la fase por buena.
+en pantalla.
+
+## Reglas de los block patterns
+
+- Viven en `patterns/`. WordPress los detecta solo por la cabecera del
+  archivo. En PHP solo se registra la categoría y se retira el de productos
+  si WooCommerce no está activo.
+- Todo borde declarado en atributos de bloque necesita `style` explícito.
+  Sin él, `border-style` vale `none` y el borde se declara pero no se pinta.
+- La retícula usa el shortcode `[products]`, no el bloque Product Collection,
+  porque el marcado del bloque cambia entre versiones y rompe el pattern.
+- Antes de subir un pattern editado a mano: `python3 tools/valida-patterns.py .`
+  Comprueba cabecera, balance de bloques, JSON de atributos, presets contra
+  `theme.json`, bordes sin `style` y promesas de efecto en el copy.
 
 ## Reglas del sistema de diseño
 
