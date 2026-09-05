@@ -40,6 +40,20 @@ subdominio de desarrollo con la indexación bloqueada.
 - La raíz del repositorio es la carpeta del tema hijo. Se despliega a
   `public_html/wp-content/themes/coremushroom`.
 
+## Reglas del sistema de diseño
+
+- Ningún color, espaciado, radio ni sombra se escribe a mano en CSS. Todo sale
+  de `theme.json`. Si algo se ve mal, se corrige el token.
+- El bloque de botón deshabilitado tiene que quedar **al final** de su sección
+  en `components.css`. Empata en especificidad con las variantes en hover y
+  con el empate decide el orden.
+- `pointer-events: none` en ese bloque no es decoración. Sin él, un `<a>` con
+  `cm-btn--deshabilitado` sigue navegando aunque se vea gris.
+- Los componentes de WooCommerce repiten declaraciones de `.cm-btn` a
+  propósito: WooCommerce genera su marcado y no le pone esa clase. Lo que se
+  comparte son los tokens, así que un cambio de token mueve los dos.
+- Sin modo oscuro. Una sola paleta, decisión tomada.
+
 ## Comandos de verificación
 
 No hay build. La verificación es sintáctica y estructural.

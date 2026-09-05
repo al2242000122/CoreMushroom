@@ -91,6 +91,7 @@ function coremushroom_soporte_tema() {
 		array(
 			'assets/css/fonts.css',
 			'assets/css/base.css',
+			'assets/css/components.css',
 		)
 	);
 }
@@ -100,9 +101,10 @@ add_action( 'after_setup_theme', 'coremushroom_soporte_tema' );
  * Encola las hojas de estilo del frente.
  *
  * Orden de carga:
- *   1. fonts.css  - declaraciones @font-face de las fuentes autoalojadas
- *   2. base.css   - sistema de diseno, depende de las fuentes y de Blocksy
- *   3. style.css  - cabecera del tema y parches de ultimo recurso
+ *   1. fonts.css       - declaraciones @font-face de las fuentes autoalojadas
+ *   2. base.css        - base del sistema, depende de las fuentes y de Blocksy
+ *   3. components.css  - boton, badge, tarjeta, tabla y WooCommerce
+ *   4. style.css       - cabecera del tema y parches de ultimo recurso
  *
  * Blocksy registra su hoja principal con el handle 'ct-main-styles'. Si
  * esta encolada, base.css declara depender de ella para cargarse despues y
@@ -136,10 +138,26 @@ function coremushroom_encolar_estilos() {
 		coremushroom_version_asset( 'assets/css/base.css' )
 	);
 
+	// components.css tiene que ganarle tambien a la hoja de WooCommerce de
+	// Blocksy, no solo a la principal, porque ahi es donde el padre define
+	// el boton de agregar al carrito, el precio y los avisos.
+	$dependencias_componentes = array( 'coremushroom-base' );
+
+	if ( wp_style_is( 'ct-woocommerce-styles', 'enqueued' ) ) {
+		$dependencias_componentes[] = 'ct-woocommerce-styles';
+	}
+
+	wp_enqueue_style(
+		'coremushroom-componentes',
+		get_stylesheet_directory_uri() . '/assets/css/components.css',
+		$dependencias_componentes,
+		coremushroom_version_asset( 'assets/css/components.css' )
+	);
+
 	wp_enqueue_style(
 		'coremushroom-style',
 		get_stylesheet_uri(),
-		array( 'coremushroom-base' ),
+		array( 'coremushroom-componentes' ),
 		coremushroom_version_asset( 'style.css' )
 	);
 }

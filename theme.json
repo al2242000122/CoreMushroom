@@ -87,13 +87,25 @@
         "pildora": "999px"
       },
       "borde": {
-        "fino":  "1px solid #17110D",
-        "grueso": "2px solid #17110D"
+        "fino":   "1px solid var(--wp--preset--color--tinta)",
+        "grueso": "2px solid var(--wp--preset--color--tinta)"
       },
       "sombra": {
-        "carta":    "0 2px 0 0 #17110D",
-        "cartaAlta": "0 6px 0 0 #17110D",
-        "suave":    "0 12px 32px -12px rgba(23, 17, 13, 0.28)"
+        "carta":       "0 3px 0 0 var(--wp--preset--color--tinta)",
+        "cartaHover":  "0 2px 0 0 var(--wp--preset--color--tinta)",
+        "cartaActiva": "0 0 0 0 var(--wp--preset--color--tinta)",
+        "cartaAlta":   "0 6px 0 0 var(--wp--preset--color--tinta)"
+      },
+      "boton": {
+        "paddingY":  "0.9rem",
+        "paddingX":  "1.75rem",
+        "padding":   "0.9rem 1.75rem",
+        "paddingSm": "0.6rem 1.15rem",
+        "paddingLg": "1.15rem 2.4rem",
+        "tracking":  "0.02em"
+      },
+      "badge": {
+        "padding": "0.34rem 0.72rem"
       },
       "transicion": {
         "rapida": "140ms cubic-bezier(0.4, 0, 0.2, 1)",
@@ -106,7 +118,8 @@
         "trackingTitular": "-0.02em",
         "trackingEtiqueta": "0.08em",
         "alturaTitular": "1.05",
-        "alturaTexto":   "1.6"
+        "alturaTexto":   "1.6",
+        "alturaCompacta": "1.15"
       },
       "contenido": {
         "estrecho": "560px",
@@ -166,15 +179,15 @@
         "border": { "radius": "var(--wp--custom--radio--pildora)" },
         "spacing": {
           "padding": {
-            "top": "0.9rem", "bottom": "0.9rem",
-            "left": "1.75rem", "right": "1.75rem"
+            "top": "var(--wp--custom--boton--padding-y)", "bottom": "var(--wp--custom--boton--padding-y)",
+            "left": "var(--wp--custom--boton--padding-x)", "right": "var(--wp--custom--boton--padding-x)"
           }
         },
         "typography": {
           "fontFamily": "var(--wp--preset--font-family--texto)",
           "fontSize": "var(--wp--preset--font-size--sm)",
           "fontWeight": "var(--wp--custom--tipografia--peso-fuerte)",
-          "letterSpacing": "0.01em"
+          "letterSpacing": "var(--wp--custom--boton--tracking)"
         },
         ":hover": {
           "color": {

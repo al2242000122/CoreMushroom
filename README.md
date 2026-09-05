@@ -208,6 +208,95 @@ Contraste verificado con WCAG 2.1. La regla dura:
 
 ---
 
+## Sistema de diseño
+
+Los componentes viven en `assets/css/components.css` y se usan con clases,
+sin ningún atajo de estilo en línea. Todos los valores salen de `theme.json`.
+
+### Botón
+
+```html
+<a class="cm-btn cm-btn--primario" href="/tienda">Ver catálogo</a>
+<button class="cm-btn cm-btn--secundario">Seguir comprando</button>
+<a class="cm-btn cm-btn--texto" href="/envios">Cómo enviamos</a>
+```
+
+Modificadores: `--primario`, `--secundario`, `--texto` para la variante;
+`--sm` y `--lg` para el tamaño; `--bloque` para ancho completo.
+
+Para deshabilitar, usa el atributo `disabled` en un `<button>` real. En un
+`<a>`, que no admite `disabled`, agrega `cm-btn--deshabilitado` **y**
+`aria-disabled="true"`. La clase bloquea el clic con `pointer-events` y el
+atributo se lo comunica a los lectores de pantalla. Una sin la otra deja un
+enlace que se ve gris pero sigue navegando.
+
+### Badge
+
+```html
+<span class="cm-badge cm-badge--cordyceps">Cordyceps</span>
+<span class="cm-badge cm-badge--oferta">Oferta</span>
+<span class="cm-badge cm-badge--agotado">Agotado</span>
+```
+
+Modificadores: `--cordyceps`, `--hericium`, `--trametes`, `--oferta`,
+`--agotado`. Sin modificador queda neutro sobre hueso.
+
+### Tarjeta
+
+```html
+<article class="cm-tarjeta cm-tarjeta--enlace">
+  <div class="cm-tarjeta__medio">
+    <span class="cm-tarjeta__marca"><span class="cm-badge cm-badge--hericium">Hericium</span></span>
+    <img src="..." alt="...">
+  </div>
+  <div class="cm-tarjeta__cuerpo">
+    <h3 class="cm-tarjeta__titulo">Chocolate de Hericium</h3>
+    <p class="cm-tarjeta__texto">60 g, 12 piezas</p>
+    <div class="cm-tarjeta__pie">...</div>
+  </div>
+</article>
+```
+
+`cm-tarjeta--enlace` se levanta al pasar el cursor. Úsalo solo si la tarjeta
+entera es pulsable. Una tarjeta informativa no debe moverse.
+
+La zona de imagen tiene proporción fija de 4 a 3, para que la retícula del
+catálogo no salte mientras cargan las fotos.
+
+### Tabla de datos
+
+Muestra la misma información que la etiqueta física del producto.
+
+```html
+<div class="cm-datos-envoltorio">
+  <table class="cm-datos">
+    <caption>Información del producto</caption>
+    <tbody>
+      <tr><th scope="row">Contenido neto</th><td>60 g, 12 piezas</td></tr>
+      <tr><th scope="row">Ingredientes</th><td>Cacao 70%, extracto de Cordyceps militaris, azúcar de coco</td></tr>
+      <tr><th scope="row">Alérgenos</th><td>Puede contener trazas de leche y frutos secos</td></tr>
+      <tr><th scope="row">Lote</th><td>CM-2609-C4</td></tr>
+    </tbody>
+  </table>
+</div>
+```
+
+El envoltorio es obligatorio: le da desplazamiento propio a la tabla para que
+en móvil nunca provoque barra horizontal en toda la página.
+
+**Esta tabla solo describe lo que hay dentro del producto.** Nunca lleva
+filas sobre efectos, beneficios, indicaciones ni resultados. Esa es la línea
+que no se cruza.
+
+### WooCommerce
+
+El botón de agregar al carrito, el precio, el distintivo de oferta y los tres
+avisos ya heredan el sistema. No hace falta ponerles clases: se sobrescriben
+por selector. Los avisos se distinguen por una barra lateral además del
+color, para que se lean también sin percepción de color.
+
+---
+
 ## Archivos protegidos por HTTP
 
 El repositorio se clona dentro de `public_html`, así que todo lo que hay aquí

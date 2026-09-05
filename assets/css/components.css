@@ -1,0 +1,466 @@
+/* ---------------------------------------------------------------------------
+ * CoreMushroom - componentes del sistema de diseno
+ *
+ * Ningun color, tamano, espaciado ni radio se escribe aqui. Todo sale de
+ * theme.json como custom property. Si algo se ve mal, se corrige el token,
+ * no la regla.
+ *
+ * Contraste: sobre cordyceps, hericium y trametes SIEMPRE va texto tinta.
+ * Blanco sobre esos tres da entre 2.87 y 3.26 a 1, por debajo del minimo AA
+ * de 4.5 para texto normal.
+ *
+ * El lenguaje visual es la sombra dura desplazada: el componente se ve
+ * levantado y al presionarlo baja hasta quedar a ras. Es lo que le da el
+ * caracter ludico sin recurrir a degradados.
+ * ------------------------------------------------------------------------- */
+
+/* ===========================================================================
+ * 1. BOTON
+ * .cm-btn              base, no usar sola
+ * .cm-btn--primario    accion principal
+ * .cm-btn--secundario  accion alterna
+ * .cm-btn--texto       accion terciaria, sin fondo
+ * .cm-btn--sm / --lg   tamanos
+ * .cm-btn--bloque      ancho completo
+ * ======================================================================== */
+
+.cm-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--wp--preset--spacing--35);
+  padding: var(--wp--custom--boton--padding);
+  border: var(--wp--custom--borde--grueso);
+  border-radius: var(--wp--custom--radio--pildora);
+  font-family: var(--wp--preset--font-family--texto);
+  font-size: var(--wp--preset--font-size--sm);
+  font-weight: var(--wp--custom--tipografia--peso-fuerte);
+  letter-spacing: var(--wp--custom--boton--tracking);
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    transform var(--wp--custom--transicion--rapida),
+    box-shadow var(--wp--custom--transicion--rapida),
+    background-color var(--wp--custom--transicion--rapida),
+    color var(--wp--custom--transicion--rapida);
+}
+
+/* El desplazamiento vertical compensa la sombra que se pierde, para que el
+   boton no mueva a los elementos vecinos al presionarse. */
+.cm-btn:hover {
+  transform: translateY(1px);
+  box-shadow: var(--wp--custom--sombra--carta-hover);
+}
+
+.cm-btn:active {
+  transform: translateY(3px);
+  box-shadow: var(--wp--custom--sombra--carta-activa);
+}
+
+/* Primario: fondo bosque con texto crema, 12.6 a 1. */
+.cm-btn--primario {
+  background-color: var(--wp--preset--color--bosque);
+  color: var(--wp--preset--color--crema);
+  box-shadow: var(--wp--custom--sombra--carta);
+}
+
+/* En hover pasa a cordyceps con texto tinta, 6.52 a 1. */
+.cm-btn--primario:hover,
+.cm-btn--primario:focus-visible {
+  background-color: var(--wp--preset--color--cordyceps);
+  color: var(--wp--preset--color--tinta);
+}
+
+/* Secundario: sin fondo, borde y texto tinta, 17.5 a 1. */
+.cm-btn--secundario {
+  background-color: transparent;
+  color: var(--wp--preset--color--tinta);
+  box-shadow: var(--wp--custom--sombra--carta);
+}
+
+/* En hover pasa a lima con texto tinta, 13.5 a 1. */
+.cm-btn--secundario:hover,
+.cm-btn--secundario:focus-visible {
+  background-color: var(--wp--preset--color--lima);
+}
+
+/* Texto: sin fondo ni borde, para acciones terciarias. */
+.cm-btn--texto {
+  padding-inline: 0;
+  border-color: transparent;
+  background-color: transparent;
+  color: var(--wp--preset--color--bosque);
+  box-shadow: none;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+/* En hover el texto va a tinta, no a cordyceps. Naranja sobre el lienzo crema
+   da 2.68 a 1 y el minimo AA para texto normal es 4.5. El acento naranja se
+   conserva en el subrayado, que no esta sujeto a ese minimo porque no es el
+   unico indicador: el color del texto tambien cambia. */
+.cm-btn--texto:hover,
+.cm-btn--texto:focus-visible {
+  color: var(--wp--preset--color--tinta);
+  text-decoration-color: var(--wp--preset--color--cordyceps);
+  transform: none;
+  box-shadow: none;
+}
+
+/* No tiene sombra de la que hundirse, asi que tampoco baja al presionarse.
+   Sin esto el texto da un salto de 3px por la regla generica .cm-btn:active. */
+.cm-btn--texto:active {
+  transform: none;
+  box-shadow: none;
+}
+
+.cm-btn--sm {
+  padding: var(--wp--custom--boton--padding-sm);
+  font-size: var(--wp--preset--font-size--xs);
+}
+
+.cm-btn--lg {
+  padding: var(--wp--custom--boton--padding-lg);
+  font-size: var(--wp--preset--font-size--base);
+}
+
+.cm-btn--bloque {
+  display: flex;
+  width: 100%;
+}
+
+/* --- Deshabilitado -------------------------------------------------------
+ * TIENE QUE IR AL FINAL DE ESTA SECCION. Los tres selectores base
+ * .cm-btn[disabled], .cm-btn[aria-disabled] y .cm-btn.cm-btn--deshabilitado
+ * pesan (0,2,0), exactamente lo mismo que .cm-btn--primario:hover y que
+ * .cm-btn--secundario:focus-visible. Con el empate decide el orden, asi que
+ * si este bloque sube, la variante gana y el boton deshabilitado se enciende.
+ * Los que llevan :hover o :focus-visible pesan (0,3,0) y ganarian igual, pero
+ * los base no. Si agregas una variante nueva, ponla arriba de aqui.
+ *
+ * pointer-events: none es obligatorio y no es decoracion. Un
+ * <a class="cm-btn cm-btn--deshabilitado"> o un <button aria-disabled="true">
+ * no llevan el atributo disabled del navegador, asi que sin esta linea el
+ * enlace sigue navegando y el boton sigue enviando el formulario aunque se
+ * vean grises. Los selectores :hover y :focus-visible de abajo existen para
+ * el caso del teclado, que pointer-events no cubre.
+ * ---------------------------------------------------------------------- */
+.cm-btn[disabled],
+.cm-btn[aria-disabled="true"],
+.cm-btn.cm-btn--deshabilitado,
+.cm-btn[disabled]:hover,
+.cm-btn[aria-disabled="true"]:hover,
+.cm-btn.cm-btn--deshabilitado:hover,
+.cm-btn[disabled]:focus-visible,
+.cm-btn[aria-disabled="true"]:focus-visible,
+.cm-btn.cm-btn--deshabilitado:focus-visible {
+  background-color: var(--wp--preset--color--hueso);
+  color: var(--wp--preset--color--grafito);
+  border-color: var(--wp--preset--color--grafito);
+  box-shadow: none;
+  transform: none;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ===========================================================================
+ * 2. BADGE
+ * Etiqueta corta. Nunca lleva texto blanco sobre los colores de linea.
+ * ======================================================================== */
+
+.cm-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--wp--preset--spacing--30);
+  padding: var(--wp--custom--badge--padding);
+  border: var(--wp--custom--borde--fino);
+  border-radius: var(--wp--custom--radio--pildora);
+  background-color: var(--wp--preset--color--hueso);
+  color: var(--wp--preset--color--tinta);
+  font-family: var(--wp--preset--font-family--texto);
+  font-size: var(--wp--preset--font-size--xs);
+  font-weight: var(--wp--custom--tipografia--peso-fuerte);
+  letter-spacing: var(--wp--custom--tipografia--tracking-etiqueta);
+  line-height: var(--wp--custom--tipografia--altura-compacta);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.cm-badge--cordyceps { background-color: var(--wp--preset--color--cordyceps); }
+.cm-badge--hericium  { background-color: var(--wp--preset--color--hericium); }
+.cm-badge--trametes  { background-color: var(--wp--preset--color--trametes); }
+.cm-badge--oferta    { background-color: var(--wp--preset--color--lima); }
+
+/* Agotado se apaga a proposito: no compite por atencion. */
+.cm-badge--agotado {
+  background-color: transparent;
+  color: var(--wp--preset--color--grafito);
+  border-color: var(--wp--preset--color--grafito);
+}
+
+/* ===========================================================================
+ * 3. TARJETA
+ * Contenedor base. La tarjeta de producto de la Fase 4 hereda de esta.
+ * ======================================================================== */
+
+.cm-tarjeta {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--wp--preset--color--blanco);
+  border: var(--wp--custom--borde--grueso);
+  border-radius: var(--wp--custom--radio--lg);
+  box-shadow: var(--wp--custom--sombra--carta);
+  transition:
+    transform var(--wp--custom--transicion--media),
+    box-shadow var(--wp--custom--transicion--media);
+}
+
+/* Solo se levanta si es interactiva. Una tarjeta informativa no se mueve. */
+.cm-tarjeta--enlace:hover,
+.cm-tarjeta--enlace:focus-within {
+  transform: translateY(-3px);
+  box-shadow: var(--wp--custom--sombra--carta-alta);
+}
+
+/* La proporcion se fija para que la reticula no salte mientras cargan
+   las fotos. */
+.cm-tarjeta__medio {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background-color: var(--wp--preset--color--hueso);
+  border-bottom: var(--wp--custom--borde--grueso);
+}
+
+.cm-tarjeta__medio img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cm-tarjeta__marca {
+  position: absolute;
+  top: var(--wp--preset--spacing--40);
+  left: var(--wp--preset--spacing--40);
+  z-index: 1;
+}
+
+.cm-tarjeta__cuerpo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--wp--preset--spacing--40);
+  padding: var(--wp--preset--spacing--50);
+}
+
+.cm-tarjeta__titulo {
+  margin: 0;
+  font-family: var(--wp--preset--font-family--display);
+  font-size: var(--wp--preset--font-size--lg);
+  font-weight: var(--wp--custom--tipografia--peso-titular);
+  line-height: var(--wp--custom--tipografia--altura-compacta);
+  letter-spacing: var(--wp--custom--tipografia--tracking-titular);
+}
+
+.cm-tarjeta__texto {
+  margin: 0;
+  color: var(--wp--preset--color--grafito);
+  font-size: var(--wp--preset--font-size--sm);
+}
+
+.cm-tarjeta__pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--wp--preset--spacing--45);
+  margin-top: auto;
+  padding-top: var(--wp--preset--spacing--40);
+}
+
+/* ===========================================================================
+ * 4. TABLA DE DATOS
+ * Muestra la misma informacion que la etiqueta fisica: contenido neto,
+ * ingredientes, alergenos, lote. Son hechos verificables sobre lo que hay
+ * dentro. Nunca describe efectos, beneficios ni resultados.
+ * ======================================================================== */
+
+/* Contenedor con desplazamiento propio: en movil la tabla nunca debe
+   provocar barra horizontal en toda la pagina. */
+.cm-datos-envoltorio {
+  overflow-x: auto;
+  border: var(--wp--custom--borde--grueso);
+  border-radius: var(--wp--custom--radio--md);
+  background-color: var(--wp--preset--color--blanco);
+}
+
+.cm-datos {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--wp--preset--font-size--sm);
+  /* Cifras de ancho fijo: los gramos y miligramos quedan alineados en
+     columna aunque cambien los digitos. */
+  font-variant-numeric: tabular-nums;
+}
+
+.cm-datos caption {
+  padding: var(--wp--preset--spacing--45) var(--wp--preset--spacing--50) 0;
+  color: var(--wp--preset--color--grafito);
+  font-size: var(--wp--preset--font-size--xs);
+  font-weight: var(--wp--custom--tipografia--peso-fuerte);
+  letter-spacing: var(--wp--custom--tipografia--tracking-etiqueta);
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.cm-datos th,
+.cm-datos td {
+  padding: var(--wp--preset--spacing--40) var(--wp--preset--spacing--50);
+  border-bottom: 1px solid var(--wp--preset--color--hueso);
+  text-align: left;
+  vertical-align: top;
+}
+
+.cm-datos tr:last-child th,
+.cm-datos tr:last-child td {
+  border-bottom: 0;
+}
+
+/* La columna de etiquetas va en tono secundario para que la tabla se lea
+   como una ficha y no como una rejilla. */
+.cm-datos th[scope="row"] {
+  width: 34%;
+  min-width: 9rem;
+  color: var(--wp--preset--color--grafito);
+  font-weight: var(--wp--custom--tipografia--peso-fuerte);
+}
+
+.cm-datos td {
+  color: var(--wp--preset--color--tinta);
+}
+
+.cm-datos tbody tr:nth-child(even) {
+  background-color: var(--wp--preset--color--crema);
+}
+
+/* ===========================================================================
+ * 5. WOOCOMMERCE
+ * Blocksy trae su propia hoja con el handle ct-woocommerce-styles. Este
+ * archivo se encola despues y declara la dependencia, asi que gana por orden
+ * con la misma especificidad. Se usan los mismos selectores que usa
+ * WooCommerce, no unos mas cortos.
+ *
+ * Estas reglas repiten casi todo lo de .cm-btn. No se pueden fusionar porque
+ * WooCommerce genera su propio marcado y no le pone la clase .cm-btn. Lo que
+ * si se comparte son los tokens: padding, tracking, sombra y radio salen de
+ * las mismas variables, asi que un cambio de token mueve los dos a la vez.
+ * ======================================================================== */
+
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce input.button,
+.woocommerce #respond input#submit,
+.wc-block-components-button:not(:disabled):not([aria-disabled="true"]) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--wp--custom--boton--padding);
+  border: var(--wp--custom--borde--grueso);
+  border-radius: var(--wp--custom--radio--pildora);
+  background-color: var(--wp--preset--color--bosque);
+  color: var(--wp--preset--color--crema);
+  box-shadow: var(--wp--custom--sombra--carta);
+  font-family: var(--wp--preset--font-family--texto);
+  font-size: var(--wp--preset--font-size--sm);
+  font-weight: var(--wp--custom--tipografia--peso-fuerte);
+  letter-spacing: var(--wp--custom--boton--tracking);
+  line-height: 1;
+  text-decoration: none;
+  text-transform: none;
+  transition:
+    transform var(--wp--custom--transicion--rapida),
+    box-shadow var(--wp--custom--transicion--rapida),
+    background-color var(--wp--custom--transicion--rapida),
+    color var(--wp--custom--transicion--rapida);
+}
+
+.woocommerce a.button:hover,
+.woocommerce button.button:hover,
+.woocommerce input.button:hover,
+.woocommerce #respond input#submit:hover,
+.wc-block-components-button:not(:disabled):not([aria-disabled="true"]):hover {
+  background-color: var(--wp--preset--color--cordyceps);
+  color: var(--wp--preset--color--tinta);
+  transform: translateY(1px);
+  box-shadow: var(--wp--custom--sombra--carta-hover);
+}
+
+.woocommerce a.button.disabled,
+.woocommerce button.button:disabled,
+.woocommerce button.button.disabled {
+  background-color: var(--wp--preset--color--hueso);
+  color: var(--wp--preset--color--grafito);
+  border-color: var(--wp--preset--color--grafito);
+  box-shadow: none;
+  opacity: 1;
+}
+
+/* Precio. El tachado se apaga para que el vigente domine. */
+.woocommerce ul.products li.product .price,
+.woocommerce div.product p.price,
+.woocommerce div.product span.price {
+  color: var(--wp--preset--color--tinta);
+  font-family: var(--wp--preset--font-family--texto);
+  font-size: var(--wp--preset--font-size--md);
+  font-weight: var(--wp--custom--tipografia--peso-fuerte);
+  font-variant-numeric: tabular-nums;
+}
+
+.woocommerce ul.products li.product .price del,
+.woocommerce div.product p.price del {
+  color: var(--wp--preset--color--grafito);
+  font-weight: var(--wp--custom--tipografia--peso-texto);
+  opacity: 1;
+}
+
+/* Distintivo de oferta: mismo lenguaje que .cm-badge--oferta. */
+.woocommerce span.onsale {
+  top: var(--wp--preset--spacing--40);
+  right: auto;
+  left: var(--wp--preset--spacing--40);
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  padding: var(--wp--custom--badge--padding);
+  border: var(--wp--custom--borde--fino);
+  border-radius: var(--wp--custom--radio--pildora);
+  background-color: var(--wp--preset--color--lima);
+  color: var(--wp--preset--color--tinta);
+  font-size: var(--wp--preset--font-size--xs);
+  font-weight: var(--wp--custom--tipografia--peso-fuerte);
+  letter-spacing: var(--wp--custom--tipografia--tracking-etiqueta);
+  line-height: var(--wp--custom--tipografia--altura-compacta);
+  text-transform: uppercase;
+}
+
+/* Avisos. Los tres comparten forma y se distinguen por la barra lateral,
+   no solo por el color, para que se lean tambien sin percepcion de color. */
+.woocommerce-message,
+.woocommerce-info,
+.woocommerce-error {
+  border: var(--wp--custom--borde--grueso);
+  border-left-width: 6px;
+  border-radius: var(--wp--custom--radio--md);
+  background-color: var(--wp--preset--color--blanco);
+  color: var(--wp--preset--color--tinta);
+  font-size: var(--wp--preset--font-size--sm);
+}
+
+.woocommerce-message { border-left-color: var(--wp--preset--color--bosque); }
+.woocommerce-info    { border-left-color: var(--wp--preset--color--trametes); }
+.woocommerce-error   { border-left-color: var(--wp--preset--color--hericium); }
