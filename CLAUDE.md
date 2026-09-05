@@ -81,15 +81,36 @@ sabiendas, no un dominio pantalla.
   se le muestra al cliente un método que no cobra. El día que haya cuenta con
   un procesador se sustituye por su plugin oficial y esta entrada se retira.
 
-### Lo que falta construir
+- Subida del comprobante y verificación desde el panel, en
+  `inc/comprobante.php`.
 
-- Subida del comprobante por el cliente y verificación desde el panel, con el
-  cambio de estado del pedido.
-- Los comprobantes son documentos bancarios: no pueden quedar en un
-  directorio servido por HTTP. Van con nombre aleatorio y acceso por PHP
-  autenticado.
+### Reglas del comprobante, que costaron una ronda de revisión
+
+- **Los comprobantes se acumulan, no se sustituyen.** La clave del pedido
+  viaja en la URL de la página de gracias y puede filtrarse por el
+  encabezado de referencia. Si el archivo nuevo pisara al anterior, quien
+  tuviera esa clave podría destruir la prueba de pago del cliente subiendo
+  cualquier cosa encima. Se guardan hasta cinco por pedido.
+- **Si el directorio no se puede blindar, no se guarda nada.** El `.htaccess`
+  se verifica por contenido en cada subida, no por existencia: un restore
+  puede dejarlo vacío. Fallar cerrado, no abierto.
+- Se puede sacar el directorio de la raíz web definiendo
+  `COREMUSHROOM_DIR_COMPROBANTES` en `wp-config.php`. Es lo recomendable en
+  cuanto haya una ruta escribible fuera de `public_html`.
+- El tipo de archivo se decide leyendo los primeros bytes. Ni la extensión ni
+  lo que declare el navegador cuentan: los dos los controla quien sube.
+- El nombre se genera con `random_bytes`, no con `wp_generate_password`. Esa
+  función pasa por un filtro público que cualquier plugin puede cambiar.
+- El endpoint de descarga se registra solo para sesión iniciada. Registrar la
+  versión anónima sería anunciar una entrada sin uso a un lector de
+  documentos bancarios.
+
+### Lo que falta
+
 - Configurar la pasarela requiere que el cliente dé beneficiario, banco y
   CLABE. Sin CLABE la pasarela no se ofrece en el checkout, a propósito.
+- Probar el flujo completo en el navegador: pedido, transferencia, subida y
+  confirmación.
 
 ## Reglas del código PHP
 

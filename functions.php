@@ -264,6 +264,7 @@ function coremushroom_cargar_modulos() {
 		'inc/lote-tabla.php',
 		'inc/tarjeta-producto.php',
 		'inc/pago-spei.php',
+		'inc/comprobante.php',
 		'inc/checkout-consentimiento.php',
 	);
 

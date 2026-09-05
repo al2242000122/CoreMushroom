@@ -179,6 +179,7 @@ php tools/prueba-lote.php .            # campos de lote, tabla y tarjeta
 php tools/prueba-patterns.php .        # los patterns renderizan limpio
 php tools/prueba-checkout.php .        # constancia de terminos
 php tools/prueba-spei.php .            # CLABE, estado e instrucciones
+php tools/prueba-comprobante.php .     # subida y acceso al comprobante
 ```
 
 Qué cubre cada uno:

@@ -549,3 +549,71 @@
   font-variant-numeric: tabular-nums;
   user-select: all;
 }
+
+/* ===========================================================================
+ * 8. SUBIDA DEL COMPROBANTE
+ * Aparece en la pagina de gracias y en el pedido dentro de la cuenta. El
+ * panel del pedido en wp-admin no se estila desde aqui: esa pantalla no
+ * carga esta hoja y usa el marcado propio de WordPress.
+ * ======================================================================== */
+
+.cm-comprobante {
+  margin-block: var(--wp--preset--spacing--55);
+  padding: var(--wp--preset--spacing--50);
+  border: var(--wp--custom--borde--grueso);
+  border-radius: var(--wp--custom--radio--lg);
+  background-color: var(--wp--preset--color--blanco);
+  box-shadow: var(--wp--custom--sombra--carta);
+}
+
+.cm-comprobante__titulo {
+  margin: 0 0 var(--wp--preset--spacing--40);
+  font-family: var(--wp--preset--font-family--display);
+  font-size: var(--wp--preset--font-size--lg);
+  font-weight: var(--wp--custom--tipografia--peso-titular);
+  line-height: var(--wp--custom--tipografia--altura-compacta);
+  letter-spacing: var(--wp--custom--tipografia--tracking-titular);
+}
+
+/* Confirmacion de que el archivo llego. Va en tinta, no en gris: es la
+   respuesta que el cliente esta buscando en esa pantalla. */
+.cm-comprobante__estado {
+  margin: 0 0 var(--wp--preset--spacing--40);
+  color: var(--wp--preset--color--tinta);
+  font-size: var(--wp--preset--font-size--base);
+  font-weight: var(--wp--custom--tipografia--peso-fuerte);
+}
+
+.cm-comprobante__nota {
+  margin: var(--wp--preset--spacing--40) 0 0;
+  color: var(--wp--preset--color--grafito);
+  font-size: var(--wp--preset--font-size--sm);
+}
+
+/* El selector de archivo y el boton se envuelven en movil en vez de
+   desbordar la tarjeta. */
+.cm-comprobante__form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--wp--preset--spacing--45);
+  margin: 0;
+}
+
+.cm-comprobante__archivo {
+  flex: 1 1 16rem;
+  min-width: 0;
+  padding: var(--wp--preset--spacing--40);
+  border: var(--wp--custom--borde--fino);
+  border-radius: var(--wp--custom--radio--md);
+  background-color: var(--wp--preset--color--crema);
+  color: var(--wp--preset--color--tinta);
+  font-family: var(--wp--preset--font-family--texto);
+  font-size: var(--wp--preset--font-size--sm);
+}
+
+/* La nota ocupa el ancho completo debajo del formulario, no la columna que
+   le tocaria como elemento flexible. */
+.cm-comprobante__form .cm-comprobante__nota {
+  flex: 1 0 100%;
+}

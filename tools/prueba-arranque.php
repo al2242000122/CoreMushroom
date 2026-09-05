@@ -92,6 +92,10 @@ $esperadas = [
     'coremushroom_clabe_valida',
     'coremushroom_instrucciones_spei',
     'coremushroom_registrar_pasarelas',
+    'coremushroom_tipo_real',
+    'coremushroom_puede_ver_pedido',
+    'coremushroom_guardar_comprobante',
+    'coremushroom_descargar_comprobante',
     'coremushroom_guardar_consentimiento',
     'coremushroom_mostrar_consentimiento',
     'coremushroom_avisar_terminos_sin_configurar',
@@ -123,7 +127,10 @@ if ($debe_existir) {
               'woocommerce_admin_order_data_after_billing_address',
               'admin_notices',
               'woocommerce_payment_gateways',
-              'wc_order_statuses'] as $g) {
+              'wc_order_statuses',
+              'template_redirect',
+              'admin_post_coremushroom_comprobante',
+              'admin_post_coremushroom_confirmar_pago'] as $g) {
         $ok = !empty($GLOBALS['ganchos'][$g]);
         if (!$ok) { $fallos++; }
         printf("%s gancho    %s\n", $ok ? 'OK   ' : 'FALLA', $g);
