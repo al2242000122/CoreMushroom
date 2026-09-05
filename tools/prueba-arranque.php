@@ -53,6 +53,13 @@ function get_the_ID() { return 0; }
 function get_post_type($id) { return 'product'; }
 function get_post_status($id) { return 'publish'; }
 function post_password_required($id = null) { return false; }
+function wc_terms_and_conditions_page_id() { return 0; }
+function current_time($t) { return '2026-01-01 00:00:00'; }
+function get_post_modified_time($f, $g, $id) { return false; }
+function get_post($id) { return null; }
+function get_permalink($id) { return ''; }
+function get_the_title($id) { return ''; }
+function admin_url($r = '') { return ''; }
 function get_post_meta($id, $k, $s = false) { return ''; }
 function update_post_meta() { return true; }
 function delete_post_meta() { return true; }
@@ -78,6 +85,9 @@ $esperadas = [
     'coremushroom_badge_especie_bucle',
     'coremushroom_meta_producto_bucle',
     'coremushroom_clases_bucle',
+    'coremushroom_guardar_consentimiento',
+    'coremushroom_mostrar_consentimiento',
+    'coremushroom_avisar_terminos_sin_configurar',
 ];
 
 $fallos = 0;
@@ -101,7 +111,10 @@ if ($debe_existir) {
               'woocommerce_before_shop_loop_item_title',
               'woocommerce_after_shop_loop_item_title',
               'woocommerce_post_class',
-              'shortcode:coremushroom_ficha'] as $g) {
+              'shortcode:coremushroom_ficha',
+              'woocommerce_checkout_create_order',
+              'woocommerce_admin_order_data_after_billing_address',
+              'admin_notices'] as $g) {
         $ok = !empty($GLOBALS['ganchos'][$g]);
         if (!$ok) { $fallos++; }
         printf("%s gancho    %s\n", $ok ? 'OK   ' : 'FALLA', $g);

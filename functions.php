@@ -263,6 +263,7 @@ function coremushroom_cargar_modulos() {
 		'inc/lote-campos.php',
 		'inc/lote-tabla.php',
 		'inc/tarjeta-producto.php',
+		'inc/checkout-consentimiento.php',
 	);
 
 	foreach ( $modulos as $modulo ) {

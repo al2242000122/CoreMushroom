@@ -42,54 +42,39 @@ subdominio de desarrollo con la indexación bloqueada.
 
 ## SIGUIENTE PASO: Fase 5, pagos y checkout
 
-Estado: Fases 1 a 4 terminadas, verificadas y desplegadas.
+Estado: Fases 1 a 4 y 6 terminadas. La constancia de aceptación de términos
+ya está hecha. Falta el cobro por SPEI con comprobante.
 
-Decisiones ya tomadas para la Fase 5:
+### Decisiones de pago, actualizadas
 
-- Pagos con el plugin oficial de Mercado Pago: tarjeta, meses sin intereses,
-  depósito en OXXO y transferencia SPEI. Sin BTCPay. Ninguna pasarela escrita
-  a mano.
-- Falta acordar: si se usa además la pasarela de transferencia bancaria
-  directa de WooCommerce para SPEI manual, o si todo va por Mercado Pago.
-- Falta acordar la casilla obligatoria del checkout. El brief original pedía
-  mayoría de edad y aceptación de términos, con registro del consentimiento
-  en el pedido. Sin Psilocybe, la mayoría de edad ya no es obligatoria.
-  Proponer: casilla única de aceptación de términos de uso, con el
-  consentimiento guardado en el pedido y visible en el panel.
-- Aviso importante que dar al cliente: Mercado Pago revisa el dominio y el
-  copy al aprobar la cuenta. Conviene tener las páginas legales publicadas
-  antes de solicitarla, aunque sean borrador.
+- **Nada de Mercado Pago.** El cliente lo descartó por comisiones.
+- **SPEI manual con comprobante** es el método principal. Comisión cero. El
+  cliente transfiere, sube su comprobante, el dueño verifica y el pedido
+  avanza. Es lo que permite vender sin depender de ninguna aprobación.
+- **Tarjeta**: se solicita a Conekta con el nombre y el catálogo reales de
+  CoreMushroom, declarando alimentos y suplementos alimenticios. Si rechaza,
+  Stripe, y después Openpay.
 
-## Estado de la Fase 6
+### Petición rechazada y por qué
 
-Las cuatro páginas legales están escritas como block patterns y validadas,
-pero **no publicadas**. Cada una empieza con un bloque de aviso que hay que
-borrar a mano, y todas traen marcadores entre dobles corchetes con los datos
-que solo conoce el cliente.
+El cliente pidió replicar lo que hace la competencia: cobrar a través de una
+tienda con nombre neutro en otro dominio para que el procesador no vea qué se
+vende. Eso es lavado transaccional. Se rechazó y no se implementa, aunque se
+reitere. Las consecuencias reales son retención del saldo por meses e
+inscripción en la lista de comercios terminados, que bloquea abrir cuenta con
+cualquier procesador durante años.
 
-Falta: que el cliente complete los marcadores y que un abogado revise el
-texto. Listarlos con
-`grep -oh "\[\[[^]]*\]\]" patterns/legal-*.php | sort -u`.
+Para una categoría que de verdad sea difícil, como el banco de esporas, la
+salida legal es un adquirente de alto riesgo que suscriba la categoría a
+sabiendas, no un dominio pantalla.
 
-Falta también el copy definitivo del home. El de los patterns sigue siendo
-provisional y conviene revisarlo después de verlos renderizados.
+### Lo que falta construir
 
-## Regla de cumplimiento en el copy
-
-`tools/valida-patterns.py` marca toda oración que mencione uno de unos
-sesenta términos vigilados, y solo la deja pasar si está escrita tal cual en
-`tools/compliance-revisado.txt`.
-
-La lista de términos peca de amplia a propósito: un falso positivo cuesta
-leer una frase, un falso negativo publica un claim. No se usan frases de dos
-palabras, porque basta cambiar un artículo para esquivarlas.
-
-Nunca agregar una frase a la lista de revisadas solo para silenciar el
-validador. Si la frase afirma algo sobre lo que el producto hace, se corrige
-la frase.
-
-El validador es una red, no una garantía. La revisión legal sigue siendo
-obligatoria.
+- Cobro por SPEI: instrucciones con CLABE, subida de comprobante por el
+  cliente, verificación desde el panel y cambio de estado del pedido.
+- Los comprobantes son documentos bancarios: no pueden quedar en un
+  directorio servido por HTTP. Van con nombre aleatorio y acceso por PHP
+  autenticado.
 
 ## Reglas del código PHP
 
