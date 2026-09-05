@@ -9,7 +9,7 @@ Comprueba cuatro cosas, que son donde se rompen los patterns en la practica:
      en theme.json. Este es el error mas comun: un preset que no existe deja
      el bloque sin estilo y sin aviso.
 """
-import glob, io, json, os, re, sys
+import glob, io, json, os, re, sys, unicodedata
 
 DEST = sys.argv[1]
 tj = json.load(io.open(os.path.join(DEST, "theme.json"), encoding="utf-8"))
@@ -22,6 +22,21 @@ ESPACIOS = {x["slug"] for x in S["spacing"]["spacingSizes"]}
 # Bloques que se cierran solos con /--> y por tanto no llevan cierre aparte
 APERTURA = re.compile(r"<!--\s+wp:([a-z0-9-]+(?:/[a-z0-9-]+)?)(\s+(\{.*?\}))?\s+(/)?-->", re.S)
 CIERRE = re.compile(r"<!--\s+/wp:([a-z0-9-]+(?:/[a-z0-9-]+)?)\s+-->")
+
+def normaliza(t):
+    """Une espacios y quita acentos para que la comparacion no dependa de eso."""
+    t = unicodedata.normalize("NFD", t)
+    t = "".join(c for c in t if unicodedata.category(c) != "Mn")
+    return re.sub(r"\s+", " ", t).strip().lower()
+
+
+RUTA_REVISADAS = os.path.join(DEST, "tools", "compliance-revisado.txt")
+REVISADAS = set()
+if os.path.isfile(RUTA_REVISADAS):
+    for linea in io.open(RUTA_REVISADAS, encoding="utf-8"):
+        linea = linea.strip()
+        if linea and not linea.startswith("#"):
+            REVISADAS.add(normaliza(linea))
 
 fallos = 0
 archivos = sorted(glob.glob(os.path.join(DEST, "patterns", "*.php")))
@@ -115,16 +130,62 @@ for ruta in archivos:
     if re.search(r"border-width\s*:", cuerpo) and not re.search(r"border-style\s*:", cuerpo):
         problemas.append("border-width sin border-style: no se pinta")
 
-    # --- 5. Cumplimiento: ninguna promesa de efecto en el copy ---
-    PROHIBIDAS = ["cura", "curar", "trata", "tratamiento", "previene", "alivia",
-                  "mejora tu", "beneficio", "terapeutic", "medicinal", "sana",
-                  "refuerza", "estimula", "combate", "reduce el", "aumenta tu"]
-    plano = re.sub(r"<[^>]+>", " ", cuerpo).lower()
-    for palabra in PROHIBIDAS:
-        # Limite de palabra al inicio: si no, "sana" salta dentro de "tisana"
-        # y "trata" dentro de "contrata".
-        if re.search(r"\b" + re.escape(palabra), plano):
-            problemas.append("posible claim en el copy: '%s'" % palabra)
+    # --- 6. Cumplimiento: ninguna promesa de efecto en el copy ---
+    # Estas palabras no estan prohibidas en si. En una pagina legal aparecen
+    # dentro de negaciones que son justo lo que hay que decir: "no se venden
+    # para prevenir, aliviar, tratar ni curar". Lo que no se puede es que
+    # aparezcan afirmando algo.
+    #
+    # Por eso no se marca la palabra sino la ORACION que la contiene, y se
+    # compara contra tools/compliance-revisado.txt, que es la lista de frases
+    # ya revisadas. Una frase nueva con una de estas palabras falla hasta que
+    # alguien la lea y la agregue a esa lista a proposito. El archivo se
+    # revisa como cualquier otro cambio.
+    # La lista peca de amplia a proposito. Un falso positivo cuesta leer una
+    # frase y agregarla a la lista de revisadas. Un falso negativo publica un
+    # claim. No se ponen frases de dos palabras como "mejora tu", porque basta
+    # cambiar el articulo para esquivarlas: se pone el verbo solo.
+    VIGILADAS = [
+        # Accion sobre una enfermedad o un sintoma
+        "cura", "curar", "trata", "tratar", "tratamiento", "previene",
+        "prevenir", "alivia", "aliviar", "sana", "sanar", "diagnostic",
+        "combate", "remedia", "corrige", "elimina",
+        # Accion sobre el cuerpo
+        "refuerza", "fortalece", "estimula", "regenera", "purifica",
+        "desintoxica", "detox", "tonifica", "revitaliza", "equilibra",
+        "protege", "repara", "oxigena",
+        # Verbos de promesa
+        "mejora", "aumenta", "reduce", "favorece", "contribuye", "ayuda",
+        "potencia", "optimiza", "acelera", "disminuye", "incrementa",
+        "enriquece", "aporta",
+        # Sustantivos que casi siempre acompanan a un claim
+        "beneficio", "terapeutic", "medicinal", "dosis", "efecto",
+        "propiedades", "bienestar", "vitalidad", "energia", "inmun",
+        "antioxidante", "adaptogen", "nootropic", "concentracion", "memoria",
+        "estres", "ansiedad", "sueno", "digestion", "defensas", "rendimiento",
+        "salud", "enfermedad", "sintoma",
+    ]
+
+    # El cierre de cada bloque de texto cuenta como fin de oracion. Sin esto
+    # un titular sin punto se pega al parrafo siguiente y la frase marcada
+    # sale ilegible en el informe.
+    plano = re.sub(r"</(p|h[1-6]|li|td|th|caption|div)>", ". ", cuerpo)
+    plano = re.sub(r"<[^>]+>", " ", plano)
+    plano = re.sub(r"\s+", " ", plano)
+    # El cierre agrega un punto aunque la frase ya lo tuviera.
+    plano = re.sub(r"\.\s*\.", ". ", plano)
+    oraciones = [o.strip() for o in re.split(r"(?<=[.!?])\s+", plano) if o.strip()]
+
+    for oracion in oraciones:
+        bajo = oracion.lower()
+        golpes = [w for w in VIGILADAS if re.search(r"\b" + re.escape(w), bajo)]
+        if not golpes:
+            continue
+        if normaliza(oracion) in REVISADAS:
+            continue
+        problemas.append(
+            "frase sin revisar (menciona: %s). Si es correcta, copiala tal cual a tools/compliance-revisado.txt. Frase: %s"
+            % (", ".join(golpes), oracion))
 
     estado = "OK   " if not problemas else "FALLA"
     print("%s %-24s %d bloques" % (estado, nombre, sum(1 for e in eventos if e[1] == "abre")))

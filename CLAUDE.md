@@ -60,6 +60,37 @@ Decisiones ya tomadas para la Fase 5:
   copy al aprobar la cuenta. Conviene tener las páginas legales publicadas
   antes de solicitarla, aunque sean borrador.
 
+## Estado de la Fase 6
+
+Las cuatro páginas legales están escritas como block patterns y validadas,
+pero **no publicadas**. Cada una empieza con un bloque de aviso que hay que
+borrar a mano, y todas traen marcadores entre dobles corchetes con los datos
+que solo conoce el cliente.
+
+Falta: que el cliente complete los marcadores y que un abogado revise el
+texto. Listarlos con
+`grep -oh "\[\[[^]]*\]\]" patterns/legal-*.php | sort -u`.
+
+Falta también el copy definitivo del home. El de los patterns sigue siendo
+provisional y conviene revisarlo después de verlos renderizados.
+
+## Regla de cumplimiento en el copy
+
+`tools/valida-patterns.py` marca toda oración que mencione uno de unos
+sesenta términos vigilados, y solo la deja pasar si está escrita tal cual en
+`tools/compliance-revisado.txt`.
+
+La lista de términos peca de amplia a propósito: un falso positivo cuesta
+leer una frase, un falso negativo publica un claim. No se usan frases de dos
+palabras, porque basta cambiar un artículo para esquivarlas.
+
+Nunca agregar una frase a la lista de revisadas solo para silenciar el
+validador. Si la frase afirma algo sobre lo que el producto hace, se corrige
+la frase.
+
+El validador es una red, no una garantía. La revisión legal sigue siendo
+obligatoria.
+
 ## Reglas del código PHP
 
 - **Nunca enganchar nada a `plugins_loaded` desde `functions.php`.** WordPress

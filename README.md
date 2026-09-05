@@ -441,6 +441,59 @@ Sobre disponibilidad se dice solo si hay o no hay. Nunca cuántas quedan.
 
 ---
 
+## Páginas legales
+
+Cuatro patterns más, en la misma categoría CoreMushroom:
+
+| Pattern | Página |
+|---|---|
+| `legal-privacidad.php` | Aviso de privacidad |
+| `legal-terminos.php` | Términos de uso |
+| `legal-envios.php` | Política de envíos |
+| `legal-uso-previsto.php` | Declaración de uso previsto |
+
+**Ninguno está listo para publicarse.** Los cuatro empiezan con un bloque
+verde limón que dice BORRADOR SIN REVISIÓN LEGAL. Ese bloque se borra a mano
+justo antes de publicar, y solo después de que un abogado haya revisado el
+texto.
+
+### Antes de mandarlos a revisión
+
+Hay que sustituir todos los marcadores entre dobles corchetes por los datos
+reales. Para listarlos:
+
+```bash
+grep -oh "\[\[[^]]*\]\]" patterns/legal-*.php | sort -u
+```
+
+Son datos que solo tú tienes: razón social, RFC, domicilio, correos de
+contacto, paquetería, plazos de entrega y de reclamación, y la ciudad para la
+jurisdicción.
+
+### El control de cumplimiento
+
+`tools/valida-patterns.py` marca **cualquier oración** que mencione uno de
+unos sesenta términos vigilados: curar, tratar, prevenir, aliviar, mejorar,
+aumentar, favorecer, contribuir, beneficio, dosis, energía, bienestar,
+salud y demás.
+
+La lista peca de amplia a propósito. Un falso positivo cuesta leer una frase.
+Un falso negativo publica un claim.
+
+Una oración marcada solo pasa si está escrita, tal cual, en
+`tools/compliance-revisado.txt`. Eso significa que **toda frase nueva que use
+una de esas palabras falla** hasta que alguien la lea y decida agregarla. Ese
+cambio se ve en el historial como cualquier otro.
+
+No agregues una frase a esa lista solo para que el validador se calle. Si la
+frase afirma algo sobre lo que el producto hace, corrige la frase.
+
+Y una advertencia honesta: el validador es una red, no una garantía. Detecta
+lo que se le enseñó a detectar. La revisión de un abogado sigue siendo
+obligatoria antes de publicar.
+
+---
+
 ## Archivos protegidos por HTTP
 
 El repositorio se clona dentro de `public_html`, así que todo lo que hay aquí

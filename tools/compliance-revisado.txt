@@ -1,0 +1,60 @@
+# Frases revisadas del copy de CoreMushroom.
+#
+# El validador marca cualquier oracion que mencione una palabra vigilada:
+# curar, tratar, prevenir, aliviar, dosis, beneficio, efecto y demas. Esas
+# palabras no estan prohibidas en si. Lo que no se puede es que aparezcan
+# afirmando algo sobre el producto.
+#
+# Una frase solo pasa si esta escrita aqui, tal cual. Cualquier frase nueva
+# que las use falla hasta que alguien la lea y la agregue a proposito, y ese
+# cambio se ve en el historial como cualquier otro.
+#
+# NO agregues una frase aqui solo para que el validador deje de quejarse.
+# Lee la frase. Si afirma algo sobre lo que el producto hace, corrige la
+# frase, no esta lista.
+#
+# Las lineas que empiezan con almohadilla son comentarios. La comparacion
+# ignora acentos, mayusculas y espacios de mas.
+
+
+# --- Aviso de privacidad -----------------------------------------------------
+# "Tratamiento" aqui es tratamiento de datos personales, el termino que usa la
+# ley. No tiene relacion con el producto.
+[[RAZON SOCIAL]], con domicilio en [[DOMICILIO FISCAL]], es responsable del tratamiento de los datos personales que usted proporcione a traves de este sitio.
+
+
+# --- Terminos de uso ---------------------------------------------------------
+# "Por tratarse de" significa "por ser". No afirma nada sobre el producto.
+Por tratarse de productos alimenticios, no aceptamos devoluciones de empaques abiertos, salvo defecto comprobable.
+
+
+# --- Declaracion de uso previsto ---------------------------------------------
+# Las dos frases siguientes son negaciones explicitas. Son justo lo que la
+# pagina tiene que decir, y quitarlas debilitaria el cumplimiento en vez de
+# reforzarlo.
+No estan registrados como tales ante ninguna autoridad sanitaria y no se venden para prevenir, aliviar, tratar, curar ni diagnosticar enfermedad alguna.
+No publicamos ni publicaremos afirmaciones sobre efectos, beneficios, indicaciones, dosis recomendadas ni resultados esperados.
+
+
+# --- Agregadas al ampliar la lista de terminos vigilados ---------------------
+# La lista paso de 25 a mas de 60 terminos porque se podia esquivar cambiando
+# un articulo: "mejora tu salud" se marcaba, "mejora la salud" no. Ahora se
+# vigila el verbo solo, lo que marca mas frases inocentes. Estas son.
+
+# "Salud" aparece dentro de una negacion sobre datos personales.
+En particular, este sitio no solicita ni almacena informacion sobre su estado de salud.
+
+# "Mejorar" se refiere al sitio web, no al producto.
+Medir el uso del sitio para mejorarlo.
+
+# "Eliminar" se refiere a datos personales, no a nada del cuerpo.
+Si solicita su cancelacion, los eliminamos salvo los que estemos obligados a conservar.
+Cumplido el plazo, los datos se eliminan o se anonimizan.
+
+# Falso positivo curioso: "Contribuyentes" del RFC contiene "contribuye". Se
+# deja asi a proposito, porque acortar el termino dejaria pasar conjugaciones.
+Los productos ofrecidos en este sitio son vendidos por [[RAZON SOCIAL]], con Registro Federal de Contribuyentes [[RFC]] y domicilio en [[DOMICILIO FISCAL]].
+
+# Advertencias de seguridad. Remiten a un profesional en vez de afirmar nada.
+Si usted esta embarazada o lactando, toma algun medicamento, tiene alguna condicion de salud, o va a dar el producto a un menor, consulte a un profesional de la salud antes de consumirlo.
+No son medicamentos y no sustituyen la consulta con un profesional de la salud.
