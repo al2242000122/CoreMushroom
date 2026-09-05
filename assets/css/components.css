@@ -617,3 +617,49 @@
 .cm-comprobante__form .cm-comprobante__nota {
   flex: 1 0 100%;
 }
+
+/* ===========================================================================
+ * 9. SECCIONES OSCURAS
+ * El pie y cualquier bloque con fondo bosque. El color de enlace del sistema
+ * es bosque, asi que sobre bosque un enlace queda invisible. Aqui se invierte.
+ * ======================================================================== */
+
+/* crema sobre bosque da 11.79 a 1, y lima en hover da 9.13. Los dos pasan el
+   minimo AA para texto normal. cordyceps se queda en 4.40 y no alcanza, por
+   eso el hover no usa el naranja de siempre. */
+.has-bosque-background-color a {
+  color: var(--wp--preset--color--crema);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.has-bosque-background-color a:hover,
+.has-bosque-background-color a:focus-visible {
+  color: var(--wp--preset--color--lima);
+}
+
+/* Lista de navegacion sin vinetas. Sigue siendo una lista para quien usa
+   lector de pantalla, pero no se dibuja como tal. */
+.cm-lista-plana {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Lo mismo para cualquier lista dentro de una seccion oscura, aunque no
+   lleve la clase. Hace falta porque un pattern ya insertado en una pagina
+   guarda su marcado en la base de datos: cambiar el archivo del pattern no
+   toca las copias que ya existen. La unica seccion oscura del sistema es el
+   pie, y ahi una lista siempre es navegacion. */
+.has-bosque-background-color .wp-block-list {
+  padding-left: 0;
+  list-style: none;
+}
+
+/* Un separador en grafito sobre bosque da 1.94 a 1 y no se ve. Por la misma
+   razon que arriba, se corrige tambien desde CSS. */
+.has-bosque-background-color .wp-block-separator {
+  border-color: var(--wp--preset--color--hueso);
+  background-color: var(--wp--preset--color--hueso);
+  color: var(--wp--preset--color--hueso);
+}

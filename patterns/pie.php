@@ -52,8 +52,8 @@ $cm_url = static function ( $pagina, $respaldo ) {
 <h3 class="wp-block-heading has-xs-font-size" style="font-weight:700;letter-spacing:0.08em;text-transform:uppercase">Tienda</h3>
 <!-- /wp:heading -->
 
-<!-- wp:list {"style":{"typography":{"lineHeight":"2"}},"fontSize":"sm"} -->
-<ul class="wp-block-list has-sm-font-size" style="line-height:2"><!-- wp:list-item -->
+<!-- wp:list {"className":"cm-lista-plana","style":{"typography":{"lineHeight":"2"}},"fontSize":"sm"} -->
+<ul class="wp-block-list cm-lista-plana has-sm-font-size" style="line-height:2"><!-- wp:list-item -->
 <li><a href="<?php echo esc_url( $cm_url( 'shop', '/shop/' ) ); ?>">Catalogo</a></li>
 <!-- /wp:list-item -->
 
@@ -72,8 +72,8 @@ $cm_url = static function ( $pagina, $respaldo ) {
 <h3 class="wp-block-heading has-xs-font-size" style="font-weight:700;letter-spacing:0.08em;text-transform:uppercase">Legal</h3>
 <!-- /wp:heading -->
 
-<!-- wp:list {"style":{"typography":{"lineHeight":"2"}},"fontSize":"sm"} -->
-<ul class="wp-block-list has-sm-font-size" style="line-height:2"><!-- wp:list-item -->
+<!-- wp:list {"className":"cm-lista-plana","style":{"typography":{"lineHeight":"2"}},"fontSize":"sm"} -->
+<ul class="wp-block-list cm-lista-plana has-sm-font-size" style="line-height:2"><!-- wp:list-item -->
 <li><a href="/aviso-de-privacidad">Aviso de privacidad</a></li>
 <!-- /wp:list-item -->
 
@@ -92,8 +92,8 @@ $cm_url = static function ( $pagina, $respaldo ) {
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
 
-<!-- wp:separator {"backgroundColor":"grafito","style":{"spacing":{"margin":{"top":"var:preset|spacing|55","bottom":"var:preset|spacing|45"}}}} -->
-<hr class="wp-block-separator has-text-color has-grafito-color has-alpha-channel-opacity has-grafito-background-color has-background" style="margin-top:var(--wp--preset--spacing--55);margin-bottom:var(--wp--preset--spacing--45)"/>
+<!-- wp:separator {"backgroundColor":"hueso","style":{"spacing":{"margin":{"top":"var:preset|spacing|55","bottom":"var:preset|spacing|45"}}}} -->
+<hr class="wp-block-separator has-text-color has-hueso-color has-alpha-channel-opacity has-hueso-background-color has-background" style="margin-top:var(--wp--preset--spacing--55);margin-bottom:var(--wp--preset--spacing--45)"/>
 <!-- /wp:separator -->
 
 <!-- wp:paragraph {"fontSize":"xs"} -->

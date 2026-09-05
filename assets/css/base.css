@@ -79,6 +79,17 @@
   color: var(--wp--preset--color--crema);
 }
 
+/* Un titular dentro de un bloque que fija su propio color de texto tiene que
+   heredarlo. Blocksy pinta todos los titulares con --theme-headings-color, y
+   ese color gana sobre la herencia, asi que un h2 dentro de una seccion verde
+   salia en tinta sobre verde y no se leia.
+
+   Va con :where() para que pese 0-1-0: le gana a la regla de elemento suelto
+   de Blocksy, que pesa 0-0-1, y no le estorba a nada mas especifico. */
+.has-text-color :where(h1, h2, h3, h4, h5, h6) {
+  color: inherit;
+}
+
 /* --- Base ------------------------------------------------------------------ */
 html {
   scroll-behavior: smooth;
