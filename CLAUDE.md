@@ -40,6 +40,38 @@ subdominio de desarrollo con la indexación bloqueada.
 - La raíz del repositorio es la carpeta del tema hijo. Se despliega a
   `public_html/wp-content/themes/coremushroom`.
 
+## SIGUIENTE PASO: Fase 3, block patterns del home
+
+Estado: Fases 1 y 2 terminadas, verificadas y desplegadas. La Fase 3 está
+aprobada y decidida. Ante un `CONTINUA` a secas, se arranca por aquí sin
+volver a preguntar nada de lo que ya está resuelto abajo.
+
+Se registran como block patterns en el directorio `/patterns` del tema, para
+que se inserten desde el editor sin tocar código. WordPress los detecta solo,
+no hace falta registrarlos con PHP.
+
+1. **Barra superior.** Umbral de envío gratis desde 900 pesos.
+2. **Hero.**
+3. **Tres tiles, divididos POR FORMATO.** Chocolate, tisana y cápsula.
+   Decisión tomada: no por especie. Cada tile toma uno de los tres colores de
+   línea, pero el color ya no significa especie, solo distingue el formato.
+4. **Retícula de productos.**
+5. **Franja de confianza.** Tres puntos: envío a todo México, pago seguro y
+   producto lote a lote. Fuera la autorización de investigación, que no
+   aplica sin esporas. Fuera también la reposición garantizada: una garantía
+   mal redactada se lee como promesa de resultado.
+6. **Pie de página.**
+
+Todo el copy de estos patterns es provisional y se marca como tal. El
+definitivo se escribe en la Fase 6 y lo revisa un abogado.
+
+### Verificar durante la Fase 3
+
+La hoja `ct-entries-styles` de Blocksy carga DESPUÉS de las nuestras. Hoy no
+estorba porque nuestras clases son propias, pero la retícula del catálogo sí
+compite por los mismos selectores. Hay que comprobarlo con productos reales
+en pantalla antes de dar la fase por buena.
+
 ## Reglas del sistema de diseño
 
 - Ningún color, espaciado, radio ni sombra se escribe a mano en CSS. Todo sale
@@ -53,6 +85,8 @@ subdominio de desarrollo con la indexación bloqueada.
   propósito: WooCommerce genera su marcado y no le pone esa clase. Lo que se
   comparte son los tokens, así que un cambio de token mueve los dos.
 - Sin modo oscuro. Una sola paleta, decisión tomada.
+- Componentes disponibles: `cm-btn`, `cm-badge`, `cm-tarjeta`, `cm-datos`.
+  Su uso está documentado en el README, sección Sistema de diseño.
 
 ## Comandos de verificación
 
