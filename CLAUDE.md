@@ -138,7 +138,38 @@ proveedores.
 
 ## Pendientes conocidos
 
-Ninguno abierto en la Fase 1.
+Todo esto necesita un navegador con sesión de administrador. Quedó pendiente
+porque el cliente se ocupó. Al retomar, empezar por aquí.
+
+**1. Los seis patterns en el editor.** Crear una página en
+`core.bancodeesporas.com/wp-admin/post-new.php?post_type=page`, recargar con
+Ctrl+F5, abrir el insertador con el botón +, pestaña Patterns, categoría
+CoreMushroom, e insertar los seis en orden. Buscar el aviso "This block
+contains unexpected or invalid content". La retícula de productos se verá
+vacía y eso es normal: todavía no hay productos.
+
+**2. Confirmar que el lienzo del editor ya no sale verde limón.** La causa
+era el hueco 7 de la paleta de Blocksy mapeado a lima, que es un acento de
+badge y no un fondo. Ya está corregido y desplegado, pero nadie lo ha visto
+con los ojos. Si sigue verde después de recargar, la causa es otra y hay que
+buscarla.
+
+**3. Un producto de prueba con ficha de lote.** Crear producto, llenar la
+caja Ficha de lote, publicar. Verificar que en la ficha sale la tabla de
+nueve filas, con las fechas en español y los saltos de línea respetados, y
+que en `/shop/` la tarjeta lleva el badge naranja de Cordyceps más la línea
+con formato, contenido neto y Disponible. Después marcarlo sin existencias y
+confirmar que cambia a Agotado con la imagen atenuada.
+
+### Mejoras sugeridas, no bloqueantes
+
+- El panel de WordPress está en inglés. Cambiarlo a Español de México en los
+  ajustes generales hace que los menús coincidan con la documentación.
+- Las páginas de la tienda están en inglés: `/shop/`, `/cart/`, `/checkout/`
+  y `/my-account/`. Para una tienda mexicana conviene traducirlas. Ya no
+  rompe nada, porque los enlaces de los patterns se resuelven solos con
+  `wc_get_page_permalink()`.
+- LiteSpeed Cache no está instalado. Va en la Fase 7.
 
 ## Hechos verificados contra el servidor
 
