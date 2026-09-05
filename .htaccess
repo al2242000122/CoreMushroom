@@ -18,6 +18,11 @@ Options -Indexes -MultiViews
 # asi que no depende de MultiViews ni del modulo de autorizacion. Es la capa
 # principal. (?i) porque las directivas de Apache son sensibles a mayusculas
 # y en un espejo local sobre Windows o macOS el sistema de archivos no lo es.
+# El directorio de herramientas no se sirve nunca. Son scripts de
+# desarrollo, y las pruebas en PHP definen ABSPATH por su cuenta, asi
+# que la guarda que protege al resto del tema no las cubriria.
+RedirectMatch 404 (?i)/tools/
+
 RedirectMatch 404 (?i)/\.git
 RedirectMatch 404 (?i)/\.github
 RedirectMatch 404 (?i)/\.(env|ht|remote-sync|ftpconfig)

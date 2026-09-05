@@ -464,3 +464,56 @@
 .woocommerce-message { border-left-color: var(--wp--preset--color--bosque); }
 .woocommerce-info    { border-left-color: var(--wp--preset--color--trametes); }
 .woocommerce-error   { border-left-color: var(--wp--preset--color--hericium); }
+
+/* ===========================================================================
+ * 6. FICHA DE LOTE Y TARJETA DE PRODUCTO
+ * Clases que imprime el PHP de inc/. La tabla en si es cm-datos, que ya
+ * quedo definida arriba; esto es solo lo que la envuelve y lo que se agrega
+ * a las tarjetas del bucle del catalogo.
+ * ======================================================================== */
+
+.cm-ficha-lote {
+  margin-block: var(--wp--preset--spacing--60);
+}
+
+.cm-ficha-lote__titulo {
+  margin: 0 0 var(--wp--preset--spacing--45);
+  font-size: var(--wp--preset--font-size--lg);
+}
+
+/* Linea de formato, contenido y disponibilidad bajo el titulo del producto.
+   Se envuelve en varias lineas si no cabe, en vez de desbordar la tarjeta. */
+.cm-tarjeta__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--wp--preset--spacing--35);
+  margin: var(--wp--preset--spacing--35) 0;
+  color: var(--wp--preset--color--grafito);
+  font-size: var(--wp--preset--font-size--sm);
+}
+
+/* El formato es el dato que mas se busca de un vistazo, asi que va en tinta
+   y en peso fuerte, destacando sobre el resto de la linea, que va en grafito. */
+.cm-tarjeta__formato {
+  color: var(--wp--preset--color--tinta);
+  font-weight: var(--wp--custom--tipografia--peso-fuerte);
+}
+
+/* El separador entre formato y contenido se dibuja con un punto medio en
+   vez de un borde, para que desaparezca solo al envolverse la linea. */
+.cm-tarjeta__contenido::before {
+  content: "·";
+  margin-right: var(--wp--preset--spacing--35);
+}
+
+.cm-tarjeta__meta .cm-tarjeta__stock {
+  margin-left: auto;
+}
+
+/* La tarjeta agotada baja de intensidad, pero no tanto que deje de leerse.
+   El texto sigue cumpliendo contraste porque la opacidad no baja de 0.75. */
+.cm-producto--agotado .cm-tarjeta__medio,
+.woocommerce ul.products li.product.cm-producto--agotado a img {
+  opacity: 0.75;
+}

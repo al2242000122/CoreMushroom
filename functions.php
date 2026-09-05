@@ -236,4 +236,44 @@ function coremushroom_patrones_condicionales() {
 }
 add_action( 'init', 'coremushroom_patrones_condicionales', 20 );
 
+/**
+ * Carga los modulos del tema.
+ *
+ * Se incluyen solo si WooCommerce esta activo: los tres dependen de sus
+ * ganchos y de la clase WC_Product. Sin esa comprobacion, desactivar el
+ * plugin tumba el sitio con un error fatal en vez de degradarse.
+ *
+ * OJO: esta funcion se llama directamente, NO se engancha a plugins_loaded.
+ * WordPress incluye el functions.php del tema despues de haber disparado
+ * plugins_loaded, asi que engancharse ahi registra una llamada a un gancho
+ * que ya paso y no se ejecuta nunca. El modulo entero quedaria muerto sin
+ * ningun error visible.
+ *
+ * Llamarla directa es correcto y ademas suficiente: los plugins ya estan
+ * cargados en este punto, asi que class_exists( 'WooCommerce' ) es fiable, y
+ * todos los ganchos que registran los modulos, desde add_meta_boxes_product
+ * hasta los de WooCommerce, se disparan mas tarde.
+ */
+function coremushroom_cargar_modulos() {
+	if ( ! class_exists( 'WooCommerce' ) ) {
+		return;
+	}
+
+	$modulos = array(
+		'inc/lote-campos.php',
+		'inc/lote-tabla.php',
+		'inc/tarjeta-producto.php',
+	);
+
+	foreach ( $modulos as $modulo ) {
+		$ruta = get_stylesheet_directory() . '/' . $modulo;
+
+		if ( is_readable( $ruta ) ) {
+			require_once $ruta;
+		}
+	}
+}
+coremushroom_cargar_modulos();
+
+
 

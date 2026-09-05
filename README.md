@@ -168,17 +168,38 @@ Validar que `theme.json` sigue siendo JSON correcto:
 python3 -c "import json; json.load(open('theme.json')); print('ok')"
 ```
 
-Validar los block patterns. Comprueba la cabecera, que los bloques abran y
-cierren balanceados, que el JSON de atributos parsee, que todo preset de
-color, tipografía y espaciado exista en `theme.json`, y que el copy no
-contenga promesas de efecto:
+Los cuatro comprobadores del proyecto, en orden de rapidez:
 
 ```bash
-python3 tools/valida-patterns.py .
+python3 tools/valida-css.py .          # CSS, tokens, contraste y clases
+python3 tools/valida-patterns.py .     # block patterns
+php tools/prueba-arranque.php . con-woo   # los módulos se cargan
+php tools/prueba-arranque.php . sin-woo   # y no se cargan sin WooCommerce
+php tools/prueba-lote.php .            # campos de lote, tabla y tarjeta
 ```
 
+Qué cubre cada uno:
+
+- **valida-css** comprueba que el CSS parsea, que toda referencia a un token
+  existe en `theme.json`, que no hay colores escritos a mano, que ninguna
+  regla baja del mínimo de contraste, que ninguna pone texto claro sobre los
+  tres colores de línea, que no hay bytes de control, y que toda clase `cm-`
+  que imprime el PHP tiene regla en el CSS.
+- **valida-patterns** comprueba la cabecera de cada pattern, el balance de los
+  comentarios de bloque, el JSON de atributos, los presets, la guarda de
+  acceso directo, los bordes sin `style` y las promesas de efecto en el copy.
+- **prueba-arranque** carga `functions.php` con WordPress simulado y confirma
+  que los módulos de `inc/` quedan cargados y sus ganchos registrados. Existe
+  por un motivo concreto: WordPress incluye el `functions.php` del tema
+  **después** de disparar `plugins_loaded`, así que enganchar la carga ahí la
+  deja muerta sin ningún error visible.
+- **prueba-lote** ejercita el guardado y el renderizado de los campos de lote
+  contra WordPress y WooCommerce simulados: nonce, capacidad, autoguardado,
+  saneado por tipo, escapado de salida y las guardas del shortcode.
+
 Un pattern con marcado roto no falla al desplegarse: falla en el editor,
-cuando ya lo insertaste. Por eso se valida antes.
+cuando ya lo insertaste. Lo mismo con un token que no existe. Por eso se
+valida antes de subir.
 
 ---
 
@@ -350,6 +371,58 @@ Si editas un pattern a mano, valida antes de subir:
 ```bash
 python3 tools/valida-patterns.py .
 ```
+
+---
+
+## Campos de lote
+
+Cada producto lleva su ficha. Se edita en **Productos → editar → Ficha de
+lote**, la caja que aparece bajo el editor.
+
+| Campo | Tipo |
+|---|---|
+| Código de lote | Texto |
+| Especie | Cordyceps, Hericium o Trametes |
+| Formato | Chocolate, tisana o cápsula |
+| Contenido neto | Texto |
+| Ingredientes | Texto largo |
+| Extracto por pieza | Texto |
+| Alérgenos | Texto largo |
+| Fecha de elaboración | Fecha |
+| Consumir preferentemente antes de | Fecha |
+| Certificado de análisis | Enlace |
+
+Todo se define en una sola función, `coremushroom_campos_lote()` en
+`inc/lote-campos.php`. El formulario, el guardado y la tabla pública leen de
+ahí. Para agregar un campo, se agrega en esa función y los tres se enteran
+solos.
+
+**Estos campos describen lo que hay dentro del producto y nada más.** No hay
+ni debe haber campos de efectos, beneficios, indicaciones ni resultados. Esa
+es la línea que no se cruza, y la caja del editor lo dice en pantalla.
+
+### Dónde aparece
+
+La tabla se imprime sola bajo el resumen del producto. Si la ficha se arma
+con bloques, donde ese gancho no llega, hay un shortcode:
+
+```
+[coremushroom_ficha]
+[coremushroom_ficha id="123"]
+```
+
+El shortcode solo muestra productos publicados y sin contraseña. Un borrador,
+una página o un producto protegido devuelven vacío.
+
+### En el catálogo
+
+Cada tarjeta del bucle recibe el badge de especie sobre la imagen, y bajo el
+título una línea con formato, contenido neto y disponibilidad. Se hace con
+ganchos de WooCommerce, no sobrescribiendo `content-product.php`, para no
+tener que revisar una copia de esa plantilla en cada actualización del
+plugin.
+
+Sobre disponibilidad se dice solo si hay o no hay. Nunca cuántas quedan.
 
 ---
 

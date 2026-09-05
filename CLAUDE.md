@@ -40,46 +40,40 @@ subdominio de desarrollo con la indexación bloqueada.
 - La raíz del repositorio es la carpeta del tema hijo. Se despliega a
   `public_html/wp-content/themes/coremushroom`.
 
-## SIGUIENTE PASO: Fase 4, ficha de producto con metadatos de lote
+## SIGUIENTE PASO: Fase 5, pagos y checkout
 
-Estado: Fases 1, 2 y 3 terminadas, verificadas y desplegadas.
+Estado: Fases 1 a 4 terminadas, verificadas y desplegadas.
 
-La Fase 4 es la que diferencia el proyecto. Falta acordarla contigo antes de
-escribir nada. Campos por producto, propuesta a confirmar:
+Decisiones ya tomadas para la Fase 5:
 
-- Código de lote
-- Especie: Cordyceps, Hericium o Trametes
-- Formato: chocolate, tisana o cápsula
-- Contenido neto
-- Ingredientes
-- Extracto por pieza
-- Alérgenos
-- Fecha de elaboración y consumo preferente
-- Enlace a certificado de análisis cuando exista
+- Pagos con el plugin oficial de Mercado Pago: tarjeta, meses sin intereses,
+  depósito en OXXO y transferencia SPEI. Sin BTCPay. Ninguna pasarela escrita
+  a mano.
+- Falta acordar: si se usa además la pasarela de transferencia bancaria
+  directa de WooCommerce para SPEI manual, o si todo va por Mercado Pago.
+- Falta acordar la casilla obligatoria del checkout. El brief original pedía
+  mayoría de edad y aceptación de términos, con registro del consentimiento
+  en el pedido. Sin Psilocybe, la mayoría de edad ya no es obligatoria.
+  Proponer: casilla única de aceptación de términos de uso, con el
+  consentimiento guardado en el pedido y visible en el panel.
+- Aviso importante que dar al cliente: Mercado Pago revisa el dominio y el
+  copy al aprobar la cuenta. Conviene tener las páginas legales publicadas
+  antes de solicitarla, aunque sean borrador.
 
-Se renderizan en la ficha con el componente `cm-datos`, que ya existe. Además
-hay que hacer la tarjeta de producto del catálogo, heredando de `cm-tarjeta`,
-mostrando especie y disponibilidad.
+## Reglas del código PHP
 
-**Decidido: código propio.** Sin Advanced Custom Fields ni ningún otro
-plugin de campos. Se usa la API de metaboxes de WordPress. El motivo es que
-los campos son pocos y estables, y el criterio de trabajar en texto
-versionado pesa más que la comodidad de una interfaz de administración.
-
-### Pendientes de verificación manual
-
-- **Insertar los seis patterns en el editor** y confirmar que ninguno muestra
-  el aviso de contenido inesperado o inválido. Es lo único de la Fase 3 que no
-  se puede comprobar desde fuera del navegador. Quedó pendiente porque el
-  cliente estaba en el celular. Si alguno falla, corregir el marcado y volver
-  a validar con `tools/valida-patterns.py`.
-
-### Verificar durante la Fase 4
-
-La hoja `ct-entries-styles` de Blocksy carga DESPUÉS de las nuestras. Hoy no
-estorba porque nuestras clases son propias, pero la retícula del catálogo sí
-compite por los mismos selectores. Hay que comprobarlo con productos reales
-en pantalla.
+- **Nunca enganchar nada a `plugins_loaded` desde `functions.php`.** WordPress
+  incluye el `functions.php` del tema después de haber disparado ese gancho,
+  así que la llamada no se ejecuta jamás y el código queda muerto sin ningún
+  error. Los módulos de `inc/` se cargan con una llamada directa.
+  `tools/prueba-arranque.php` existe para que esto no vuelva a pasar.
+- Guarda de `ABSPATH` en todo archivo PHP del tema, incluidos los patterns.
+- Todo campo que se guarde pasa por: autoguardado, tipo de contenido, nonce
+  atado al ID, capacidad sobre ese post, y saneado por tipo. En ese orden.
+- Todo lo que salga a pantalla se escapa en el punto de salida, aunque ya se
+  haya saneado al entrar. La base de datos puede traer basura de antes.
+- El directorio `tools/` está bloqueado por HTTP. Las pruebas en PHP definen
+  `ABSPATH` por su cuenta, así que la guarda no las protegería.
 
 ## Reglas de los block patterns
 
