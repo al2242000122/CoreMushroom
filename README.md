@@ -60,41 +60,68 @@ var(--wp--custom--radio--pildora)
 
 ## Despliegue por Git a Hostinger
 
-Se hace una sola vez y después cada cambio se publica con un `git push`.
+Se configura una vez y después cada cambio se publica con un `git push`. Los
+valores de abajo están verificados contra la instalación real, no supuestos.
+
+### Cómo está montado el hosting
+
+Hostinger trata `bancodeesporas.com` como la **cuenta de hosting** y
+`core.bancodeesporas.com` como una **instalación de WordPress dentro** de ella.
+Consecuencias que importan:
+
+- Hay **una sola** pantalla de GIT para toda la cuenta. No hay una por
+  subdominio. Está en **Avanzado → GIT**, en el menú lateral de hPanel, no
+  dentro de la sección de WordPress.
+- El campo `Directory` es relativo al `public_html` de la **cuenta**, que es
+  el del dominio principal.
+- El subdominio vive en `public_html/core/`. Por eso la ruta lleva el prefijo
+  `core/`. Sin ese prefijo el despliegue cae en el sitio del banco de esporas,
+  que es otro negocio y está en producción.
 
 ### 1. Preparar el destino
 
-Instala WordPress, luego Blocksy y WooCommerce desde el panel de WordPress.
-Deja Blocksy **instalado pero sin activar**: se activa CoreMushroom, que lo
-usa como padre.
+Instala WordPress en el subdominio, luego Blocksy y WooCommerce desde el panel
+de WordPress. Deja Blocksy **instalado pero sin activar**: se activa
+CoreMushroom, que lo usa como padre.
 
 ### 2. Conectar el repositorio en hPanel
 
-Entra a hPanel y ve a **Avanzado → GIT**. Crea un repositorio nuevo con:
+**Avanzado → GIT**, crea un repositorio con:
 
 | Campo | Valor |
 |---|---|
-| Repository URL | `https://github.com/al2242000122/CoreMushroom.git` |
+| Repository | `https://github.com/al2242000122/CoreMushroom.git` |
 | Branch | `main` |
-| Directory | `public_html/wp-content/themes/coremushroom` |
+| Directory | `core/wp-content/themes/coremushroom` |
 
-Si el repositorio es privado, hPanel muestra una clave SSH pública en esa misma
-pantalla. Cópiala y agrégala en GitHub como *deploy key* dentro de
-**Settings → Deploy keys** del repositorio, con permiso de solo lectura.
+Sin barra al inicio. hPanel la agrega al mostrarlo. La carpeta de destino debe
+estar vacía o no existir.
+
+Si el repositorio es privado, esa misma pantalla muestra una clave SSH pública.
+Cópiala y agrégala en GitHub como *deploy key* en **Settings → Deploy keys**,
+con permiso de solo lectura.
+
+Termina pulsando **Create** y después **Deploy**. Create solo registra el
+repositorio; el primer despliegue va aparte.
 
 ### 3. Activar el despliegue automático
 
-En la misma pantalla de GIT, Hostinger genera una **Webhook URL**. Agrégala en
-GitHub en **Settings → Webhooks → Add webhook**, con tipo de contenido
-`application/json` y el evento `push`. A partir de ahí cada push a `main`
-publica solo.
+En la fila del repositorio, el menú de tres puntos tiene la opción de
+despliegue automático. Da una URL con un token. Agrégala en GitHub en
+**Settings → Webhooks → Add webhook** con:
 
-Mientras no configures el webhook, el botón **Deploy** de hPanel hace el pull
-manualmente.
+- **Payload URL**: la URL de Hostinger
+- **Content type**: `application/json`, no el valor por omisión
+- **Secret**: vacío
+- **Events**: solo el evento `push`
+- **Active**: marcado
+
+El webhook solo dispara en los push posteriores a su creación. Un commit que
+ya estaba subido hay que desplegarlo con el botón **Deploy**.
 
 ### 4. Activar el tema
 
-En el panel de WordPress, **Apariencia → Temas → CoreMushroom → Activar**.
+**Apariencia → Temas → CoreMushroom → Activar**.
 
 ---
 
