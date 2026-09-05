@@ -658,8 +658,10 @@
 
 /* Un separador en grafito sobre bosque da 1.94 a 1 y no se ve. Por la misma
    razon que arriba, se corrige tambien desde CSS. */
+/* Sin declarar color: un separador no lleva texto, y fijarlo ahi hacia que
+   el comprobador de contraste lo tomara por un par de fondo y texto. El
+   borde y el fondo bastan: WordPress usa uno u otro segun el estilo. */
 .has-bosque-background-color .wp-block-separator {
   border-color: var(--wp--preset--color--hueso);
   background-color: var(--wp--preset--color--hueso);
-  color: var(--wp--preset--color--hueso);
 }
