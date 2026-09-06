@@ -129,10 +129,44 @@ af(!str_contains($t, '<'), 'el texto plano no lleva etiquetas HTML');
 af(str_contains($t, '032180000118359719') && str_contains($t, 'CM-10'), 'lleva CLABE y referencia');
 
 echo "\n--- Registro de pasarelas ---\n";
+// Sin WC_Payment_Gateway no hay clase padre. No se declara nada y no se le
+// pasa a WooCommerce el nombre de una clase que no existe.
 $g = coremushroom_registrar_pasarelas([]);
-af(in_array('CoreMushroom_Gateway_SPEI', $g, true), 'registra la pasarela SPEI');
-af(in_array('CoreMushroom_Gateway_Tarjeta', $g, true), 'registra el hueco de tarjeta');
-af(!class_exists('CoreMushroom_Gateway_SPEI'), 'las clases no se declaran sin WC_Payment_Gateway');
+af(!class_exists('CoreMushroom_Gateway_SPEI'), 'sin WC_Payment_Gateway no se declara ninguna clase');
+af($g === [], 'y no se registra un nombre de clase inexistente');
+
+// Con la clase padre presente, el filtro tiene que dejarlas listas. En esta
+// prueba NINGUN gancho se despacha, que es justo lo que le pasa a
+// plugins_loaded cuando WordPress incluye el functions.php del tema. Esta
+// es la comprobacion que faltaba y por la que la pasarela no aparecia.
+// Va dentro de un if a proposito. PHP adelanta al principio del archivo las
+// declaraciones de clase que estan sueltas en el nivel superior, y entonces
+// la clase padre ya existiria arriba y la prueba de "sin clase padre" no
+// probaria nada. Dentro de un bloque, la declaracion ocurre cuando toca.
+if (true) {
+    abstract class WC_Payment_Gateway {
+        public $id, $has_fields, $method_title, $method_description, $form_fields, $title, $description;
+        public function init_settings() {}
+        public function get_option($k, $d = '') { return $d; }
+        public function is_available() { return true; }
+        public function get_return_url($o = null) { return ''; }
+    }
+}
+
+$g2 = coremushroom_registrar_pasarelas([]);
+af(class_exists('CoreMushroom_Gateway_SPEI'), 'con la clase padre, la pasarela SPEI queda declarada');
+af(class_exists('CoreMushroom_Gateway_Tarjeta'), 'y tambien el hueco de tarjeta');
+af(in_array('CoreMushroom_Gateway_SPEI', $g2, true), 'WooCommerce recibe la pasarela SPEI');
+af(in_array('CoreMushroom_Gateway_Tarjeta', $g2, true), 'WooCommerce recibe el hueco de tarjeta');
+
+$g3 = coremushroom_registrar_pasarelas([]);
+af(count($g3) === 2, 'llamarlo dos veces no duplica ni vuelve a declarar');
+
+$spei = new CoreMushroom_Gateway_SPEI();
+af($spei->id === 'coremushroom_spei', 'la pasarela SPEI se puede instanciar');
+af($spei->method_title === 'Transferencia SPEI', 'su nombre en el panel es Transferencia SPEI');
+$tarjeta = new CoreMushroom_Gateway_Tarjeta();
+af($tarjeta->is_available() === false, 'el hueco de tarjeta nunca esta disponible');
 
 echo "\n" . (0 === $fallos ? 'TODO OK' : "$fallos FALLOS") . "\n";
 exit(0 === $fallos ? 0 : 1);

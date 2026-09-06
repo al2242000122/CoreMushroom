@@ -100,17 +100,32 @@ add_filter( 'woocommerce_valid_order_statuses_for_payment', 'coremushroom_estado
  * @return string[]
  */
 function coremushroom_registrar_pasarelas( $pasarelas ) {
+	// Las clases se definen aqui, justo cuando WooCommerce arma su lista.
+	// No se enganchan a plugins_loaded: WordPress incluye el functions.php
+	// del tema DESPUES de disparar ese gancho, asi que la definicion no
+	// llegaba a ejecutarse nunca y WooCommerce recibia nombres de clases que
+	// no existian. Resultado: la pasarela no aparecia en el panel y no habia
+	// ningun error que lo explicara.
+	coremushroom_definir_pasarelas();
+
+	if ( ! class_exists( 'CoreMushroom_Gateway_SPEI' ) ) {
+		return $pasarelas;
+	}
+
 	$pasarelas[] = 'CoreMushroom_Gateway_SPEI';
 	$pasarelas[] = 'CoreMushroom_Gateway_Tarjeta';
+
 	return $pasarelas;
 }
 add_filter( 'woocommerce_payment_gateways', 'coremushroom_registrar_pasarelas' );
 
 /**
- * Carga las clases cuando WooCommerce ya definio la clase padre.
+ * Declara las clases de pasarela.
  *
  * WC_Payment_Gateway no existe hasta que WooCommerce arranca, asi que las
- * clases no pueden declararse al incluir el archivo.
+ * clases no pueden declararse al incluir este archivo. Se llama desde el
+ * filtro woocommerce_payment_gateways, que corre exactamente cuando
+ * WooCommerce necesita las clases y por tanto siempre a tiempo.
  */
 function coremushroom_definir_pasarelas() {
 	if ( ! class_exists( 'WC_Payment_Gateway' ) || class_exists( 'CoreMushroom_Gateway_SPEI' ) ) {
@@ -367,7 +382,7 @@ function coremushroom_definir_pasarelas() {
 		}
 	}
 }
-add_action( 'plugins_loaded', 'coremushroom_definir_pasarelas', 11 );
+
 
 /**
  * Valida el digito verificador de una CLABE mexicana.

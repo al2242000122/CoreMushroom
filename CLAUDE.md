@@ -123,11 +123,20 @@ sabiendas, no un dominio pantalla.
 
 ## Reglas del código PHP
 
-- **Nunca enganchar nada a `plugins_loaded` desde `functions.php`.** WordPress
-  incluye el `functions.php` del tema después de haber disparado ese gancho,
-  así que la llamada no se ejecuta jamás y el código queda muerto sin ningún
-  error. Los módulos de `inc/` se cargan con una llamada directa.
-  `tools/prueba-arranque.php` existe para que esto no vuelva a pasar.
+- **Nunca enganchar nada a `plugins_loaded`, ni desde `functions.php` ni
+  desde ningún archivo de `inc/`.** WordPress incluye el `functions.php` del
+  tema después de haber disparado ese gancho, así que la llamada no se
+  ejecuta jamás y el código queda muerto sin ningún error. Este error se ha
+  cometido **dos veces** en el proyecto: primero con la carga de módulos y
+  después con la declaración de las clases de pasarela, que dejó la
+  Transferencia SPEI sin aparecer en el panel. Antes de escribir
+  `add_action( 'plugins_loaded', ... )`, no lo escribas.
+- Las clases de pasarela se declaran dentro del propio filtro
+  `woocommerce_payment_gateways`, que corre justo cuando WooCommerce las
+  necesita. Es el único momento garantizado.
+- Una prueba que solo comprueba que una función existe no comprueba que su
+  efecto ocurra. `tools/prueba-arranque.php` daba verde mientras las clases
+  de pasarela no se declaraban nunca.
 - Guarda de `ABSPATH` en todo archivo PHP del tema, incluidos los patterns.
 - Todo campo que se guarde pasa por: autoguardado, tipo de contenido, nonce
   atado al ID, capacidad sobre ese post, y saneado por tipo. En ese orden.
