@@ -206,9 +206,31 @@ Lo que se hizo, en `inc/rendimiento.php` y `inc/seo.php`:
   a la proporción 4 a 3 de la tarjeta del catálogo.
 - Reglas de precarga que excluyen carrito, checkout y cuenta.
 
-Lo que falta de esta fase no es código: **instalar LiteSpeed Cache**, que el
-hosting ofrece gratis. El tiempo de respuesta medido fue de 0.74 segundos y
-eso lo arregla la caché de servidor, no el tema.
+### Medido después, en el servidor
+
+- `wp-embed` de WordPress: retirado, confirmado en el HTML servido.
+- `jquery-migrate`: retirado, conservando jQuery.
+- Descripción meta: **sigue ausente y no es culpa del código.** El sitio se
+  llama `core` y no tiene descripción corta configurada, así que no hay de
+  dónde sacar el texto. Un aviso en el panel lo explica. Se arregla en
+  Ajustes generales, no tocando el tema.
+
+### Hallazgo: el plugin Hostinger Reach
+
+La portada carga un script desde `cdn-reach.hostinger.com`, más una hoja y un
+script propios. Son unos 18 kB en total, una resolución de dominio y una
+conexión a un servidor ajeno en cada visita.
+
+Viene preinstalado con el hosting y sirve para captar suscriptores por
+correo. Si no se usa, conviene desactivarlo: quita la única dependencia
+externa que tiene el sitio. Si se usa, ese servicio ve la dirección IP de
+cada visitante y eso hay que declararlo en el aviso de privacidad.
+
+### Lo que falta de esta fase
+
+No es código: **instalar LiteSpeed Cache**, que el hosting ofrece gratis. El
+tiempo de respuesta medido fue de 0.74 segundos y eso lo arregla la caché de
+servidor, no el tema.
 
 ## Pendientes conocidos
 
