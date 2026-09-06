@@ -131,6 +131,14 @@ af(leer(2, 'ingredientes') === "Cacao 70%\nExtracto de Cordyceps", 'el textarea 
 af(leer(2, 'consumo_preferente') === '2027-03-15', 'guarda una fecha valida');
 af(leer(2, 'certificado_url') === 'https://ejemplo.test/coa.pdf', 'guarda una URL https');
 
+guardar(2, ['especie' => 'ganoderma', 'preparacion' => 'liofilizado', 'concentracion' => '8:1']);
+af(leer(2, 'especie') === 'ganoderma', 'acepta Ganoderma como cuarta especie');
+af(leer(2, 'preparacion') === 'liofilizado', 'guarda la preparacion');
+af(leer(2, 'concentracion') === '8:1', 'guarda la concentracion del extracto');
+guardar(2, ['preparacion' => 'inventada']);
+af(leer(2, 'preparacion') === null, 'descarta una preparacion que no esta en las opciones');
+guardar(2, ['especie' => 'cordyceps', 'preparacion' => 'extracto']);
+
 guardar(3, ['especie' => 'psilocybe']);
 af(leer(3, 'especie') === null, 'descarta un valor de select que no esta en las opciones');
 
@@ -176,7 +184,7 @@ $GLOBALS['posts'][2] = ['type' => 'product', 'status' => 'publish'];
 $t_html = coremushroom_tabla_lote_html(2);
 af(str_contains($t_html, 'cm-datos-envoltorio'), 'usa el envoltorio con desplazamiento');
 af(str_contains($t_html, 'class="cm-datos"'), 'usa el componente cm-datos');
-af(substr_count($t_html, '<tr>') === 9, 'una fila por campo con valor, hay ' . substr_count($t_html, '<tr>'));
+af(substr_count($t_html, '<tr>') === 11, 'una fila por campo con valor, hay ' . substr_count($t_html, '<tr>'));
 af(str_contains($t_html, 'Cordyceps') && !str_contains($t_html, '>cordyceps<'), 'muestra la etiqueta, no la clave');
 af(str_contains($t_html, '<br />') || str_contains($t_html, '<br>'), 'respeta los saltos de linea de los ingredientes');
 af(str_contains($t_html, 'href="https://ejemplo.test/coa.pdf"'), 'enlaza el certificado');

@@ -23,6 +23,7 @@
         { "slug": "cordyceps", "color": "#FF6A13", "name": "Cordyceps naranja" },
         { "slug": "hericium",  "color": "#F4557E", "name": "Hericium rosa" },
         { "slug": "trametes",  "color": "#16A3A3", "name": "Trametes turquesa" },
+        { "slug": "ganoderma", "color": "#A87BD4", "name": "Ganoderma violeta" },
         { "slug": "lima",      "color": "#CBE84E", "name": "Lima" }
       ]
     },

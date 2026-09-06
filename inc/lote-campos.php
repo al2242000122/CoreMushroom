@@ -52,6 +52,7 @@ function coremushroom_campos_lote() {
 				'cordyceps' => __( 'Cordyceps', 'coremushroom' ),
 				'hericium'  => __( 'Hericium', 'coremushroom' ),
 				'trametes'  => __( 'Trametes', 'coremushroom' ),
+				'ganoderma' => __( 'Ganoderma', 'coremushroom' ),
 			),
 		),
 		'formato'            => array(
@@ -62,6 +63,20 @@ function coremushroom_campos_lote() {
 				'tisana'    => __( 'Tisana', 'coremushroom' ),
 				'capsula'   => __( 'Cápsula', 'coremushroom' ),
 			),
+		),
+		'preparacion'        => array(
+			'etiqueta' => __( 'Preparación', 'coremushroom' ),
+			'tipo'     => 'select',
+			'opciones' => array(
+				'extracto'    => __( 'Extracto concentrado', 'coremushroom' ),
+				'liofilizado' => __( 'Liofilizado, hongo entero en polvo', 'coremushroom' ),
+			),
+			'ayuda'    => __( 'Cómo se obtuvo el material, no qué hace.', 'coremushroom' ),
+		),
+		'concentracion'      => array(
+			'etiqueta' => __( 'Concentración del extracto', 'coremushroom' ),
+			'tipo'     => 'text',
+			'ayuda'    => __( 'Ejemplo: 8:1, o sea 8 kg de hongo por cada kg de extracto. Se deja vacío en un liofilizado.', 'coremushroom' ),
 		),
 		'contenido_neto'     => array(
 			'etiqueta' => __( 'Contenido neto', 'coremushroom' ),

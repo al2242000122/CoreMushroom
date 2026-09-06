@@ -22,7 +22,16 @@ subdominio de desarrollo con la indexación bloqueada.
 - **No se vende hongo entero ni fresco.** Solo derivados: chocolate, tisana,
   cápsula, microdosis.
 - **Nada de Psilocybe.** Solo especies legales: Cordyceps, Hericium, Trametes
-  y afines.
+  y Ganoderma.
+- **El catálogo no se estructura por gramos ni por potencia.** Un suplemento
+  se vende por miligramos de extracto por pieza, por número de piezas y por
+  concentración del extracto. Vender por tramos de gramos con potencia baja,
+  media y alta comunica un producto psicoactivo aunque la etiqueta diga otra
+  cosa, y eso es publicidad engañosa además del patrón que hace que un
+  procesador de pagos cierre la cuenta.
+- **Ninguna dosis ni protocolo en el sitio.** El cliente tiene su propio
+  protocolo de uso personal. No se publica: una dosis recomendada es un claim
+  y además convierte el producto en otra categoría regulatoria.
 - **No se copia texto, CSS ni imágenes de ningún sitio existente.** El modelo
   comercial de la competencia sí se puede replicar. Sus activos no.
 - **No se toca el tema padre.** Blocksy se actualiza y arrasaría el cambio.

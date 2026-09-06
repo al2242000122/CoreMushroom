@@ -24,7 +24,7 @@ FUENTES_PHP = ["inc/*.php", "functions.php"]
 
 # Sobre estos tres el texto va siempre oscuro. Blanco da entre 2.87 y 3.26
 # a 1, por debajo del minimo AA de 4.5 para texto normal.
-LINEAS_PRODUCTO = ("cordyceps", "hericium", "trametes")
+LINEAS_PRODUCTO = ("cordyceps", "hericium", "trametes", "ganoderma")
 
 fallos = 0
 

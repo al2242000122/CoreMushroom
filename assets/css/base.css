@@ -62,7 +62,8 @@
  *
  *   Sobre crema, hueso, blanco y lima  -> texto tinta   (13.5:1 o mas)
  *   Sobre bosque                        -> texto crema   (12.6:1)
- *   Sobre cordyceps, hericium, trametes -> texto tinta   (5.7:1 a 6.5:1)
+ *   Sobre cordyceps, hericium, trametes
+   y ganoderma                         -> texto tinta   (5.7:1 a 6.5:1)
  *
  * Blanco sobre cordyceps da 2.87:1, sobre trametes 3.09:1 y sobre hericium
  * 3.26:1. Ninguno alcanza el minimo AA de 4.5:1 para texto normal, asi que
@@ -71,6 +72,7 @@
 .has-cordyceps-background-color,
 .has-hericium-background-color,
 .has-trametes-background-color,
+.has-ganoderma-background-color,
 .has-lima-background-color {
   color: var(--wp--preset--color--tinta);
 }

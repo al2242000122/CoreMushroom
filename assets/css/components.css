@@ -193,6 +193,7 @@
 .cm-badge--cordyceps { background-color: var(--wp--preset--color--cordyceps); }
 .cm-badge--hericium  { background-color: var(--wp--preset--color--hericium); }
 .cm-badge--trametes  { background-color: var(--wp--preset--color--trametes); }
+.cm-badge--ganoderma { background-color: var(--wp--preset--color--ganoderma); }
 .cm-badge--oferta    { background-color: var(--wp--preset--color--lima); }
 
 /* Agotado se apaga a proposito: no compite por atencion. */
