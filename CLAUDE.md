@@ -152,6 +152,12 @@ sabiendas, no un dominio pantalla.
   si WooCommerce no está activo.
 - Todo borde declarado en atributos de bloque necesita `style` explícito.
   Sin él, `border-style` vale `none` y el borde se declara pero no se pinta.
+- **Un borde uniforme con un color de la paleta NO lleva `border-color` en el
+  estilo en línea.** WordPress lo serializa como atributo `borderColor` de
+  primer nivel más las clases `has-border-color` y `has-<slug>-border-color`.
+  Escrito del otro modo, el editor marca el bloque como contenido inválido.
+  Los bordes por lado sí van en línea, y por eso la franja de confianza, que
+  usa `border.top` y `border.bottom`, sí era correcta.
 - La retícula usa el shortcode `[products]`, no el bloque Product Collection,
   porque el marcado del bloque cambia entre versiones y rompe el pattern.
 - Antes de subir un pattern editado a mano: `python3 tools/valida-patterns.py .`

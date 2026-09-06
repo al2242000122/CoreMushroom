@@ -112,12 +112,46 @@ for ruta in archivos:
     for slug in re.findall(r"var:preset\|color\|([a-z0-9-]+)", cuerpo):
         if slug not in COLORES:
             problemas.append("color inexistente en border: %s" % slug)
-    # Las clases has-X-color y has-X-background-color deben existir tambien
-    for slug in re.findall(r"has-([a-z0-9-]+?)-(?:background-)?color\b", cuerpo):
-        if slug in ("text", "alpha-channel-opacity", "link"):
+    # Las clases de color tienen tres formas y cada una nombra su slug en un
+    # sitio distinto:
+    #   has-<slug>-color              texto
+    #   has-<slug>-background-color   fondo
+    #   has-<slug>-border-color       borde, acompanada de has-border-color
+    # has-border-color y has-text-color son banderas sin slug.
+    BANDERAS = {"has-border-color", "has-text-color", "has-background",
+                "has-link-color", "has-alpha-channel-opacity"}
+    for clase in set(re.findall(r"has-[a-z0-9-]+", cuerpo)):
+        if clase in BANDERAS:
             continue
+        # El sufijo se recorta por orden, del mas largo al mas corto. Con una
+        # alternancia en la expresion regular, has-lima-background-color se
+        # partia como slug "lima-background" mas sufijo "-color".
+        slug = None
+        for sufijo in ("-border-color", "-background-color", "-color"):
+            if clase.endswith(sufijo):
+                slug = clase[len("has-"):-len(sufijo)]
+                break
+
+        if not slug:
+            continue
+
         if slug not in COLORES:
-            problemas.append("clase has-%s-color sin preset detras" % slug)
+            problemas.append("clase %s sin preset detras" % clase)
+
+    # --- 4b. Color de borde uniforme mal serializado ---
+    # Para un borde uniforme con un color de la paleta, WordPress NO pone
+    # border-color en el estilo en linea: usa un atributo borderColor de
+    # primer nivel mas las clases has-border-color y has-<slug>-border-color.
+    # Escribirlo del otro modo hace que el editor marque el bloque como
+    # contenido invalido. Los bordes por lado si van en linea, y por eso solo
+    # se marca la forma uniforme.
+    for mo in re.finditer(r'"border"\s*:\s*\{([^{}]*)\}', cuerpo):
+        dentro = mo.group(1)
+        if '"color"' in dentro and "var:preset|color|" in dentro:
+            problemas.append(
+                "borde uniforme con color de paleta dentro de style.border: "
+                "va como atributo borderColor mas las clases has-border-color "
+                "y has-<slug>-border-color, no como border-color en linea")
 
     # --- 5. Bordes sin style quedan invisibles ---
     # border-style vale none por defecto, asi que un borde con color y ancho
