@@ -85,6 +85,8 @@ $siempre = [
     'coremushroom_metadatos',
     'coremushroom_aligerar_scripts',
     'coremushroom_quitar_tamanos',
+    'coremushroom_quitar_oembed_host',
+    'coremushroom_avisar_identidad_sin_configurar',
 ];
 
 $esperadas = [

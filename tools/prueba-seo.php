@@ -38,6 +38,10 @@ function get_post($id = 0) { return (object) ['post_content' => $GLOBALS['ctx'][
 function has_post_thumbnail() { return '' !== $GLOBALS['ctx']['thumb']; }
 function get_the_post_thumbnail_url($id, $t) { return $GLOBALS['ctx']['thumb']; }
 function get_stylesheet_directory() { global $TEMA; return $TEMA; }
+function current_user_can($c) { return true; }
+function get_current_screen() { return (object) ['id' => 'dashboard']; }
+function admin_url($p = '') { return 'https://ejemplo.test/wp-admin/' . $p; }
+function esc_html($t) { return htmlspecialchars((string) $t, ENT_QUOTES, 'UTF-8'); }
 function get_stylesheet_directory_uri() { return 'https://ejemplo.test/tema'; }
 function home_url($r = '/') { return 'https://ejemplo.test' . $r; }
 function get_permalink($id = 0) { return 'https://ejemplo.test/producto-5/'; }
@@ -153,6 +157,18 @@ af(str_contains($h5, 'noindex, nofollow'), 'con la casilla marcada agrega noinde
 $GLOBALS['ctx']['publico'] = 1;
 ob_start(); coremushroom_metadatos(); $h6 = ob_get_clean();
 af(!str_contains($h6, 'noindex'), 'sin la casilla no agrega noindex');
+
+echo "
+--- Aviso cuando falta la identidad del sitio ---
+";
+$GLOBALS['bloginfo'] = ['name' => 'core', 'description' => ''];
+ob_start(); coremushroom_avisar_identidad_sin_configurar(); $av = ob_get_clean();
+af(str_contains($av, 'descripción corta'), 'avisa si falta la bajada del sitio');
+af(str_contains($av, 'nombre del sitio'), 'avisa si el nombre sigue siendo el de la instalacion');
+
+$GLOBALS['bloginfo'] = ['name' => 'CoreMushroom', 'description' => 'Derivados funcionales de hongo'];
+ob_start(); coremushroom_avisar_identidad_sin_configurar(); $av2 = ob_get_clean();
+af('' === $av2, 'con los dos configurados no avisa nada');
 
 echo "\n" . (0 === $fallos ? 'TODO OK' : "$fallos FALLOS") . "\n";
 exit(0 === $fallos ? 0 : 1);

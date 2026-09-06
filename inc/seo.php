@@ -225,3 +225,49 @@ function coremushroom_url_actual() {
 
 	return '';
 }
+
+/**
+ * Avisa en el panel si falta el nombre o la bajada del sitio.
+ *
+ * Sin bajada no hay descripcion meta que generar, porque no hay de donde
+ * sacarla y este tema no inventa texto comercial. Sin nombre propio, lo que
+ * sale al compartir un enlace es lo que WordPress puso al instalar.
+ *
+ * El aviso no se puede descartar a proposito: los dos datos afectan a lo que
+ * ve cualquiera que comparta un enlace de la tienda.
+ */
+function coremushroom_avisar_identidad_sin_configurar() {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
+	$pantalla = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+
+	// Solo en las pantallas donde el aviso es accionable.
+	if ( $pantalla && ! in_array( $pantalla->id, array( 'dashboard', 'options-general', 'edit-page', 'edit-post' ), true ) ) {
+		return;
+	}
+
+	$faltan = array();
+
+	if ( '' === trim( (string) get_bloginfo( 'description' ) ) ) {
+		$faltan[] = __( 'la descripción corta del sitio, de la que sale la descripción para buscadores', 'coremushroom' );
+	}
+
+	$nombre = trim( (string) get_bloginfo( 'name' ) );
+
+	if ( '' === $nombre || 'core' === strtolower( $nombre ) ) {
+		$faltan[] = __( 'el nombre del sitio, que hoy es el que puso WordPress al instalar', 'coremushroom' );
+	}
+
+	if ( ! $faltan ) {
+		return;
+	}
+
+	printf(
+		'<div class="notice notice-warning"><p><strong>CoreMushroom:</strong> falta %1$s. Se configura en <a href="%2$s">Ajustes generales</a>.</p></div>',
+		esc_html( implode( __( ', y también ', 'coremushroom' ), $faltan ) ),
+		esc_url( admin_url( 'options-general.php' ) )
+	);
+}
+add_action( 'admin_notices', 'coremushroom_avisar_identidad_sin_configurar' );

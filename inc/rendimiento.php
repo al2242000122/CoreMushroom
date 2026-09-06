@@ -27,8 +27,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Retira scripts que el sitio carga y no usa.
  */
 function coremushroom_aligerar_scripts() {
-	// wp-embed sirve para que otros sitios incrusten paginas de este. Una
-	// tienda no lo necesita, y son unos 1.5 kB en cada carga.
+	// Belt and braces por si algun plugin lo encola por su cuenta. Lo que de
+	// verdad lo quita es el remove_action de mas abajo: WordPress lo engancha
+	// en wp_head, no aqui, asi que deregistrarlo desde wp_enqueue_scripts no
+	// servia de nada. Medido en el sitio: seguia cargando.
 	wp_deregister_script( 'wp-embed' );
 
 	// jquery-migrate avisa en consola de funciones de jQuery retiradas hace
@@ -41,6 +43,19 @@ function coremushroom_aligerar_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'coremushroom_aligerar_scripts', 99 );
+
+/**
+ * Quita el script que permite a otros sitios incrustar paginas de este.
+ *
+ * WordPress lo engancha en wp_head con wp_oembed_add_host_js. Es la unica
+ * forma de retirarlo: deregistrarlo desde wp_enqueue_scripts no funciona
+ * porque todavia no se ha encolado.
+ */
+function coremushroom_quitar_oembed_host() {
+	remove_action( 'wp_head', 'wp_oembed_add_host_js' );
+	remove_filter( 'embed_oembed_html', 'wp_maybe_enqueue_oembed_host_js' );
+}
+add_action( 'init', 'coremushroom_quitar_oembed_host' );
 
 /**
  * Retira los tamanos de imagen que este tema no usa.
