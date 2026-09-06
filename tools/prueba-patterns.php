@@ -79,7 +79,8 @@ foreach ($archivos as $ruta) {
         if (str_starts_with($href, 'https://ejemplo.test/')) { continue; }
         // Las paginas legales todavia no existen: son de la Fase 6.
         $pendientes = ['/aviso-de-privacidad', '/terminos-de-uso',
-                       '/politica-de-envios', '/uso-previsto', '/envios'];
+                       '/politica-de-envios', '/declaracion-de-uso-previsto',
+                       '/envios'];
         af(in_array($href, $pendientes, true),
            "$nombre: enlace $href es una pagina pendiente conocida o una URL resuelta");
     }

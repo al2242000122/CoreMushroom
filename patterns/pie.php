@@ -86,7 +86,7 @@ $cm_url = static function ( $pagina, $respaldo ) {
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li><a href="/uso-previsto">Declaracion de uso previsto</a></li>
+<li><a href="/declaracion-de-uso-previsto">Declaracion de uso previsto</a></li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list --></div>
 <!-- /wp:column --></div>
