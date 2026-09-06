@@ -180,6 +180,7 @@ php tools/prueba-patterns.php .        # los patterns renderizan limpio
 php tools/prueba-checkout.php .        # constancia de terminos
 php tools/prueba-spei.php .            # CLABE, estado e instrucciones
 php tools/prueba-comprobante.php .     # subida y acceso al comprobante
+php tools/prueba-seo.php .             # descripcion y Open Graph
 ```
 
 Qué cubre cada uno:

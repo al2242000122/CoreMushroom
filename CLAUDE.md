@@ -188,12 +188,27 @@ escribas aquí nada que no soportaría ser leído por un tercero: sin
 credenciales, sin rutas locales, sin valoraciones sobre clientes o
 proveedores.
 
-## SIGUIENTE PASO: Fase 7, rendimiento
+## Fase 7, rendimiento: la parte de código, hecha
 
-Es lo único que queda de código y no depende de nadie. Incluye optimización
-de imágenes, carga diferida, CSS crítico, títulos y descripciones bien
-formados, y LiteSpeed Cache, que el hosting ofrece y todavía no está
-instalado.
+Se midió la portada antes de tocar nada. Lo que ya estaba bien no se tocó: el
+sitio no cargaba el script de emojis ni resolvía dominios ajenos.
+
+Lo que se hizo, en `inc/rendimiento.php` y `inc/seo.php`:
+
+- Descripción meta y etiquetas Open Graph, que no existían. Sin ellas, al
+  compartir un enlace no sale ni título ni imagen.
+- Se respeta la casilla de disuadir buscadores: mientras esté marcada se
+  añade `nofollow` además del `noindex` que pone WordPress. **No quitarla
+  hasta que el sitio esté en su dominio definitivo.**
+- Fuera `wp-embed`, que solo sirve para que otros sitios incrusten este.
+- Fuera `jquery-migrate`, conservando jQuery, del que WooCommerce depende.
+- Fuera los tamaños de imagen que el tema no usa, y registrado uno recortado
+  a la proporción 4 a 3 de la tarjeta del catálogo.
+- Reglas de precarga que excluyen carrito, checkout y cuenta.
+
+Lo que falta de esta fase no es código: **instalar LiteSpeed Cache**, que el
+hosting ofrece gratis. El tiempo de respuesta medido fue de 0.74 segundos y
+eso lo arregla la caché de servidor, no el tema.
 
 ## Pendientes conocidos
 

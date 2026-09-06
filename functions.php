@@ -255,11 +255,18 @@ add_action( 'init', 'coremushroom_patrones_condicionales', 20 );
  * hasta los de WooCommerce, se disparan mas tarde.
  */
 function coremushroom_cargar_modulos() {
-	if ( ! class_exists( 'WooCommerce' ) ) {
-		return;
-	}
+	// Estos no dependen de WooCommerce y tienen que cargar siempre. Los
+	// metadatos para buscadores y el aligerado de scripts sirven igual en un
+	// sitio sin tienda.
+	$siempre = array(
+		'inc/seo.php',
+		'inc/rendimiento.php',
+	);
 
-	$modulos = array(
+	// Estos si dependen de WooCommerce: usan sus ganchos y la clase
+	// WC_Product. Sin esa comprobacion, desactivar el plugin tumba el sitio
+	// con un error fatal en vez de degradarse.
+	$con_tienda = array(
 		'inc/lote-campos.php',
 		'inc/lote-tabla.php',
 		'inc/tarjeta-producto.php',
@@ -267,6 +274,10 @@ function coremushroom_cargar_modulos() {
 		'inc/comprobante.php',
 		'inc/checkout-consentimiento.php',
 	);
+
+	$modulos = class_exists( 'WooCommerce' )
+		? array_merge( $siempre, $con_tienda )
+		: $siempre;
 
 	foreach ( $modulos as $modulo ) {
 		$ruta = get_stylesheet_directory() . '/' . $modulo;

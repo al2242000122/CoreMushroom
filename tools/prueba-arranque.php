@@ -79,6 +79,14 @@ if ('con-woo' === $MODO) {
 
 require $TEMA . '/functions.php';
 
+$siempre = [
+    'coremushroom_recortar',
+    'coremushroom_descripcion',
+    'coremushroom_metadatos',
+    'coremushroom_aligerar_scripts',
+    'coremushroom_quitar_tamanos',
+];
+
 $esperadas = [
     'coremushroom_campos_lote',
     'coremushroom_obtener_lote',
@@ -105,6 +113,14 @@ $fallos = 0;
 $debe_existir = ('con-woo' === $MODO);
 
 echo "modo: $MODO\n";
+
+// Estos cargan con o sin WooCommerce: no dependen de la tienda.
+foreach ($siempre as $fn) {
+    $ok = function_exists($fn);
+    if (!$ok) { $fallos++; }
+    printf("%s siempre   %s
+", $ok ? 'OK   ' : 'FALLA', $fn);
+}
 foreach ($esperadas as $fn) {
     $existe = function_exists($fn);
     $ok = ($existe === $debe_existir);
