@@ -40,10 +40,10 @@ subdominio de desarrollo con la indexación bloqueada.
 - La raíz del repositorio es la carpeta del tema hijo. Se despliega a
   `public_html/wp-content/themes/coremushroom`.
 
-## SIGUIENTE PASO: Fase 5, pagos y checkout
+## Fase 5, pagos y checkout: TERMINADA
 
-Estado: Fases 1 a 4 y 6 terminadas. La constancia de aceptación de términos
-ya está hecha. Falta el cobro por SPEI con comprobante.
+Estado: Fases 1 a 6 terminadas y desplegadas. Falta la Fase 7,
+rendimiento, y todo lo que depende de datos o contenido del cliente.
 
 ### Decisiones de pago, actualizadas
 
@@ -188,40 +188,58 @@ escribas aquí nada que no soportaría ser leído por un tercero: sin
 credenciales, sin rutas locales, sin valoraciones sobre clientes o
 proveedores.
 
+## SIGUIENTE PASO: Fase 7, rendimiento
+
+Es lo único que queda de código y no depende de nadie. Incluye optimización
+de imágenes, carga diferida, CSS crítico, títulos y descripciones bien
+formados, y LiteSpeed Cache, que el hosting ofrece y todavía no está
+instalado.
+
 ## Pendientes conocidos
 
-Todo esto necesita un navegador con sesión de administrador. Quedó pendiente
-porque el cliente se ocupó. Al retomar, empezar por aquí.
+### Bloquean vender
 
-**1. Los seis patterns en el editor.** Crear una página en
-`core.bancodeesporas.com/wp-admin/post-new.php?post_type=page`, recargar con
-Ctrl+F5, abrir el insertador con el botón +, pestaña Patterns, categoría
-CoreMushroom, e insertar los seis en orden. Buscar el aviso "This block
-contains unexpected or invalid content". La retícula de productos se verá
-vacía y eso es normal: todavía no hay productos.
+1. **Datos de la cuenta bancaria**: beneficiario, banco y CLABE. Sin CLABE la
+   pasarela SPEI no aparece en el checkout, a propósito. Se configura en
+   WooCommerce, Ajustes, Pagos, Transferencia SPEI.
+2. **Productos reales** con su ficha de lote llena. Hoy hay cero.
+3. **Página de términos asignada** en WooCommerce, Ajustes, Avanzado. Sin
+   ella la casilla de aceptación no aparece en el checkout, y el propio
+   código avisa de eso en el panel.
 
-**2. Confirmar que el lienzo del editor ya no sale verde limón.** La causa
-era el hueco 7 de la paleta de Blocksy mapeado a lima, que es un acento de
-badge y no un fondo. Ya está corregido y desplegado, pero nadie lo ha visto
-con los ojos. Si sigue verde después de recargar, la causa es otra y hay que
-buscarla.
+### Necesitan datos del cliente
 
-**3. Un producto de prueba con ficha de lote.** Crear producto, llenar la
-caja Ficha de lote, publicar. Verificar que en la ficha sale la tabla de
-nueve filas, con las fechas en español y los saltos de línea respetados, y
-que en `/shop/` la tarjeta lleva el badge naranja de Cordyceps más la línea
-con formato, contenido neto y Disponible. Después marcarlo sin existencias y
-confirmar que cambia a Agotado con la imagen atenuada.
+4. Los marcadores entre dobles corchetes de las cuatro páginas legales.
+   Listarlos con
+   `grep -oh "\[\[[^]]*\]\]" patterns/legal-*.php | sort -u`.
+5. Revisión de un abogado antes de publicar esas cuatro páginas.
+
+### Configuración de WordPress
+
+6. Cabecera y pie de Blocksy. El pie sigue diciendo que el tema es de
+   WordPress. Se hace desde el personalizador, que guarda en base de datos y
+   no en el repositorio: es una excepción consciente al criterio de tenerlo
+   todo en código.
+7. Menú de navegación. Hoy muestra Cart, Checkout, My account y Shop, que es
+   lo que WordPress puso solo.
+8. Borrar las páginas Privacy Policy y Refund and Returns Policy que creó
+   WooCommerce en inglés, para no tener dos avisos de privacidad.
+9. Quitar el modo "Store coming soon" el día de abrir.
+
+### Probar en el navegador
+
+10. Flujo completo de compra: pedido con SPEI, subida del comprobante y
+    confirmación desde el panel.
 
 ### Mejoras sugeridas, no bloqueantes
 
-- El panel de WordPress está en inglés. Cambiarlo a Español de México en los
-  ajustes generales hace que los menús coincidan con la documentación.
+- El panel de WordPress está en inglés. Cambiarlo a Español de México hace
+  que los menús coincidan con la documentación.
 - Las páginas de la tienda están en inglés: `/shop/`, `/cart/`, `/checkout/`
-  y `/my-account/`. Para una tienda mexicana conviene traducirlas. Ya no
-  rompe nada, porque los enlaces de los patterns se resuelven solos con
-  `wc_get_page_permalink()`.
-- LiteSpeed Cache no está instalado. Va en la Fase 7.
+  y `/my-account/`. Traducirlas ya no rompe nada, porque los enlaces de los
+  patterns se resuelven solos.
+- Sacar los comprobantes de la raíz web con la constante
+  `COREMUSHROOM_DIR_COMPROBANTES` en `wp-config.php`.
 
 ## Hechos verificados contra el servidor
 
