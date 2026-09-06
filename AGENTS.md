@@ -1,5 +1,10 @@
 # CoreMushroom - memoria del proyecto
 
+> **Si acabas de llegar a este proyecto, empieza por [CONTINUAR.md](CONTINUAR.md).**
+> Ahí está el estado actual, cómo preparar las herramientas, los comandos de
+> verificación y lo que falta por orden. Este archivo es la memoria: las
+> decisiones tomadas y las reglas que no se negocian.
+
 ## Qué es
 
 Tienda WooCommerce de derivados funcionales de hongo. Tema hijo de Blocksy

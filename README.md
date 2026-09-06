@@ -6,6 +6,8 @@ formato chocolate, tisana, cápsula y microdosis.
 
 **El tema padre no se toca nunca.** Todo lo propio vive en este repositorio.
 
+> ¿Retomas el proyecto? Empieza por **[CONTINUAR.md](CONTINUAR.md)**.
+
 ---
 
 ## Requisitos
