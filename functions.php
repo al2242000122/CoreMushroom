@@ -92,6 +92,7 @@ function coremushroom_soporte_tema() {
 			'assets/css/fonts.css',
 			'assets/css/base.css',
 			'assets/css/components.css',
+			'assets/css/home.css',
 		)
 	);
 }
@@ -104,7 +105,8 @@ add_action( 'after_setup_theme', 'coremushroom_soporte_tema' );
  *   1. fonts.css       - declaraciones @font-face de las fuentes autoalojadas
  *   2. base.css        - base del sistema, depende de las fuentes y de Blocksy
  *   3. components.css  - boton, badge, tarjeta, tabla y WooCommerce
- *   4. style.css       - cabecera del tema y parches de ultimo recurso
+ *   4. home.css        - direccion visual de la portada, solo en el home
+ *   5. style.css       - cabecera del tema y parches de ultimo recurso
  *
  * Blocksy registra su hoja principal con el handle 'ct-main-styles'. Si
  * esta encolada, base.css declara depender de ella para cargarse despues y
@@ -154,10 +156,23 @@ function coremushroom_encolar_estilos() {
 		coremushroom_version_asset( 'assets/css/components.css' )
 	);
 
+	$dependencias_style = array( 'coremushroom-componentes' );
+
+	if ( is_front_page() ) {
+		wp_enqueue_style(
+			'coremushroom-portada',
+			get_stylesheet_directory_uri() . '/assets/css/home.css',
+			$dependencias_style,
+			coremushroom_version_asset( 'assets/css/home.css' )
+		);
+
+		$dependencias_style = array( 'coremushroom-portada' );
+	}
+
 	wp_enqueue_style(
 		'coremushroom-style',
 		get_stylesheet_uri(),
-		array( 'coremushroom-componentes' ),
+		$dependencias_style,
 		coremushroom_version_asset( 'style.css' )
 	);
 }
@@ -261,6 +276,7 @@ function coremushroom_cargar_modulos() {
 	$siempre = array(
 		'inc/seo.php',
 		'inc/rendimiento.php',
+		'inc/portada.php',
 	);
 
 	// Estos si dependen de WooCommerce: usan sus ganchos y la clase
@@ -288,6 +304,4 @@ function coremushroom_cargar_modulos() {
 	}
 }
 coremushroom_cargar_modulos();
-
-
 

@@ -14,17 +14,17 @@
       "customDuotone": false,
       "link": true,
       "palette": [
-        { "slug": "crema",     "color": "#FFF6EA", "name": "Crema" },
-        { "slug": "hueso",     "color": "#F6E9D6", "name": "Hueso" },
+        { "slug": "crema",     "color": "#F8F1E7", "name": "Crema" },
+        { "slug": "hueso",     "color": "#EDE3D4", "name": "Hueso" },
         { "slug": "blanco",    "color": "#FFFFFF", "name": "Blanco" },
         { "slug": "tinta",     "color": "#17110D", "name": "Tinta" },
         { "slug": "grafito",   "color": "#6B5B4D", "name": "Grafito" },
-        { "slug": "bosque",    "color": "#103A2C", "name": "Bosque" },
-        { "slug": "cordyceps", "color": "#FF6A13", "name": "Cordyceps naranja" },
-        { "slug": "hericium",  "color": "#F4557E", "name": "Hericium rosa" },
-        { "slug": "trametes",  "color": "#16A3A3", "name": "Trametes turquesa" },
-        { "slug": "ganoderma", "color": "#A87BD4", "name": "Ganoderma violeta" },
-        { "slug": "lima",      "color": "#CBE84E", "name": "Lima" }
+        { "slug": "bosque",    "color": "#24483A", "name": "Bosque" },
+        { "slug": "cordyceps", "color": "#C96B4B", "name": "Terracota" },
+        { "slug": "hericium",  "color": "#DCA6A1", "name": "Rosa arcilla" },
+        { "slug": "trametes",  "color": "#78A399", "name": "Verde salvia" },
+        { "slug": "ganoderma", "color": "#A58AAE", "name": "Malva" },
+        { "slug": "lima",      "color": "#D8DEB8", "name": "Lima suave" }
       ]
     },
 

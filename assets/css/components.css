@@ -6,7 +6,7 @@
  * no la regla.
  *
  * Contraste: sobre cordyceps, hericium y trametes SIEMPRE va texto tinta.
- * Blanco sobre esos tres da entre 2.87 y 3.26 a 1, por debajo del minimo AA
+ * Blanco sobre esos acentos da entre 2.1 y 3.69 a 1, por debajo del minimo AA
  * de 4.5 para texto normal.
  *
  * El lenguaje visual es la sombra dura desplazada: el componente se ve
@@ -60,28 +60,28 @@
   box-shadow: var(--wp--custom--sombra--carta-activa);
 }
 
-/* Primario: fondo bosque con texto crema, 12.6 a 1. */
+/* Primario: fondo bosque con texto crema, 9.08 a 1. */
 .cm-btn--primario {
   background-color: var(--wp--preset--color--bosque);
   color: var(--wp--preset--color--crema);
   box-shadow: var(--wp--custom--sombra--carta);
 }
 
-/* En hover pasa a cordyceps con texto tinta, 6.52 a 1. */
+/* En hover pasa a cordyceps con texto tinta, 5.07 a 1. */
 .cm-btn--primario:hover,
 .cm-btn--primario:focus-visible {
   background-color: var(--wp--preset--color--cordyceps);
   color: var(--wp--preset--color--tinta);
 }
 
-/* Secundario: sin fondo, borde y texto tinta, 17.5 a 1. */
+/* Secundario: sin fondo, borde y texto tinta, 16.68 a 1 sobre crema. */
 .cm-btn--secundario {
   background-color: transparent;
   color: var(--wp--preset--color--tinta);
   box-shadow: var(--wp--custom--sombra--carta);
 }
 
-/* En hover pasa a lima con texto tinta, 13.5 a 1. */
+/* En hover pasa a lima con texto tinta, 13.42 a 1. */
 .cm-btn--secundario:hover,
 .cm-btn--secundario:focus-visible {
   background-color: var(--wp--preset--color--lima);

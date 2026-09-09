@@ -19,7 +19,7 @@ que es mas debil, y el script lo dice en la salida.
 import glob, io, json, os, re, sys
 
 RAIZ = sys.argv[1] if len(sys.argv) > 1 else "."
-HOJAS = ["assets/css/base.css", "assets/css/components.css", "style.css"]
+HOJAS = ["assets/css/base.css", "assets/css/components.css", "assets/css/home.css", "style.css"]
 FUENTES_PHP = ["inc/*.php", "functions.php"]
 
 # Sobre estos tres el texto va siempre oscuro. Blanco da entre 2.87 y 3.26

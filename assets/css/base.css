@@ -60,14 +60,14 @@
 /* --- Reglas de contraste ---------------------------------------------------
  * Verificado con el algoritmo de luminancia relativa de WCAG 2.1.
  *
- *   Sobre crema, hueso, blanco y lima  -> texto tinta   (13.5:1 o mas)
- *   Sobre bosque                        -> texto crema   (12.6:1)
+ *   Sobre crema, hueso, blanco y lima  -> texto tinta   (13.4:1 o mas)
+ *   Sobre bosque                        -> texto crema   (9.08:1)
  *   Sobre cordyceps, hericium, trametes
-   y ganoderma                         -> texto tinta   (5.7:1 a 6.5:1)
+   y ganoderma                         -> texto tinta   (5.07:1 a 8.92:1)
  *
- * Blanco sobre cordyceps da 2.87:1, sobre trametes 3.09:1 y sobre hericium
- * 3.26:1. Ninguno alcanza el minimo AA de 4.5:1 para texto normal, asi que
- * NUNCA se pone texto blanco sobre los tres colores de linea de producto.
+ * Blanco sobre los cuatro acentos da entre 2.1:1 y 3.69:1. Ninguno alcanza
+ * el minimo AA de 4.5:1 para texto normal, asi que NUNCA se pone texto blanco
+ * sobre los colores de linea de producto.
  * ------------------------------------------------------------------------- */
 .has-cordyceps-background-color,
 .has-hericium-background-color,
