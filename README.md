@@ -248,11 +248,16 @@ Contraste verificado con WCAG 2.1. La regla dura:
 - Sobre `cordyceps`, `hericium` y `trametes` va texto `tinta`.
 
 **Nunca texto blanco sobre los tres colores de línea.** Blanco sobre
-`cordyceps` da 2.87:1 y el mínimo AA para texto normal es 4.5:1.
+`cordyceps` da 3.69:1 y el mínimo AA para texto normal es 4.5:1.
 
 ---
 
 ## Sistema de diseño
+
+La portada usa una dirección botánica amable: fondo crema, superficies arena
+y acentos apagados en terracota, rosa arcilla, salvia y malva. La ilustración
+de `assets/images/amanita-hero-v1.webp` es original y decorativa; las especies
+reales del catálogo se nombran siempre en el texto.
 
 Los componentes viven en `assets/css/components.css` y se usan con clases,
 sin ningún atajo de estilo en línea. Todos los valores salen de `theme.json`.

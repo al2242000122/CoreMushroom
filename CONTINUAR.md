@@ -79,10 +79,10 @@ comprobación más débil y te lo dice en la salida.
 
 ## Verifica antes de subir. Siempre
 
-Estos nueve comandos son el contrato del proyecto. Si alguno falla, no subas.
+Estas verificaciones son el contrato del proyecto. Si alguna falla, no subas.
 
 ```bash
-# Sintaxis de PHP en los 26 archivos
+# Sintaxis de PHP en los 28 archivos
 find . -name "*.php" -not -path "./.git/*" -print0 | xargs -0 -n1 php -l
 
 # theme.json sigue siendo JSON
@@ -115,6 +115,9 @@ php tools/prueba-checkout.php .
 
 # Metadatos para buscadores
 php tools/prueba-seo.php .
+
+# Compatibilidad del contenido guardado de la portada
+php tools/prueba-portada.php .
 ```
 
 Todos imprimen `TODO OK` o el número de fallos y salen con código 0 si pasan.
@@ -151,8 +154,11 @@ Las siete fases de desarrollo. En concreto:
 - Un producto publicado: Cordyceps · Cápsulas 30.
 - CLABE y beneficiario capturados en la pasarela SPEI.
 - LiteSpeed Cache instalado y activo.
-- El modo "Store coming soon" ya está desactivado: la portada y el producto
-  se pueden abrir sin iniciar sesión.
+- La portada se puede abrir sin iniciar sesión. WooCommerce todavía intercepta
+  la ficha del producto con su pantalla inglesa de próxima apertura.
+- Portada rediseñada con una paleta neutra, textos más cercanos y una
+  ilustración original inspirada en Amanita muscaria. La ilustración es un
+  motivo de marca y no representa las especies vendidas.
 
 ---
 
@@ -211,6 +217,11 @@ Las siete fases de desarrollo. En concreto:
 
 12. **Flujo completo de compra.** Pedido con SPEI, subida del comprobante,
     verificación y confirmación desde el panel. Nunca se ha probado entero.
+
+13. **Revisar el modo de próxima apertura de WooCommerce.** El 9 de septiembre
+    de 2026 la portada era pública, pero una visita sin sesión a la ficha del
+    producto todavía mostraba el mensaje inglés "Great things are on the
+    horizon". No abrir el catálogo hasta terminar los datos legales y de lote.
 
 ### Mejoras que no bloquean
 

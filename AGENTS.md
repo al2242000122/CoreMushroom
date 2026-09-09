@@ -43,7 +43,10 @@ subdominio de desarrollo con la indexación bloqueada.
 
 ## Decisiones tomadas
 
-- Dirección estética: saturada y lúdica, cercana a mushlove.mx.
+- Dirección estética: amable, orgánica y editorial. Base crema y arena,
+  acentos apagados en terracota, rosa arcilla, salvia y malva. La ilustración
+  original inspirada en Amanita muscaria es un motivo decorativo; nunca se
+  presenta como ingrediente ni como producto a la venta.
 - La línea de cápsulas se llama **microdosis**. Decisión tomada y cerrada.
   El copy alrededor de esa línea se mantiene estrictamente sensorial: nada de
   efecto, beneficio ni resultado.
@@ -182,6 +185,16 @@ sabiendas, no un dominio pantalla.
   propósito: WooCommerce genera su marcado y no le pone esa clase. Lo que se
   comparte son los tokens, así que un cambio de token mueve los dos.
 - Sin modo oscuro. Una sola paleta, decisión tomada.
+- La portada vive en `assets/css/home.css`. Incluye compatibilidad por posición
+  para el contenido que ya estaba guardado en WordPress y clases `cm-home-*`
+  para futuras inserciones de patterns.
+- `inc/portada.php` corrige al renderizar las frases antiguas de la portada.
+  No escribe en la base de datos y solo actúa dentro del loop principal del
+  home. Es necesario porque editar un pattern no modifica los bloques que ya
+  fueron insertados.
+- La ilustración de la portada es original y vive en
+  `assets/images/amanita-hero-v1.webp`. No debe sustituirse por una imagen de
+  catálogo: su función es exclusivamente decorativa.
 - Componentes disponibles: `cm-btn`, `cm-badge`, `cm-tarjeta`, `cm-datos`.
   Su uso está documentado en el README, sección Sistema de diseño.
 
@@ -325,8 +338,9 @@ portada vacía produciría una medición engañosa.
 - El `.htaccess` funciona en LiteSpeed: documentación y dotfiles bloqueados,
   activos servidos, `functions.php` ejecutado y no expuesto como texto.
 - LiteSpeed Cache está instalado y activo.
-- Verificación pública del 9 de septiembre de 2026: la portada y el producto
-  están accesibles sin la pantalla de próxima apertura; el idioma sigue como
-  `en-US`, el título es `core` y el pie conserva texto genérico.
+- Verificación pública del 9 de septiembre de 2026: la portada está accesible,
+  pero WooCommerce todavía intercepta la ficha del producto con su pantalla
+  inglesa de próxima apertura. El idioma sigue como `en-US` y el pie conserva
+  texto genérico.
 - El enlace histórico `/envios/` redirige de forma permanente a
   `/politica-de-envios/`. El pattern nuevo ya usa el destino correcto.
