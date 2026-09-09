@@ -343,6 +343,11 @@ portada vacía produciría una medición engañosa.
 - El `.htaccess` funciona en LiteSpeed: documentación y dotfiles bloqueados,
   activos servidos, `functions.php` ejecutado y no expuesto como texto.
 - LiteSpeed Cache está instalado y activo.
+- El webhook de Hostinger actualiza archivos pero no purga LiteSpeed. Cada
+  publicación funcional sube `COREMUSHROOM_VERSION` en `functions.php` y el
+  campo `Version` de `style.css`. `inc/rendimiento.php` detecta esa versión,
+  llama una sola vez a `litespeed_purge_all` y evita que la URL pública siga
+  mostrando HTML anterior.
 - Verificación pública del 9 de septiembre de 2026: la portada está accesible,
   pero WooCommerce todavía intercepta la ficha del producto con su pantalla
   inglesa de próxima apertura. El idioma sigue como `en-US` y el pie conserva

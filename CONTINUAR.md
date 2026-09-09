@@ -84,7 +84,7 @@ comprobación más débil y te lo dice en la salida.
 Estas verificaciones son el contrato del proyecto. Si alguna falla, no subas.
 
 ```bash
-# Sintaxis de PHP en los 28 archivos
+# Sintaxis de PHP en los 29 archivos
 find . -name "*.php" -not -path "./.git/*" -print0 | xargs -0 -n1 php -l
 
 # theme.json sigue siendo JSON
@@ -120,6 +120,9 @@ php tools/prueba-seo.php .
 
 # Compatibilidad del contenido guardado de la portada
 php tools/prueba-portada.php .
+
+# Purga de LiteSpeed después de un despliegue
+php tools/prueba-cache.php .
 ```
 
 Todos imprimen `TODO OK` o el número de fallos y salen con código 0 si pasan.
@@ -261,6 +264,12 @@ apunta directamente a la página existente.
 
 Está conectado por Git en hPanel. Cada `push` a `main` publica en unos diez
 segundos gracias a un webhook.
+
+El webhook solo cambia archivos. Para que LiteSpeed no siga sirviendo HTML de
+una versión anterior, cada publicación funcional debe subir el número de
+versión en `functions.php` y en la cabecera de `style.css`. La primera petición
+sin cache llama una sola vez a la acción oficial `litespeed_purge_all` y guarda
+la versión purgada.
 
 La URL del webhook contiene un token y no pertenece al repositorio. Tampoco
 se guardan aquí datos bancarios, comprobantes, credenciales, respaldos ni

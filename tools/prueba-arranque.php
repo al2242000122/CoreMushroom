@@ -85,6 +85,7 @@ $siempre = [
     'coremushroom_descripcion',
     'coremushroom_metadatos',
     'coremushroom_aligerar_scripts',
+    'coremushroom_purgar_cache_despliegue',
     'coremushroom_quitar_tamanos',
     'coremushroom_quitar_oembed_host',
     'coremushroom_avisar_identidad_sin_configurar',

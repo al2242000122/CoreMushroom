@@ -24,6 +24,40 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Purga LiteSpeed una sola vez por version desplegada del tema.
+ *
+ * El webhook de Hostinger actualiza los archivos, pero no avisa a WordPress.
+ * Por eso LiteSpeed puede seguir entregando HTML antiguo aunque el CSS nuevo
+ * ya exista en disco. Una peticion sin cache detecta la version pendiente,
+ * usa la accion oficial del plugin y deja registrada la purga.
+ *
+ * @return bool Verdadero cuando se solicito una purga.
+ */
+function coremushroom_purgar_cache_despliegue() {
+	if ( ! defined( 'COREMUSHROOM_VERSION' ) ) {
+		return false;
+	}
+
+	// Si LiteSpeed no esta activo, se conserva la version pendiente. Asi se
+	// purgara al activarlo en vez de registrar una operacion que nunca ocurrio.
+	if ( ! defined( 'LSCWP_V' ) && ! has_action( 'litespeed_purge_all' ) ) {
+		return false;
+	}
+
+	$version = (string) COREMUSHROOM_VERSION;
+
+	if ( $version === (string) get_option( 'coremushroom_version_cache', '' ) ) {
+		return false;
+	}
+
+	do_action( 'litespeed_purge_all', 'Nueva version de CoreMushroom: ' . $version );
+	update_option( 'coremushroom_version_cache', $version, false );
+
+	return true;
+}
+add_action( 'init', 'coremushroom_purgar_cache_despliegue', 100 );
+
+/**
  * Retira scripts que el sitio carga y no usa.
  */
 function coremushroom_aligerar_scripts() {
