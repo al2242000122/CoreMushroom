@@ -44,6 +44,11 @@ function admin_url($p = '') { return 'https://ejemplo.test/wp-admin/' . $p; }
 function esc_html($t) { return htmlspecialchars((string) $t, ENT_QUOTES, 'UTF-8'); }
 function get_stylesheet_directory_uri() { return 'https://ejemplo.test/tema'; }
 function home_url($r = '/') { return 'https://ejemplo.test' . $r; }
+function wp_parse_url($u, $c = -1) { return parse_url($u, $c); }
+function trailingslashit($s) { return rtrim((string) $s, '/') . '/'; }
+function wp_unslash($s) { return $s; }
+function is_404() { return $GLOBALS['ctx']['es_404'] ?? false; }
+function wp_safe_redirect($u, $s = 302, $x = '') { return true; }
 function get_permalink($id = 0) { return 'https://ejemplo.test/producto-5/'; }
 function get_term_link($t) { return ''; }
 function is_wp_error($t) { return false; }
@@ -169,6 +174,18 @@ af(str_contains($av, 'nombre del sitio'), 'avisa si el nombre sigue siendo el de
 $GLOBALS['bloginfo'] = ['name' => 'CoreMushroom', 'description' => 'Derivados funcionales de hongo'];
 ob_start(); coremushroom_avisar_identidad_sin_configurar(); $av2 = ob_get_clean();
 af('' === $av2, 'con los dos configurados no avisa nada');
+
+echo "\n--- Compatibilidad del enlace de envios ---\n";
+af(
+    coremushroom_destino_envios('/envios/', true) === 'https://ejemplo.test/politica-de-envios/',
+    'el enlace antiguo redirige a la politica publicada'
+);
+af(
+    coremushroom_destino_envios('/envios?origen=home', true) === 'https://ejemplo.test/politica-de-envios/',
+    'acepta la ruta sin diagonal aunque la solicitud lleve una consulta'
+);
+af(coremushroom_destino_envios('/otra-pagina/', true) === '', 'no interfiere con otros errores 404');
+af(coremushroom_destino_envios('/envios/', false) === '', 'no sustituye una pagina real si se crea despues');
 
 echo "\n" . (0 === $fallos ? 'TODO OK' : "$fallos FALLOS") . "\n";
 exit(0 === $fallos ? 0 : 1);

@@ -262,7 +262,7 @@ sin ningún atajo de estilo en línea. Todos los valores salen de `theme.json`.
 ```html
 <a class="cm-btn cm-btn--primario" href="/tienda">Ver catálogo</a>
 <button class="cm-btn cm-btn--secundario">Seguir comprando</button>
-<a class="cm-btn cm-btn--texto" href="/envios">Cómo enviamos</a>
+<a class="cm-btn cm-btn--texto" href="/politica-de-envios">Cómo enviamos</a>
 ```
 
 Modificadores: `--primario`, `--secundario`, `--texto` para la variante;

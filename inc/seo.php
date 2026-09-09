@@ -271,3 +271,45 @@ function coremushroom_avisar_identidad_sin_configurar() {
 	);
 }
 add_action( 'admin_notices', 'coremushroom_avisar_identidad_sin_configurar' );
+
+/**
+ * Resuelve el destino del enlace antiguo de envios.
+ *
+ * La portada publicada conserva `/envios/` dentro de su contenido. Mantener
+ * esta compatibilidad evita un 404 sin depender de volver a editar el bloque.
+ *
+ * @param string $solicitud URI solicitada por el navegador.
+ * @param bool   $es_404    Si WordPress resolvio la solicitud como 404.
+ * @return string URL de destino, o cadena vacia si no corresponde redirigir.
+ */
+function coremushroom_destino_envios( $solicitud, $es_404 ) {
+	if ( ! $es_404 ) {
+		return '';
+	}
+
+	$ruta = wp_parse_url( (string) $solicitud, PHP_URL_PATH );
+
+	if ( ! is_string( $ruta ) || '/envios/' !== trailingslashit( $ruta ) ) {
+		return '';
+	}
+
+	return home_url( '/politica-de-envios/' );
+}
+
+/**
+ * Redirige `/envios/` a la pagina legal que ya existe.
+ */
+function coremushroom_redirigir_envios() {
+	$destino = coremushroom_destino_envios(
+		isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '',
+		is_404()
+	);
+
+	if ( '' === $destino ) {
+		return;
+	}
+
+	wp_safe_redirect( $destino, 301, 'CoreMushroom' );
+	exit;
+}
+add_action( 'template_redirect', 'coremushroom_redirigir_envios' );
