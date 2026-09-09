@@ -151,6 +151,8 @@ Las siete fases de desarrollo. En concreto:
 - Un producto publicado: Cordyceps · Cápsulas 30.
 - CLABE y beneficiario capturados en la pasarela SPEI.
 - LiteSpeed Cache instalado y activo.
+- El modo "Store coming soon" ya está desactivado: la portada y el producto
+  se pueden abrir sin iniciar sesión.
 
 ---
 
@@ -167,6 +169,10 @@ Las siete fases de desarrollo. En concreto:
    WordPress, no solo en los patterns. Cambiar un pattern no toca las copias
    ya insertadas en una página.
 
+   Estado público verificado el 9 de septiembre de 2026: Términos de uso ya
+   no muestra marcadores; Aviso de privacidad muestra 6, Política de envíos
+   muestra 8 y Declaración de uso previsto muestra 2.
+
 2. **Revisión de un abogado** de esas cuatro páginas. Cada una abre con un
    bloque verde que dice BORRADOR SIN REVISION LEGAL. Ese bloque se borra
    cuando el abogado apruebe, no antes. Mientras esté, también aparece en la
@@ -181,8 +187,8 @@ Las siete fases de desarrollo. En concreto:
    ella, así que su tabla no aparece y su tarjeta no lleva badge de especie.
    Eso es el comportamiento correcto con campos vacíos, no un error.
 
-5. **Quitar el modo "Store coming soon"** el día de abrir. Hoy intercepta la
-   tienda para cualquiera sin sesión iniciada.
+5. **Corregir la identidad pública del sitio.** El título sigue siendo
+   `core`; falta el nombre comercial y la descripción corta.
 
 ### Configuración pendiente
 
@@ -191,7 +197,8 @@ Las siete fases de desarrollo. En concreto:
    de datos y no en este repositorio. Es una excepción consciente al criterio
    de tenerlo todo en código; está anotada en AGENTS.md.
 7. **Menú de navegación.** Hoy muestra las páginas que WordPress puso solo.
-8. **Idioma del panel a Español de México.** Hoy el cliente ve "Reviews",
+8. **Idioma del sitio a Español de México.** El HTML público todavía declara
+   `en-US` y el cliente ve "Reviews",
    "Your rating" y "Submit" en la ficha del producto.
 9. **Reseñas solo de compradores verificados**, en los ajustes de productos
    de WooCommerce.
@@ -199,12 +206,10 @@ Las siete fases de desarrollo. En concreto:
     creó WooCommerce en inglés, para no tener dos avisos de privacidad.
 11. **Reasignar la página de privacidad** en los ajustes de privacidad de
     WordPress, porque sigue apuntando a la vieja en inglés.
-12. **La página `/envios`**, que enlaza el botón del hero y no existe. O se
-    crea, o ese botón apunta a la política de envíos.
 
 ### Probar en el navegador
 
-13. **Flujo completo de compra.** Pedido con SPEI, subida del comprobante,
+12. **Flujo completo de compra.** Pedido con SPEI, subida del comprobante,
     verificación y confirmación desde el panel. Nunca se ha probado entero.
 
 ### Mejoras que no bloquean
@@ -232,6 +237,10 @@ no se repitan.
 | Borde sin `style` | `border-style` vale `none` por defecto y el borde no se pinta |
 | Editar un pattern ya insertado | El marcado se guardó en la página. Cambiar el archivo no la toca |
 | Comprobantes que se sustituyen | La clave del pedido viaja en la URL. Si el archivo nuevo pisa al anterior, quien tenga esa clave puede destruir la prueba de pago |
+
+El antiguo enlace `/envios/` de la portada se conserva mediante una
+redirección permanente a `/politica-de-envios/`. El pattern actualizado ya
+apunta directamente a la página existente.
 
 ---
 

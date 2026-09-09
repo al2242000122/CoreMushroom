@@ -48,16 +48,16 @@ subdominio de desarrollo con la indexación bloqueada.
   El copy alrededor de esa línea se mantiene estrictamente sensorial: nada de
   efecto, beneficio ni resultado.
 - Envío gratis a partir de 900 pesos.
-- Pagos vía plugin oficial de Mercado Pago: tarjeta, meses sin intereses,
-  depósito en OXXO y SPEI. Sin BTCPay. Sin pasarela escrita a mano.
+- Pago activo: SPEI manual con comprobante. La opción de tarjeta permanece
+  oculta hasta integrar el plugin oficial de un procesador aprobado.
 - Tipografía: Fraunces para titulares, Figtree para texto. Autoalojadas.
 - La raíz del repositorio es la carpeta del tema hijo. Se despliega a
-  `public_html/wp-content/themes/coremushroom`.
+  `public_html/core/wp-content/themes/coremushroom`.
 
 ## Fase 5, pagos y checkout: TERMINADA
 
-Estado: Fases 1 a 6 terminadas y desplegadas. Falta la Fase 7,
-rendimiento, y todo lo que depende de datos o contenido del cliente.
+Estado: las siete fases de código están terminadas y desplegadas. Falta lo
+que depende de datos, contenido, revisión legal y configuración de WordPress.
 
 ### Decisiones de pago, actualizadas
 
@@ -255,27 +255,27 @@ correo. Si no se usa, conviene desactivarlo: quita la única dependencia
 externa que tiene el sitio. Si se usa, ese servicio ve la dirección IP de
 cada visitante y eso hay que declararlo en el aviso de privacidad.
 
-### Lo que falta de esta fase
+### Estado de la caché
 
-No es código: **instalar LiteSpeed Cache**, que el hosting ofrece gratis. El
-tiempo de respuesta medido fue de 0.74 segundos y eso lo arregla la caché de
-servidor, no el tema.
+LiteSpeed Cache ya está instalado y activo. La configuración fina se revisa
+cuando la tienda tenga imágenes y catálogo completos, porque optimizar una
+portada vacía produciría una medición engañosa.
 
 ## Pendientes conocidos
 
 ### Bloquean vender
 
-1. **Datos de la cuenta bancaria**: beneficiario, banco y CLABE. Sin CLABE la
-   pasarela SPEI no aparece en el checkout, a propósito. Se configura en
-   WooCommerce, Ajustes, Pagos, Transferencia SPEI.
-2. **Productos reales** con su ficha de lote llena. Hoy hay cero.
-3. **Página de términos asignada** en WooCommerce, Ajustes, Avanzado. Sin
-   ella la casilla de aceptación no aparece en el checkout, y el propio
-   código avisa de eso en el panel.
+1. **Completar los marcadores que siguen publicados en las páginas legales**
+   y obtener la revisión de un abogado. La página de términos ya no muestra
+   marcadores; las otras tres todavía sí al 9 de septiembre de 2026.
+2. **Completar el catálogo.** Hay un producto publicado y faltan nueve. El
+   producto existente todavía necesita su ficha de lote.
+3. **Probar el flujo completo de compra** con SPEI, carga de comprobante y
+   confirmación desde el panel.
 
 ### Necesitan datos del cliente
 
-4. Los marcadores entre dobles corchetes de las cuatro páginas legales.
+4. Los marcadores entre dobles corchetes de tres páginas legales.
    Listarlos con
    `grep -oh "\[\[[^]]*\]\]" patterns/legal-*.php | sort -u`.
 5. Revisión de un abogado antes de publicar esas cuatro páginas.
@@ -290,7 +290,8 @@ servidor, no el tema.
    lo que WordPress puso solo.
 8. Borrar las páginas Privacy Policy y Refund and Returns Policy que creó
    WooCommerce en inglés, para no tener dos avisos de privacidad.
-9. Quitar el modo "Store coming soon" el día de abrir.
+9. Corregir el título del sitio, que públicamente sigue siendo `core`, y
+   agregar una descripción corta.
 
 ### Probar en el navegador
 
@@ -323,4 +324,9 @@ servidor, no el tema.
   No lo bajes a `:root` o Blocksy vuelve a ganar.
 - El `.htaccess` funciona en LiteSpeed: documentación y dotfiles bloqueados,
   activos servidos, `functions.php` ejecutado y no expuesto como texto.
-- LiteSpeed Cache no está instalado todavía. Se usará en la Fase 7.
+- LiteSpeed Cache está instalado y activo.
+- Verificación pública del 9 de septiembre de 2026: la portada y el producto
+  están accesibles sin la pantalla de próxima apertura; el idioma sigue como
+  `en-US`, el título es `core` y el pie conserva texto genérico.
+- El enlace histórico `/envios/` redirige de forma permanente a
+  `/politica-de-envios/`. El pattern nuevo ya usa el destino correcto.
