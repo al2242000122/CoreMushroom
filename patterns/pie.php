@@ -43,7 +43,7 @@ $cm_url = static function ( $pagina, $respaldo ) {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"sm","style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}}}} -->
-<p class="has-sm-font-size" style="margin-top:var(--wp--preset--spacing--40)">Derivados de Cordyceps, Hericium y Trametes. Chocolate, tisana y capsula.</p>
+<p class="has-sm-font-size" style="margin-top:var(--wp--preset--spacing--40)">Chocolate, tisanas y cápsulas con Cordyceps, Hericium, Trametes y Ganoderma.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
@@ -54,7 +54,7 @@ $cm_url = static function ( $pagina, $respaldo ) {
 
 <!-- wp:list {"className":"cm-lista-plana","style":{"typography":{"lineHeight":"2"}},"fontSize":"sm"} -->
 <ul class="wp-block-list cm-lista-plana has-sm-font-size" style="line-height:2"><!-- wp:list-item -->
-<li><a href="<?php echo esc_url( $cm_url( 'shop', '/shop/' ) ); ?>">Catalogo</a></li>
+<li><a href="<?php echo esc_url( $cm_url( 'shop', '/shop/' ) ); ?>">Catálogo</a></li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
@@ -78,15 +78,15 @@ $cm_url = static function ( $pagina, $respaldo ) {
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li><a href="/terminos-de-uso">Terminos de uso</a></li>
+<li><a href="/terminos-de-uso">Términos de uso</a></li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li><a href="/politica-de-envios">Politica de envios</a></li>
+<li><a href="/politica-de-envios">Política de envíos</a></li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li><a href="/declaracion-de-uso-previsto">Declaracion de uso previsto</a></li>
+<li><a href="/declaracion-de-uso-previsto">Declaración de uso previsto</a></li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list --></div>
 <!-- /wp:column --></div>

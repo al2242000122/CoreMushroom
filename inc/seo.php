@@ -24,6 +24,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 const COREMUSHROOM_DESCRIPCION_MAX = 155;
 
 /**
+ * Sustituye el nombre provisional de la instalacion mientras no se configure.
+ *
+ * En cuanto el dueño escriba otro nombre en Ajustes generales, ese valor gana
+ * y el filtro deja de intervenir.
+ *
+ * @param string $nombre Nombre guardado por WordPress.
+ * @return string
+ */
+function coremushroom_nombre_provisional( $nombre ) {
+	$limpio = trim( (string) $nombre );
+
+	return 'core' === strtolower( $limpio ) ? 'CoreMushroom' : $nombre;
+}
+add_filter( 'option_blogname', 'coremushroom_nombre_provisional' );
+
+/**
  * Recorta un texto sin partir palabras.
  *
  * @param string $texto  Texto de origen.

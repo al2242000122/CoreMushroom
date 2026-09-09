@@ -28,31 +28,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="wp-block-group has-crema-background-color has-background" style="border-top-color:var(--wp--preset--color--tinta);border-top-style:solid;border-top-width:2px;border-bottom-color:var(--wp--preset--color--tinta);border-bottom-style:solid;border-bottom-width:2px;padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)"><!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|55","left":"var:preset|spacing|55"}}}} -->
 <div class="wp-block-columns"><!-- wp:column -->
 <div class="wp-block-column"><!-- wp:heading {"level":3,"fontSize":"md"} -->
-<h3 class="wp-block-heading has-md-font-size">Envio a todo Mexico</h3>
+<h3 class="wp-block-heading has-md-font-size">Envíos a todo México</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"grafito","fontSize":"sm"} -->
-<p class="has-grafito-color has-text-color has-sm-font-size">Paqueteria con guia rastreable. Envio gratis desde 900 pesos.</p>
+<p class="has-grafito-color has-text-color has-sm-font-size">Paquetería con guía rastreable. Envío gratis desde $900.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:heading {"level":3,"fontSize":"md"} -->
-<h3 class="wp-block-heading has-md-font-size">Pago seguro</h3>
+<h3 class="wp-block-heading has-md-font-size">SPEI directo</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"grafito","fontSize":"sm"} -->
-<p class="has-grafito-color has-text-color has-sm-font-size">Tarjeta, transferencia SPEI y deposito en OXXO.</p>
+<p class="has-grafito-color has-text-color has-sm-font-size">Transferencia directa y comprobante protegido.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:heading {"level":3,"fontSize":"md"} -->
-<h3 class="wp-block-heading has-md-font-size">Producto lote a lote</h3>
+<h3 class="wp-block-heading has-md-font-size">Ingredientes a la vista</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"grafito","fontSize":"sm"} -->
-<p class="has-grafito-color has-text-color has-sm-font-size">Cada empaque lleva su codigo de lote y su ficha de contenido.</p>
+<p class="has-grafito-color has-text-color has-sm-font-size">Contenido, alérgenos y origen claramente indicados.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns --></div>

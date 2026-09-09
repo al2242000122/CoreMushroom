@@ -24,11 +24,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <!-- wp:group {"backgroundColor":"hueso","style":{"spacing":{"padding":{"top":"var:preset|spacing|65","bottom":"var:preset|spacing|65"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group has-hueso-background-color has-background" style="padding-top:var(--wp--preset--spacing--65);padding-bottom:var(--wp--preset--spacing--65)"><!-- wp:heading {"level":2,"fontSize":"xxl"} -->
-<h2 class="wp-block-heading has-xxl-font-size">Lo mas reciente</h2>
+<h2 class="wp-block-heading has-xxl-font-size">Elige tu favorito</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"grafito","fontSize":"md","style":{"spacing":{"margin":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|55"}}}} -->
-<p class="has-grafito-color has-text-color has-md-font-size" style="margin-top:var(--wp--preset--spacing--40);margin-bottom:var(--wp--preset--spacing--55)">Cada producto muestra su formato, su especie y su codigo de lote.</p>
+<p class="has-grafito-color has-text-color has-md-font-size" style="margin-top:var(--wp--preset--spacing--40);margin-bottom:var(--wp--preset--spacing--55)">Chocolate, tisana o cápsulas: revisa cada presentación y encuentra la tuya.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:shortcode -->

@@ -20,6 +20,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <!-- wp:group {"backgroundColor":"bosque","textColor":"crema","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|45","right":"var:preset|spacing|45"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group has-crema-color has-bosque-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--45);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--45)"><!-- wp:paragraph {"align":"center","fontSize":"xs","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.08em","fontWeight":"700"}}} -->
-<p class="has-text-align-center has-xs-font-size" style="font-weight:700;letter-spacing:0.08em;text-transform:uppercase">Envio gratis en pedidos desde 900 pesos</p>
+<p class="has-text-align-center has-xs-font-size" style="font-weight:700;letter-spacing:0.08em;text-transform:uppercase">Envío gratis en pedidos desde $900</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->

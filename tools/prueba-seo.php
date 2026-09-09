@@ -72,6 +72,10 @@ function af($cond, $msg) {
     if ($cond) { echo "OK    $msg\n"; } else { echo "FALLA $msg\n"; $fallos++; }
 }
 
+echo "--- Nombre provisional ---\n";
+af(coremushroom_nombre_provisional('core') === 'CoreMushroom', 'corrige el nombre de instalacion');
+af(coremushroom_nombre_provisional('Bosque Vivo') === 'Bosque Vivo', 'respeta cualquier nombre definitivo');
+
 echo "--- Recorte de la descripcion ---\n";
 af(coremushroom_recortar('Texto corto') === 'Texto corto', 'un texto corto no se toca');
 af(coremushroom_recortar('') === '', 'una cadena vacia devuelve vacia');

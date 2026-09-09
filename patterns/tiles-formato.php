@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"sm"} -->
-<p class="has-sm-font-size">Cacao 70% con extracto. En barra y en pieza individual.</p>
+<p class="has-sm-font-size">Cacao 70% con extractos de hongos, en barras para disfrutar y compartir.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column -->
@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"sm"} -->
-<p class="has-sm-font-size">Hebra suelta y en sobre. Para preparar en caliente.</p>
+<p class="has-sm-font-size">Una pausa cálida, en hebras sueltas o en sobres.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column -->
@@ -53,11 +53,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:group {"backgroundColor":"trametes","textColor":"tinta","style":{"border":{"radius":"20px"},"spacing":{"padding":{"top":"var:preset|spacing|55","bottom":"var:preset|spacing|55","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group has-tinta-color has-trametes-background-color has-text-color has-background" style="border-radius:20px;padding-top:var(--wp--preset--spacing--55);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--55);padding-left:var(--wp--preset--spacing--50)"><!-- wp:heading {"level":3,"fontSize":"xl"} -->
-<h3 class="wp-block-heading has-xl-font-size">Capsula</h3>
+<h3 class="wp-block-heading has-xl-font-size">Cápsulas</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"sm"} -->
-<p class="has-sm-font-size">Extracto en capsula vegetal. Frasco de 60 y de 120.</p>
+<p class="has-sm-font-size">Un formato práctico y sencillo para acompañar tu rutina.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column --></div>
