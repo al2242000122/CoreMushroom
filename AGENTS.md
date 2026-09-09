@@ -12,6 +12,11 @@ sobre Hostinger. El desarrollo se hace desde Termux en Android con Git, así que
 todo lo declarable en código se declara en código, no en interfaces de
 configuración.
 
+El repositorio de GitHub es **público**. Nunca se guardan en él credenciales,
+la URL secreta del webhook, datos bancarios, comprobantes de clientes, copias
+de la base de datos ni datos personales. Cada `push` a `main` dispara el
+webhook de Hostinger y publica automáticamente en producción.
+
 ## Qué NO es
 
 Este repositorio corresponde a un solo proyecto. El banco de esporas es un
@@ -224,11 +229,11 @@ descargado a un directorio temporal fuera del repositorio. En Termux basta
 
 ## Nota sobre este archivo
 
-Este archivo y el README se despliegan dentro de `public_html`. El `.htaccess`
-del tema bloquea los `.md` y el directorio `.git` por HTTP. Aun así, no
-escribas aquí nada que no soportaría ser leído por un tercero: sin
-credenciales, sin rutas locales, sin valoraciones sobre clientes o
-proveedores.
+Este archivo y el README se despliegan dentro de `public_html`, y además el
+repositorio completo es público en GitHub. El `.htaccess` bloquea los `.md` y
+el directorio `.git` por HTTP, pero eso no protege el contenido de GitHub. No
+escribas aquí credenciales, la URL del webhook, datos bancarios, rutas locales,
+datos de clientes ni valoraciones sobre clientes o proveedores.
 
 ## Fase 7, rendimiento: la parte de código, hecha
 

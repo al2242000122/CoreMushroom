@@ -99,9 +99,8 @@ CoreMushroom, que lo usa como padre.
 Sin barra al inicio. hPanel la agrega al mostrarlo. La carpeta de destino debe
 estar vacía o no existir.
 
-Si el repositorio es privado, esa misma pantalla muestra una clave SSH pública.
-Cópiala y agrégala en GitHub como *deploy key* en **Settings → Deploy keys**,
-con permiso de solo lectura.
+El repositorio es público, así que Hostinger puede clonarlo sin una *deploy
+key*. No cambies la visibilidad sin preparar primero el acceso de despliegue.
 
 Termina pulsando **Create** y después **Deploy**. Create solo registra el
 repositorio; el primer despliegue va aparte.
@@ -146,7 +145,8 @@ volcados de base de datos, archivos comprimidos y llaves privadas justo por
 esto: si un plugin de respaldo escribe dentro de la carpeta del tema, ese
 archivo no debe terminar en GitHub ni servido por HTTP.
 
-El webhook publica el cambio en segundos.
+El webhook publica el cambio en segundos. Su URL contiene un token: nunca se
+pega en un commit, issue, captura pública o archivo del repositorio.
 
 ### Regla importante
 

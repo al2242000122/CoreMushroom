@@ -19,8 +19,10 @@ Están explicadas en AGENTS.md, pero si solo lees tres líneas, que sean estas.
 2. **Nunca `add_action( 'plugins_loaded', ... )` en este tema.** WordPress
    carga el tema después de disparar ese gancho. El código queda muerto sin
    dar ningún error. Ya pasó dos veces en este proyecto.
-3. **Cada `git push` publica en el sitio real en unos diez segundos.** Hay un
-   webhook de despliegue automático. No subas nada sin correr las pruebas.
+3. **El repositorio es público y cada `git push` a `main` publica en el sitio
+   real en unos diez segundos.** Hay un webhook de despliegue automático. No
+   subas nada sin correr las pruebas y nunca confirmes secretos o datos de
+   clientes en Git.
 
 ---
 
@@ -33,7 +35,7 @@ tal cual a `wp-content/themes/coremushroom`.
 | Dato | Valor |
 |---|---|
 | Sitio de desarrollo | `core.bancodeesporas.com` |
-| Repositorio | `github.com/al2242000122/CoreMushroom` |
+| Repositorio público | `github.com/al2242000122/CoreMushroom` |
 | Hosting | Hostinger, LiteSpeed, PHP 8.3 |
 | Tema padre | Blocksy 2.1.56, no se toca nunca |
 | Tienda | WooCommerce |
@@ -259,6 +261,10 @@ apunta directamente a la página existente.
 
 Está conectado por Git en hPanel. Cada `push` a `main` publica en unos diez
 segundos gracias a un webhook.
+
+La URL del webhook contiene un token y no pertenece al repositorio. Tampoco
+se guardan aquí datos bancarios, comprobantes, credenciales, respaldos ni
+información de clientes.
 
 El detalle que costó una tarde: en Hostinger, `bancodeesporas.com` es la
 cuenta de hosting y `core.bancodeesporas.com` es una instalación de WordPress
