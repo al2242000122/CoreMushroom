@@ -77,14 +77,41 @@ que depende de datos, contenido, revisión legal y configuración de WordPress.
   CoreMushroom, declarando alimentos y suplementos alimenticios. Si rechaza,
   Stripe, y después Openpay.
 
+### Arquitectura prevista para tarjeta y OXXO
+
+La metodología completa y su contrato de seguridad están en
+[`docs/pagos-coreadaptogenos.md`](docs/pagos-coreadaptogenos.md).
+
+- CoreMushroom crea y conserva el pedido. SPEI manual se cobra y verifica en
+  este sitio.
+- Los pagos procesados con tarjeta u OXXO pueden redirigirse a un checkout de
+  CoreAdaptogenos, que es la razón social cobradora. Antes de salir, el cliente
+  debe ver claramente quién realizará el cobro y cuál será el descriptor.
+- El procesador y el adquirente deben conocer el dominio de origen, el catálogo
+  real y la relación entre CoreMushroom y CoreAdaptogenos. La redirección nunca
+  se usa para ocultar productos o el origen de la operación.
+- CoreMushroom envía únicamente un identificador opaco de sesión. El servidor
+  de CoreAdaptogenos recupera pedido, monto y moneda mediante una solicitud
+  autenticada; no confía en importes recibidos en la URL.
+- El regreso del navegador solo sirve para mostrar el resultado. Un pedido se
+  marca pagado después de validar un webhook firmado y comprobar del lado del
+  servidor el identificador, importe, moneda y estado. Cada evento debe ser
+  idempotente para tolerar reintentos.
+- La entrada de tarjeta sigue oculta hasta conocer el dominio, la plataforma,
+  la pasarela aprobada y las credenciales de pruebas de CoreAdaptogenos.
+
 ### Petición rechazada y por qué
 
-El cliente pidió replicar lo que hace la competencia: cobrar a través de una
+El cliente pidió inicialmente replicar lo que hace la competencia: cobrar a través de una
 tienda con nombre neutro en otro dominio para que el procesador no vea qué se
 vende. Eso es lavado transaccional. Se rechazó y no se implementa, aunque se
 reitere. Las consecuencias reales son retención del saldo por meses e
 inscripción en la lista de comercios terminados, que bloquea abrir cuenta con
 cualquier procesador durante años.
+
+La arquitectura transparente descrita arriba es distinta: CoreAdaptogenos se
+identifica como cobrador y el procesador conoce el catálogo y el dominio que
+originan el pedido.
 
 Para una categoría que de verdad sea difícil, como el banco de esporas, la
 salida legal es un adquirente de alto riesgo que suscriba la categoría a
@@ -283,33 +310,32 @@ portada vacía produciría una medición engañosa.
 
 ### Bloquean vender
 
-1. **Completar los marcadores que siguen publicados en las páginas legales**
-   y obtener la revisión de un abogado. La página de términos ya no muestra
-   marcadores; las otras tres todavía sí al 9 de septiembre de 2026.
-2. **Completar el catálogo.** Hay un producto publicado y faltan nueve. El
+1. **Obtener la revisión de un abogado** de las cuatro páginas legales. Los
+   datos operativos ya están completos en los patterns. Las páginas guardadas
+   se actualizan explícitamente desde WordPress para conservar sus revisiones.
+2. **Completar el catálogo.** Hay un producto publicado. Los nueve restantes
+   están preparados como borradores en `imports/catalogo-borradores.csv`. El
    producto existente todavía necesita su ficha de lote.
 3. **Probar el flujo completo de compra** con SPEI, carga de comprobante y
    confirmación desde el panel.
 
 ### Necesitan datos del cliente
 
-4. Los marcadores entre dobles corchetes de tres páginas legales.
-   Listarlos con
-   `grep -oh "\[\[[^]]*\]\]" patterns/legal-*.php | sort -u`.
-5. Revisión de un abogado antes de publicar esas cuatro páginas.
+4. Precio, fotografía, ingredientes, alérgenos, contenido y datos reales de
+   lote para cada producto.
+5. Revisión de un abogado antes de retirar el aviso visible de borrador.
 
 ### Configuración de WordPress
 
-6. Cabecera y pie de Blocksy. El pie sigue diciendo que el tema es de
-   WordPress. Se hace desde el personalizador, que guarda en base de datos y
-   no en el repositorio: es una excepción consciente al criterio de tenerlo
-   todo en código.
-7. Menú de navegación. Hoy muestra Cart, Checkout, My account y Shop, que es
-   lo que WordPress puso solo.
-8. Borrar las páginas Privacy Policy y Refund and Returns Policy que creó
-   WooCommerce en inglés, para no tener dos avisos de privacidad.
-9. Corregir el título del sitio, que públicamente sigue siendo `core`, y
-   agregar una descripción corta.
+6. Revisar cabecera y pie de las plantillas internas desde Blocksy.
+7. Traducir los títulos y slugs de Shop, Cart, Checkout y My account. El menú
+   principal ya muestra Inicio, Catálogo, Política de envíos y Mi cuenta, y
+   está asignado a escritorio y móvil.
+
+El sitio ya usa Español de México, zona horaria de Ciudad de México, unidades
+métricas, descripción corta y reseñas solo para compradores verificados. El
+aviso de privacidad está asignado y las antiguas páginas inglesas están en la
+papelera.
 
 ### Probar en el navegador
 
@@ -318,8 +344,6 @@ portada vacía produciría una medición engañosa.
 
 ### Mejoras sugeridas, no bloqueantes
 
-- El panel de WordPress está en inglés. Cambiarlo a Español de México hace
-  que los menús coincidan con la documentación.
 - Las páginas de la tienda están en inglés: `/shop/`, `/cart/`, `/checkout/`
   y `/my-account/`. Traducirlas ya no rompe nada, porque los enlaces de los
   patterns se resuelven solos.
@@ -349,8 +373,7 @@ portada vacía produciría una medición engañosa.
   llama una sola vez a `litespeed_purge_all` y evita que la URL pública siga
   mostrando HTML anterior.
 - Verificación pública del 9 de septiembre de 2026: la portada está accesible,
-  pero WooCommerce todavía intercepta la ficha del producto con su pantalla
-  inglesa de próxima apertura. El idioma sigue como `en-US` y el pie conserva
-  texto genérico.
+  el sitio usa español y el menú principal está asignado. WooCommerce todavía
+  intercepta la ficha del producto con su pantalla de próxima apertura.
 - El enlace histórico `/envios/` redirige de forma permanente a
   `/politica-de-envios/`. El pattern nuevo ya usa el destino correcto.

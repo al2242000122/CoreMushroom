@@ -84,7 +84,7 @@ comprobación más débil y te lo dice en la salida.
 Estas verificaciones son el contrato del proyecto. Si alguna falla, no subas.
 
 ```bash
-# Sintaxis de PHP en los 29 archivos
+# Sintaxis de PHP en todos los archivos
 find . -name "*.php" -not -path "./.git/*" -print0 | xargs -0 -n1 php -l
 
 # theme.json sigue siendo JSON
@@ -123,6 +123,7 @@ php tools/prueba-portada.php .
 
 # Purga de LiteSpeed después de un despliegue
 php tools/prueba-cache.php .
+
 ```
 
 Todos imprimen `TODO OK` o el número de fallos y salen con código 0 si pasan.
@@ -171,52 +172,52 @@ Las siete fases de desarrollo. En concreto:
 
 ### Bloquea abrir la tienda
 
-1. **Completar los marcadores de las páginas legales.** Son los textos entre
-   dobles corchetes. Listarlos con:
-   ```bash
-   grep -oh "\[\[[^]]*\]\]" patterns/legal-*.php | sort -u
-   ```
-   Ojo: las páginas ya están publicadas, así que hay que editarlas en
-   WordPress, no solo en los patterns. Cambiar un pattern no toca las copias
-   ya insertadas en una página.
-
-   Estado público verificado el 9 de septiembre de 2026: Términos de uso ya
-   no muestra marcadores; Aviso de privacidad muestra 6, Política de envíos
-   muestra 8 y Declaración de uso previsto muestra 2.
+1. **Revisar jurídicamente las páginas legales.** Los datos operativos y el
+   contacto ya están completos en los patterns. Las cuatro páginas guardadas
+   en WordPress se actualizan de forma explícita desde el editor para conservar
+   sus revisiones nativas.
 
 2. **Revisión de un abogado** de esas cuatro páginas. Cada una abre con un
    bloque verde que dice BORRADOR SIN REVISION LEGAL. Ese bloque se borra
    cuando el abogado apruebe, no antes. Mientras esté, también aparece en la
    descripción de la página para buscadores.
 
-3. **Cargar los nueve productos que faltan.** El texto y los campos de los diez
-   están en [docs/catalogo.md](docs/catalogo.md). Los contenidos netos y las
-   concentraciones de ese documento son propuestas: tienen que coincidir con
-   la etiqueta física antes de publicar cada producto.
+3. **Importar los nueve borradores que faltan.** El archivo preparado es
+   [imports/catalogo-borradores.csv](imports/catalogo-borradores.csv). Entra
+   sin precios ni datos variables de producción. Solo precarga especie,
+   formato y tipo de preparación; todo lo demás tiene que coincidir con la
+   etiqueta física antes de publicar cada producto.
 
 4. **Llenar la ficha de lote del producto que ya existe.** Se publicó sin
    ella, así que su tabla no aparece y su tarjeta no lleva badge de especie.
    Eso es el comportamiento correcto con campos vacíos, no un error.
 
-5. **Corregir la identidad pública del sitio.** El título sigue siendo
-   `core`; falta el nombre comercial y la descripción corta.
+5. **Conseguir fotografías y datos físicos de cada producto.** Sin precio,
+   contenido real, ingredientes, alérgenos y lote, los borradores no deben
+   publicarse.
+
+6. **Definir el checkout de CoreAdaptogenos para tarjeta y OXXO.** Falta la URL
+   definitiva, saber qué plataforma usa y confirmar qué pasarela aprobó el
+   catálogo real. CoreMushroom conservará el pedido y redirigirá mediante una
+   sesión opaca; el monto se recuperará de servidor a servidor y el pago solo
+   se confirmará con webhook firmado. El cliente verá antes de salir que
+   CoreAdaptogenos es la razón social cobradora.
+   La metodología acordada está en
+   [docs/pagos-coreadaptogenos.md](docs/pagos-coreadaptogenos.md).
 
 ### Configuración pendiente
 
-6. **Cabecera y pie de Blocksy.** El pie sigue diciendo que el tema es de
-   WordPress. Se hace desde el personalizador de Blocksy, que guarda en base
+7. **Cabecera y pie de Blocksy.** La portada usa el pie propio del tema; falta
+   revisar las plantillas internas. Se hace desde el personalizador de Blocksy, que guarda en base
    de datos y no en este repositorio. Es una excepción consciente al criterio
    de tenerlo todo en código; está anotada en AGENTS.md.
-7. **Menú de navegación.** Hoy muestra las páginas que WordPress puso solo.
-8. **Idioma del sitio a Español de México.** El HTML público todavía declara
-   `en-US` y el cliente ve "Reviews",
-   "Your rating" y "Submit" en la ficha del producto.
-9. **Reseñas solo de compradores verificados**, en los ajustes de productos
-   de WooCommerce.
-10. **Borrar las páginas Privacy Policy y Refund and Returns Policy** que
-    creó WooCommerce en inglés, para no tener dos avisos de privacidad.
-11. **Reasignar la página de privacidad** en los ajustes de privacidad de
-    WordPress, porque sigue apuntando a la vieja en inglés.
+8. **Traducir los títulos y slugs de Shop, Cart, Checkout y My account.** El
+   menú ya muestra etiquetas en español y está asignado a cabecera y móvil.
+
+El nombre, la descripción corta, el idioma Español de México, la zona horaria
+de Ciudad de México, las unidades métricas, la página de privacidad y las
+reseñas limitadas a compradores verificados quedaron configurados. Las tres
+páginas inglesas antiguas ya están en la papelera.
 
 ### Probar en el navegador
 

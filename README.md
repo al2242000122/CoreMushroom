@@ -1,12 +1,16 @@
 # CoreMushroom
 
 Tema hijo de [Blocksy](https://creativethemes.com/blocksy/) para la tienda
-CoreMushroom. Derivados funcionales de Cordyceps, Hericium y Trametes en
+CoreMushroom. Derivados funcionales de Cordyceps, Hericium, Trametes y Ganoderma en
 formato chocolate, tisana, cápsula y microdosis.
 
 **El tema padre no se toca nunca.** Todo lo propio vive en este repositorio.
 
 > ¿Retomas el proyecto? Empieza por **[CONTINUAR.md](CONTINUAR.md)**.
+
+La arquitectura aprobada para redirigir pagos de tarjeta y OXXO al checkout de
+la razón social CoreAdaptogenos está documentada en
+**[docs/pagos-coreadaptogenos.md](docs/pagos-coreadaptogenos.md)**.
 
 ---
 
@@ -470,16 +474,15 @@ texto.
 
 ### Antes de mandarlos a revisión
 
-Hay que sustituir todos los marcadores entre dobles corchetes por los datos
-reales. Para listarlos:
+Los datos operativos confirmados ya están incorporados y no quedan marcadores
+entre dobles corchetes. Si las páginas se insertaron antes de este cambio, hay
+que sincronizar su copia guardada desde el editor de WordPress; modificar un
+pattern no actualiza una página existente.
 
-```bash
-grep -oh "\[\[[^]]*\]\]" patterns/legal-*.php | sort -u
-```
-
-Son datos que solo tú tienes: razón social, RFC, domicilio, correos de
-contacto, paquetería, plazos de entrega y de reclamación, y la ciudad para la
-jurisdicción.
+El propietario pidió omitir razón social, RFC y domicilio fiscal completo. Los
+textos identifican CoreMushroom, Estado de México y el correo de contacto. El
+abogado debe decidir si esa identificación basta o qué dato adicional exige la
+versión final antes de retirar el aviso de borrador.
 
 ### El control de cumplimiento
 
