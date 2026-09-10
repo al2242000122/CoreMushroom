@@ -311,11 +311,12 @@ portada vacía produciría una medición engañosa.
 ### Bloquean vender
 
 1. **Obtener la revisión de un abogado** de las cuatro páginas legales. Los
-   datos operativos ya están completos en los patterns. Las páginas guardadas
-   se actualizan explícitamente desde WordPress para conservar sus revisiones.
-2. **Completar el catálogo.** Hay un producto publicado. Los nueve restantes
-   están preparados como borradores en `imports/catalogo-borradores.csv`. El
-   producto existente todavía necesita su ficha de lote.
+   datos operativos ya están completos en los patterns y en las páginas
+   guardadas de WordPress. El aviso visible de borrador se conserva.
+2. **Completar el catálogo.** Hay un producto publicado y nueve borradores
+   importados desde `imports/catalogo-borradores.csv`. Todos siguen sin precio,
+   inventario ni datos variables de producción. El producto existente también
+   necesita su ficha de lote y cambiar su título de “Cápsulas” a “Microdosis”.
 3. **Probar el flujo completo de compra** con SPEI, carga de comprobante y
    confirmación desde el panel.
 
@@ -375,5 +376,8 @@ papelera.
 - Verificación pública del 9 de septiembre de 2026: la portada está accesible,
   el sitio usa español y el menú principal está asignado. WooCommerce todavía
   intercepta la ficha del producto con su pantalla de próxima apertura.
+- Verificación del 10 de septiembre de 2026: las cuatro páginas legales están
+  sincronizadas y no contienen marcadores; conservan el aviso de revisión
+  pendiente. WooCommerce muestra 10 productos: 1 publicado y 9 borradores.
 - El enlace histórico `/envios/` redirige de forma permanente a
   `/politica-de-envios/`. El pattern nuevo ya usa el destino correcto.

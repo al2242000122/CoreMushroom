@@ -1,5 +1,9 @@
 # Importación inicial del catálogo
 
+**Importado en producción el 10 de septiembre de 2026:** nueve productos
+creados como borrador, sin precio y marcados sin inventario. El archivo se
+conserva como registro reproducible; no debe volver a importarse en este sitio.
+
 `catalogo-borradores.csv` contiene los nueve productos que todavía no existen
 en WooCommerce. Todos entran como **borrador**, sin precio, fotografía,
 concentración, contenido neto, ingredientes, alérgenos ni fechas de lote.

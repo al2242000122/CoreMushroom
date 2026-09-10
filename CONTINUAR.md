@@ -173,24 +173,26 @@ Las siete fases de desarrollo. En concreto:
 ### Bloquea abrir la tienda
 
 1. **Revisar jurídicamente las páginas legales.** Los datos operativos y el
-   contacto ya están completos en los patterns. Las cuatro páginas guardadas
-   en WordPress se actualizan de forma explícita desde el editor para conservar
-   sus revisiones nativas.
+   contacto ya están completos tanto en los patterns como en las cuatro páginas
+   guardadas en WordPress. Conservan sus revisiones nativas y el aviso visible
+   de borrador.
 
 2. **Revisión de un abogado** de esas cuatro páginas. Cada una abre con un
    bloque verde que dice BORRADOR SIN REVISION LEGAL. Ese bloque se borra
    cuando el abogado apruebe, no antes. Mientras esté, también aparece en la
    descripción de la página para buscadores.
 
-3. **Importar los nueve borradores que faltan.** El archivo preparado es
-   [imports/catalogo-borradores.csv](imports/catalogo-borradores.csv). Entra
-   sin precios ni datos variables de producción. Solo precarga especie,
-   formato y tipo de preparación; todo lo demás tiene que coincidir con la
-   etiqueta física antes de publicar cada producto.
+3. **Completar los nueve borradores importados.** Se cargaron desde
+   [imports/catalogo-borradores.csv](imports/catalogo-borradores.csv) el 10 de
+   septiembre de 2026. Están sin precio, inventario ni datos variables de
+   producción. Solo precargan especie, formato y tipo de preparación; todo lo
+   demás tiene que coincidir con la etiqueta física antes de publicar.
 
 4. **Llenar la ficha de lote del producto que ya existe.** Se publicó sin
    ella, así que su tabla no aparece y su tarjeta no lleva badge de especie.
-   Eso es el comportamiento correcto con campos vacíos, no un error.
+   Eso es el comportamiento correcto con campos vacíos, no un error. También
+   falta cambiar su título de “Cordyceps · Cápsulas 30” a “Cordyceps ·
+   Microdosis 30 cápsulas” para que coincida con la línea acordada.
 
 5. **Conseguir fotografías y datos físicos de cada producto.** Sin precio,
    contenido real, ingredientes, alérgenos y lote, los borradores no deben
