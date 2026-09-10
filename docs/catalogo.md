@@ -39,15 +39,15 @@ dirección y queda ilegible. Título con punto medio, slug con guiones.
 
 ---
 
-## Cápsulas
+## Microdosis en cápsulas
 
 | Producto | Slug | Especie | Concentración | Contenido neto | Extracto por pieza |
 |---|---|---|---|---|---|
-| Cordyceps · Cápsulas 30 | `cordyceps-capsulas-30` | Cordyceps | [[8:1]] | 15 g, 30 cápsulas | 100 mg |
-| Cordyceps · Cápsulas 60 | `cordyceps-capsulas-60` | Cordyceps | [[8:1]] | 30 g, 60 cápsulas | 100 mg |
-| Hericium · Cápsulas 30 | `hericium-capsulas-30` | Hericium | [[10:1]] | 18 g, 30 cápsulas | 200 mg |
-| Trametes · Cápsulas 30 | `trametes-capsulas-30` | Trametes | [[8:1]] | 18 g, 30 cápsulas | 200 mg |
-| Ganoderma · Cápsulas 30 | `ganoderma-capsulas-30` | Ganoderma | [[10:1]] | 18 g, 30 cápsulas | 200 mg |
+| Cordyceps · Microdosis 30 cápsulas | `cordyceps-capsulas-30` | Cordyceps | [[8:1]] | 15 g, 30 cápsulas | 100 mg |
+| Cordyceps · Microdosis 60 cápsulas | `cordyceps-capsulas-60` | Cordyceps | [[8:1]] | 30 g, 60 cápsulas | 100 mg |
+| Hericium · Microdosis 30 cápsulas | `hericium-capsulas-30` | Hericium | [[10:1]] | 18 g, 30 cápsulas | 200 mg |
+| Trametes · Microdosis 30 cápsulas | `trametes-capsulas-30` | Trametes | [[8:1]] | 18 g, 30 cápsulas | 200 mg |
+| Ganoderma · Microdosis 30 cápsulas | `ganoderma-capsulas-30` | Ganoderma | [[10:1]] | 18 g, 30 cápsulas | 200 mg |
 
 Ingredientes, en los cinco: `Extracto de <especie en latín>, cápsula vegetal
 de pululano`.

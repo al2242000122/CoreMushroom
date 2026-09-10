@@ -69,7 +69,7 @@ function coremushroom_campos_lote() {
 			'tipo'     => 'select',
 			'opciones' => array(
 				'extracto'    => __( 'Extracto concentrado', 'coremushroom' ),
-				'liofilizado' => __( 'Liofilizado, hongo entero en polvo', 'coremushroom' ),
+				'liofilizado' => __( 'Liofilizado', 'coremushroom' ),
 			),
 			'ayuda'    => __( 'Cómo se obtuvo el material, no qué hace.', 'coremushroom' ),
 		),
