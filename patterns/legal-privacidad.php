@@ -9,8 +9,8 @@
  *
  * BORRADOR SIN REVISION LEGAL. Sigue la estructura que pide la Ley Federal de Proteccion de Datos Personales en Posesion de los Particulares, pero un abogado tiene que confirmar que las finalidades y las transferencias declaradas coinciden con lo que la tienda hace de verdad.
  *
- * Los datos entre dobles corchetes los completa el cliente antes de
- * mandar el texto a revision.
+ * Los datos operativos fueron incorporados el 9 de septiembre de 2026.
+ * Falta la revision de un abogado antes de retirar el aviso visible.
  */
 // Corta si el archivo se pide por URL. WordPress lo incluye durante init,
 // cuando ABSPATH ya existe, asi que al registrarse el patron no se corta.
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"fontSize":"sm"} -->
-<p class="has-sm-font-size">Este texto no ha sido revisado por un abogado. Antes de publicar la pagina hay que sustituir todo lo que aparece entre dobles corchetes por los datos reales, pasarlo a revision legal y borrar este bloque.</p>
+<p class="has-sm-font-size">Este texto incorpora los datos operativos actuales de la tienda, pero todavia debe revisarlo un abogado. El bloque se retirara cuando esa revision termine.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"grafito","fontSize":"sm"} -->
-<p class="has-grafito-color has-text-color has-sm-font-size">Ultima actualizacion: [[FECHA DE PUBLICACION]]</p>
+<p class="has-grafito-color has-text-color has-sm-font-size">Ultima actualizacion: 9 de septiembre de 2026</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":2,"fontSize":"xl"} -->
@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
-<p class="has-base-font-size">[[RAZON SOCIAL]], con domicilio en [[DOMICILIO FISCAL]], es responsable del tratamiento de los datos personales que usted proporcione a traves de este sitio. Para cualquier asunto relacionado con sus datos puede escribir a [[CORREO DE PRIVACIDAD]].</p>
+<p class="has-base-font-size">CoreMushroom, con domicilio de operacion en el Estado de Mexico, es responsable de los datos personales que usted proporcione a traves de este sitio. Para cualquier asunto relacionado con sus datos puede escribir a contacto@coremushroom.com.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":2,"fontSize":"xl"} -->
@@ -76,7 +76,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:list -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
-<p class="has-base-font-size">No recabamos ni almacenamos numeros de tarjeta. El cobro lo procesa [[PROVEEDOR DE PAGOS]] en su propia plataforma, y nosotros solo recibimos la confirmacion de si el pago se aprobo o no.</p>
+<p class="has-base-font-size">Actualmente no solicitamos ni almacenamos numeros de tarjeta. Los pedidos se pagan mediante transferencia SPEI y el comprobante que el cliente adjunta se utiliza exclusivamente para verificar el pago.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
@@ -124,7 +124,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:list -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
-<p class="has-base-font-size">Para negarse a estas ultimas basta con escribir a [[CORREO DE PRIVACIDAD]] o usar el enlace de baja que aparece al pie de cada correo.</p>
+<p class="has-base-font-size">Para negarse a estas ultimas basta con escribir a contacto@coremushroom.com o usar el enlace de baja que aparece al pie de cada correo.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":2,"fontSize":"xl"} -->
@@ -141,7 +141,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>El procesador de pagos, para cobrar.</li>
+<li>Las instituciones bancarias que intervienen en la transferencia SPEI, para cobrar o reembolsar.</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
@@ -192,7 +192,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
-<p class="has-base-font-size">Para ejercer cualquiera de estos derechos, escriba a [[CORREO DE PRIVACIDAD]] indicando su nombre, un medio para contactarle, la descripcion clara de lo que solicita y un documento que acredite su identidad. Responderemos en un plazo maximo de [[PLAZO DE RESPUESTA]] dias habiles.</p>
+<p class="has-base-font-size">Para ejercer cualquiera de estos derechos, escriba a contacto@coremushroom.com indicando su nombre, un medio para contactarle, la descripcion clara de lo que solicita y un documento que acredite su identidad. Comunicaremos la determinacion adoptada en un plazo maximo de 20 dias, contado desde la recepcion de la solicitud. Si resulta procedente, se hara efectiva dentro de los 15 dias siguientes, conforme a la legislacion aplicable.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":2,"fontSize":"xl"} -->

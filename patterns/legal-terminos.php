@@ -9,8 +9,8 @@
  *
  * BORRADOR SIN REVISION LEGAL. Cubre uso del sitio, condiciones de venta, precios, cancelaciones y limitacion de responsabilidad.
  *
- * Los datos entre dobles corchetes los completa el cliente antes de
- * mandar el texto a revision.
+ * Los datos operativos fueron incorporados el 9 de septiembre de 2026.
+ * Falta la revision de un abogado antes de retirar el aviso visible.
  */
 // Corta si el archivo se pide por URL. WordPress lo incluye durante init,
 // cuando ABSPATH ya existe, asi que al registrarse el patron no se corta.
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"fontSize":"sm"} -->
-<p class="has-sm-font-size">Este texto no ha sido revisado por un abogado. Antes de publicar la pagina hay que sustituir todo lo que aparece entre dobles corchetes por los datos reales, pasarlo a revision legal y borrar este bloque.</p>
+<p class="has-sm-font-size">Este texto incorpora los datos operativos actuales de la tienda, pero todavia debe revisarlo un abogado. El bloque se retirara cuando esa revision termine.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"grafito","fontSize":"sm"} -->
-<p class="has-grafito-color has-text-color has-sm-font-size">Ultima actualizacion: [[FECHA DE PUBLICACION]]</p>
+<p class="has-grafito-color has-text-color has-sm-font-size">Ultima actualizacion: 9 de septiembre de 2026</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":2,"fontSize":"xl"} -->
@@ -50,7 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
-<p class="has-base-font-size">Los productos ofrecidos en este sitio son vendidos por [[RAZON SOCIAL]], con Registro Federal de Contribuyentes [[RFC]] y domicilio en [[DOMICILIO FISCAL]].</p>
+<p class="has-base-font-size">Los productos ofrecidos en este sitio se venden bajo el nombre comercial CoreMushroom, con domicilio de operacion en el Estado de Mexico. El medio de contacto para compras y aclaraciones es contacto@coremushroom.com.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":2,"fontSize":"xl"} -->
@@ -58,7 +58,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
-<p class="has-base-font-size">Este sitio vende derivados alimenticios elaborados a partir de hongos comestibles de las especies Cordyceps, Hericium y Trametes, en formato de chocolate, tisana y capsula.</p>
+<p class="has-base-font-size">Este sitio vende derivados alimenticios elaborados a partir de hongos comestibles de las especies Cordyceps, Hericium, Trametes y Ganoderma, en formato de chocolate, tisana y capsula.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
@@ -82,7 +82,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
-<p class="has-base-font-size">El cobro lo procesa [[PROVEEDOR DE PAGOS]]. El pedido se considera confirmado cuando ese procesador nos notifica que el pago fue aprobado. Un pedido con pago pendiente se cancela automaticamente si no se liquida en [[PLAZO DE PAGO]].</p>
+<p class="has-base-font-size">Actualmente aceptamos transferencia SPEI. El pedido se considera confirmado cuando verificamos el abono y el comprobante correspondiente. Un pedido con pago pendiente puede cancelarse si no se liquida dentro de las 24 horas siguientes a su creacion.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":2,"fontSize":"xl"} -->
@@ -95,7 +95,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <!-- wp:list -->
 <ul class="wp-block-list"><!-- wp:list-item -->
-<li>Si el producto llega danado o no corresponde a lo que pidio, lo reponemos o le reembolsamos el importe completo. Avisenos dentro de [[PLAZO DE RECLAMACION]] contados desde la entrega, con fotografias del producto y del empaque.</li>
+<li>Si el producto llega danado o no corresponde a lo que pidio, lo reponemos o le reembolsamos el importe pagado por ese producto. Avisenos dentro de las 48 horas siguientes a la entrega, con fotografias del producto y del empaque.</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
@@ -104,7 +104,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:list -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
-<p class="has-base-font-size">Para iniciar cualquier reclamacion escriba a [[CORREO DE CONTACTO]] indicando su numero de pedido.</p>
+<p class="has-base-font-size">Para iniciar cualquier reclamacion escriba a contacto@coremushroom.com indicando su numero de pedido.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":2,"fontSize":"xl"} -->
@@ -112,7 +112,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
-<p class="has-base-font-size">Todo reembolso se hace por el mismo medio con el que usted pago. Si pago con tarjeta, el importe se abona a esa misma tarjeta; si pago en efectivo o por transferencia, le pediremos una cuenta a su nombre.</p>
+<p class="has-base-font-size">Los reembolsos de pedidos pagados por SPEI se envian a una cuenta bancaria a nombre del comprador. Solicitaremos los datos necesarios para identificar esa cuenta antes de ordenar la devolucion.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
@@ -120,7 +120,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
-<p class="has-base-font-size">El plazo depende de su banco. Nosotros ordenamos la devolucion dentro de [[PLAZO DE REEMBOLSO]] contados desde que aprobamos la reclamacion.</p>
+<p class="has-base-font-size">El plazo de reflejo depende de la institucion bancaria. Nosotros ordenamos la devolucion dentro de los 5 dias habiles siguientes a la aprobacion de la reclamacion.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":2,"fontSize":"xl"} -->
@@ -136,7 +136,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
-<p class="has-base-font-size">Los textos, fotografias, marcas y demas contenidos de este sitio son propiedad de [[RAZON SOCIAL]] y no pueden reproducirse sin autorizacion escrita.</p>
+<p class="has-base-font-size">Los textos, fotografias, marcas y demas contenidos originales de este sitio forman parte de CoreMushroom y no pueden reproducirse sin autorizacion escrita, salvo los usos permitidos por la ley.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":2,"fontSize":"xl"} -->
@@ -152,6 +152,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
-<p class="has-base-font-size">Estos terminos se rigen por las leyes de los Estados Unidos Mexicanos. Para cualquier controversia las partes se someten a los tribunales de [[CIUDAD Y ESTADO]], sin perjuicio de los derechos que la Procuraduria Federal del Consumidor reconoce a los consumidores.</p>
+<p class="has-base-font-size">Estos terminos se rigen por las leyes de los Estados Unidos Mexicanos. Cualquier controversia se atendera ante las autoridades competentes del Estado de Mexico, sin limitar los derechos que la Procuraduria Federal del Consumidor reconoce a los consumidores.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->

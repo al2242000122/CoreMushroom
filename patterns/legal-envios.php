@@ -7,10 +7,9 @@
  * Keywords: legal, envios, paqueteria, entrega, cobertura
  * Viewport Width: 1400
  *
- * BORRADOR SIN REVISION LEGAL. Los plazos y la paqueteria son datos operativos que hay que confirmar antes de publicar.
- *
- * Los datos entre dobles corchetes los completa el cliente antes de
- * mandar el texto a revision.
+ * BORRADOR SIN REVISION LEGAL.
+ * Los datos operativos fueron incorporados el 9 de septiembre de 2026.
+ * Falta la revision de un abogado antes de retirar el aviso visible.
  */
 // Corta si el archivo se pide por URL. WordPress lo incluye durante init,
 // cuando ABSPATH ya existe, asi que al registrarse el patron no se corta.
@@ -25,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"fontSize":"sm"} -->
-<p class="has-sm-font-size">Este texto no ha sido revisado por un abogado. Antes de publicar la pagina hay que sustituir todo lo que aparece entre dobles corchetes por los datos reales, pasarlo a revision legal y borrar este bloque.</p>
+<p class="has-sm-font-size">Este texto incorpora los datos operativos actuales de la tienda, pero todavia debe revisarlo un abogado. El bloque se retirara cuando esa revision termine.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
@@ -34,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"grafito","fontSize":"sm"} -->
-<p class="has-grafito-color has-text-color has-sm-font-size">Ultima actualizacion: [[FECHA DE PUBLICACION]]</p>
+<p class="has-grafito-color has-text-color has-sm-font-size">Ultima actualizacion: 9 de septiembre de 2026</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":2,"fontSize":"xl"} -->
@@ -58,11 +57,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
-<p class="has-base-font-size">Preparamos los pedidos en dias habiles. Un pedido confirmado antes de [[HORA DE CORTE]] se despacha [[PLAZO DE DESPACHO]]. Los pedidos confirmados en fin de semana o dia festivo se preparan el siguiente dia habil.</p>
+<p class="has-base-font-size">Preparamos los pedidos en dias habiles. Un pedido cuyo pago se confirma antes de las 12:00 horas, tiempo de la Ciudad de Mexico, se entrega a la paqueteria el mismo dia habil. Si se confirma despues de esa hora, se entrega el siguiente dia habil. Los pedidos confirmados en fin de semana o dia festivo se preparan el siguiente dia habil.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
-<p class="has-base-font-size">Una vez entregado a la paqueteria, el tiempo estimado de transito es de [[PLAZO DE ENTREGA]]. Ese plazo lo determina [[PAQUETERIA]] y no depende de nosotros.</p>
+<p class="has-base-font-size">La entrega express puede comenzar desde 1 dia habil. El envio terrestre gratuito en compras desde 900 pesos tiene un tiempo estimado de 3 dias habiles o mas, segun el codigo postal. Elegimos entre Estafeta, DHL, FedEx, Paquetexpress u otra paqueteria con cobertura adecuada para la ruta. El plazo final depende del destino y de la operacion de la transportista.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":2,"fontSize":"xl"} -->
@@ -90,7 +89,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
-<p class="has-base-font-size">El chocolate es sensible al calor. Entre [[MESES DE CALOR]] los envios a destinos calurosos pueden llegar con el producto reblandecido o con una capa blanquecina en la superficie. Eso es manteca de cacao que se separo por el calor: no afecta a la inocuidad del producto ni a su composicion, y desaparece si lo guarda unas horas en un lugar fresco. Si prefiere no arriesgarse, escribanos antes de comprar y coordinamos el envio para un dia mas fresco.</p>
+<p class="has-base-font-size">El chocolate es sensible al calor. De marzo a octubre, y en cualquier ruta con temperatura elevada, puede llegar reblandecido o presentar una capa blanquecina por separacion de la manteca de cacao. El empaque esta preparado para un traslado normal, pero no funciona como refrigeracion. Si el estado del producto impide consumirlo, fotografielo al recibirlo y escribanos el mismo dia para revisar la reposicion o el reembolso conforme a estos terminos.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
@@ -103,11 +102,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <!-- wp:list -->
 <ul class="wp-block-list"><!-- wp:list-item -->
-<li>Si el paquete llega abierto o danado, tomele fotografias antes de abrirlo y escribanos el mismo dia a [[CORREO DE CONTACTO]].</li>
+<li>Si el paquete llega abierto o danado, tomele fotografias antes de abrirlo y escribanos el mismo dia a contacto@coremushroom.com.</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>Si la guia no registra movimiento durante [[DIAS SIN MOVIMIENTO]] dias habiles, avisenos y abrimos una investigacion con la paqueteria.</li>
+<li>Si la guia no registra movimiento durante 3 dias habiles, avisenos y abrimos una investigacion con la paqueteria.</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->

@@ -9,8 +9,8 @@
  *
  * BORRADOR SIN REVISION LEGAL. Es la pagina mas importante del sitio en materia de cumplimiento. Ningun cambio en ella deberia hacerse sin revision legal.
  *
- * Los datos entre dobles corchetes los completa el cliente antes de
- * mandar el texto a revision.
+ * Los datos operativos fueron incorporados el 9 de septiembre de 2026.
+ * Falta la revision de un abogado antes de retirar el aviso visible.
  */
 // Corta si el archivo se pide por URL. WordPress lo incluye durante init,
 // cuando ABSPATH ya existe, asi que al registrarse el patron no se corta.
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"fontSize":"sm"} -->
-<p class="has-sm-font-size">Este texto no ha sido revisado por un abogado. Antes de publicar la pagina hay que sustituir todo lo que aparece entre dobles corchetes por los datos reales, pasarlo a revision legal y borrar este bloque.</p>
+<p class="has-sm-font-size">Este texto incorpora los datos operativos actuales de la tienda, pero todavia debe revisarlo un abogado. El bloque se retirara cuando esa revision termine.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"textColor":"grafito","fontSize":"sm"} -->
-<p class="has-grafito-color has-text-color has-sm-font-size">Ultima actualizacion: [[FECHA DE PUBLICACION]]</p>
+<p class="has-grafito-color has-text-color has-sm-font-size">Ultima actualizacion: 9 de septiembre de 2026</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":2,"fontSize":"xl"} -->
@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
-<p class="has-base-font-size">Los productos que vende este sitio son alimentos y suplementos alimenticios elaborados a partir de hongos comestibles de las especies Cordyceps, Hericium y Trametes. Se presentan en formato de chocolate, tisana y capsula.</p>
+<p class="has-base-font-size">Los productos que vende este sitio son alimentos y suplementos alimenticios elaborados a partir de hongos comestibles de las especies Cordyceps, Hericium, Trametes y Ganoderma. Se presentan en formato de chocolate, tisana y capsula.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":2,"fontSize":"xl"} -->
@@ -66,7 +66,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
-<p class="has-base-font-size">No publicamos ni publicaremos afirmaciones sobre efectos, beneficios, indicaciones, dosis recomendadas ni resultados esperados. Si encuentra en este sitio un texto que contradiga lo anterior, le agradecemos que nos lo reporte a [[CORREO DE CONTACTO]] para corregirlo.</p>
+<p class="has-base-font-size">No publicamos ni publicaremos afirmaciones sobre efectos, beneficios, indicaciones, dosis recomendadas ni resultados esperados. Si encuentra en este sitio un texto que contradiga lo anterior, le agradecemos que nos lo reporte a contacto@coremushroom.com para corregirlo.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":2,"fontSize":"xl"} -->
@@ -98,6 +98,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
-<p class="has-base-font-size">Cada empaque lleva un codigo de lote. Ese mismo codigo aparece en la ficha del producto en este sitio, junto con su fecha de elaboracion. Si necesita informacion sobre un lote en particular, escriba a [[CORREO DE CONTACTO]] indicando el codigo.</p>
+<p class="has-base-font-size">Cada empaque lleva un codigo de lote. Ese mismo codigo aparece en la ficha del producto en este sitio, junto con su fecha de elaboracion. Si necesita informacion sobre un lote en particular, escriba a contacto@coremushroom.com indicando el codigo.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
