@@ -77,6 +77,17 @@ pip install tinycss2
 Si no puedes instalarlo, el validador de CSS sigue funcionando con una
 comprobación más débil y te lo dice en la salida.
 
+Para búsquedas rápidas y sesiones que sobreviven a una compactación de
+contexto, instala las herramientas locales del proyecto:
+
+```powershell
+.\tools\instalar-herramientas.ps1 -Indexar
+```
+
+La explicación y el uso diario están en
+[docs/herramientas-desarrollo.md](docs/herramientas-desarrollo.md). El índice
+`.tgrep/` es local y no se sube al repositorio.
+
 ---
 
 ## Verifica antes de subir. Siempre

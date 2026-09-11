@@ -12,6 +12,9 @@ La arquitectura aprobada para redirigir pagos de tarjeta y OXXO al checkout de
 la razón social CoreAdaptogenos está documentada en
 **[docs/pagos-coreadaptogenos.md](docs/pagos-coreadaptogenos.md)**.
 
+Las herramientas locales para continuar el desarrollo están en
+**[docs/herramientas-desarrollo.md](docs/herramientas-desarrollo.md)**.
+
 ---
 
 ## Requisitos

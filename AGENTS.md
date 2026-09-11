@@ -234,6 +234,14 @@ sabiendas, no un dominio pantalla.
 
 No hay build. La verificación es sintáctica y estructural.
 
+## Herramientas locales
+
+Context Mode y tgrep son herramientas de desarrollo, no dependencias del tema.
+Se instalan con `tools/instalar-herramientas.ps1`; su uso, versión fijada de
+tgrep y la ubicación del índice local están documentados en
+[`docs/herramientas-desarrollo.md`](docs/herramientas-desarrollo.md). El
+directorio `.tgrep/` nunca se confirma ni se despliega.
+
 ```bash
 # PHP: binario portátil en el scratchpad de la sesión, no está en el PATH
 find . -name "*.php" -print0 | xargs -0 -n1 php -l
