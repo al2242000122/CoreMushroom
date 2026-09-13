@@ -56,7 +56,8 @@ subdominio de desarrollo con la indexación bloqueada.
   El copy alrededor de esa línea se mantiene estrictamente sensorial: nada de
   efecto, beneficio ni resultado.
 - Envío gratis a partir de 900 pesos.
-- Pago activo: SPEI manual con comprobante. La opción de tarjeta permanece
+- Pago activo: SPEI manual con comprobante. Es el único método visible; pagos
+  con cheque y WooPayments están desactivados. La opción de tarjeta permanece
   oculta hasta integrar el plugin oficial de un procesador aprobado.
 - Tipografía: Fraunces para titulares, Figtree para texto. Autoalojadas.
 - La raíz del repositorio es la carpeta del tema hijo. Se despliega a
@@ -120,6 +121,9 @@ sabiendas, no un dominio pantalla.
 ### Hecho
 
 - Constancia de aceptación de términos, guardada en el pedido.
+- Casilla obligatoria e independiente de mayoría de edad, validada antes de
+  crear el pedido y guardada con fecha en sus metadatos. Cubre tanto el
+  checkout clásico como Checkout Blocks y llamadas directas a Store API.
 - Pasarela SPEI propia, en `inc/pago-spei.php`. Estado de pedido propio
   `wc-cm-spei`, "esperando comprobante", para poder filtrarlos en el panel.
   Instrucciones con banco, beneficiario, CLABE, monto exacto y referencia,
@@ -156,10 +160,8 @@ sabiendas, no un dominio pantalla.
 
 ### Lo que falta
 
-- Configurar la pasarela requiere que el cliente dé beneficiario, banco y
-  CLABE. Sin CLABE la pasarela no se ofrece en el checkout, a propósito.
-- Probar el flujo completo en el navegador: pedido, transferencia, subida y
-  confirmación.
+- Probar el tramo que sí crea datos: realizar un pedido de prueba, subir un
+  comprobante marcado SIN VALOR y confirmarlo desde el panel.
 
 ## Reglas del código PHP
 
@@ -292,21 +294,14 @@ Lo que se hizo, en `inc/rendimiento.php` y `inc/seo.php`:
 
 - `wp-embed` de WordPress: retirado, confirmado en el HTML servido.
 - `jquery-migrate`: retirado, conservando jQuery.
-- Descripción meta: **sigue ausente y no es culpa del código.** El sitio se
-  llama `core` y no tiene descripción corta configurada, así que no hay de
-  dónde sacar el texto. Un aviso en el panel lo explica. Se arregla en
-  Ajustes generales, no tocando el tema.
+- Descripción meta: presente después de configurar el nombre y la descripción
+  corta del sitio.
 
-### Hallazgo: el plugin Hostinger Reach
+### Hostinger Reach
 
-La portada carga un script desde `cdn-reach.hostinger.com`, más una hoja y un
-script propios. Son unos 18 kB en total, una resolución de dominio y una
-conexión a un servidor ajeno en cada visita.
-
-Viene preinstalado con el hosting y sirve para captar suscriptores por
-correo. Si no se usa, conviene desactivarlo: quita la única dependencia
-externa que tiene el sitio. Si se usa, ese servicio ve la dirección IP de
-cada visitante y eso hay que declararlo en el aviso de privacidad.
+Se desactivó el 12 de septiembre de 2026. Después de vaciar LiteSpeed se
+confirmó que la portada ya no carga `cdn-reach.hostinger.com` ni los activos
+del plugin.
 
 ### Estado de la caché
 
@@ -323,8 +318,8 @@ portada vacía produciría una medición engañosa.
    guardadas de WordPress. El aviso visible de borrador se conserva.
 2. **Completar el catálogo.** Hay un producto publicado y nueve borradores
    importados desde `imports/catalogo-borradores.csv`. Todos siguen sin precio,
-   inventario ni datos variables de producción. El producto existente también
-   necesita su ficha de lote y cambiar su título de “Cápsulas” a “Microdosis”.
+   inventario ni datos variables de producción. El producto existente ya se
+   llama “Cordyceps · Microdosis 30 cápsulas”, pero necesita su ficha de lote.
 3. **Probar el flujo completo de compra** con SPEI, carga de comprobante y
    confirmación desde el panel.
 
@@ -336,10 +331,9 @@ portada vacía produciría una medición engañosa.
 
 ### Configuración de WordPress
 
-6. Revisar cabecera y pie de las plantillas internas desde Blocksy.
-7. Traducir los títulos y slugs de Shop, Cart, Checkout y My account. El menú
-   principal ya muestra Inicio, Catálogo, Política de envíos y Mi cuenta, y
-   está asignado a escritorio y móvil.
+6. Definir una tarifa real para pedidos menores de $900. Hoy solo pueden
+   completar el checkout los pedidos que alcanzan el envío gratis.
+7. Revisar cabecera y pie de las plantillas internas desde Blocksy.
 
 El sitio ya usa Español de México, zona horaria de Ciudad de México, unidades
 métricas, descripción corta y reseñas solo para compradores verificados. El
@@ -353,11 +347,11 @@ papelera.
 
 ### Mejoras sugeridas, no bloqueantes
 
-- Las páginas de la tienda están en inglés: `/shop/`, `/cart/`, `/checkout/`
-  y `/my-account/`. Traducirlas ya no rompe nada, porque los enlaces de los
-  patterns se resuelven solos.
 - Sacar los comprobantes de la raíz web con la constante
   `COREMUSHROOM_DIR_COMPROBANTES` en `wp-config.php`.
+- Actualizar Blocksy 2.1.56 a 2.1.57 después de respaldar y revisar el sitio.
+- Borrar plugins y temas inactivos solo cuando se decida qué tema conservar
+  como respaldo.
 
 ## Hechos verificados contra el servidor
 
@@ -389,3 +383,13 @@ papelera.
   pendiente. WooCommerce muestra 10 productos: 1 publicado y 9 borradores.
 - El enlace histórico `/envios/` redirige de forma permanente a
   `/politica-de-envios/`. El pattern nuevo ya usa el destino correcto.
+- Verificación del 12 de septiembre de 2026: ventas y envíos limitados a
+  México; zona México con envío gratis desde $900; traducciones actualizadas;
+  páginas `/catalogo/`, `/carrito/`, `/finalizar-compra/` y `/mi-cuenta/`
+  activas; producto publicado renombrado y categorizado como Microdosis.
+- El mismo día se desactivaron Hostinger AI, Hostinger Easy Onboarding,
+  Hostinger Reach y WooPayments. Solo siguen activos WooCommerce, LiteSpeed
+  Cache y Hostinger Tools. Salud del sitio quedó sin problemas críticos.
+- Se verificó el recorrido hasta el checkout con dos unidades: total $900,
+  envío gratis y SPEI como único método. Crear el pedido y cargar el
+  comprobante siguen pendientes porque generan datos reales en producción.

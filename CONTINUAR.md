@@ -168,9 +168,23 @@ Las siete fases de desarrollo. En concreto:
 
 - Portada publicada y asignada.
 - Las cuatro páginas legales publicadas, todavía en borrador legal.
-- Un producto publicado: Cordyceps · Cápsulas 30.
+- Un producto publicado: Cordyceps · Microdosis 30 cápsulas, en la categoría
+  Microdosis y con su slug definitivo.
 - CLABE y beneficiario capturados en la pasarela SPEI.
 - LiteSpeed Cache instalado y activo.
+- Ventas y envíos limitados a México. La zona México ofrece envío terrestre
+  gratis desde $900; por debajo de ese monto no se ofrece una tarifa hasta
+  definir su costo real.
+- Las páginas de WooCommerce se llaman Catálogo, Carrito, Finalizar compra y
+  Mi cuenta, con slugs en español. Los textos de privacidad del checkout
+  también están en español.
+- El checkout muestra únicamente SPEI. Los pagos con cheque y WooPayments
+  están desactivados. La casilla obligatoria de mayoría de edad se valida por
+  separado de la aceptación de términos y ambas constancias quedan en el
+  pedido. La validación cubre el checkout clásico, Checkout Blocks y Store
+  API.
+- Solo siguen activos WooCommerce, LiteSpeed Cache y Hostinger Tools. Reach,
+  Hostinger AI y Easy Onboarding están desactivados.
 - La portada se puede abrir sin iniciar sesión. WooCommerce todavía intercepta
   la ficha del producto con su pantalla inglesa de próxima apertura.
 - Portada rediseñada con una paleta neutra, textos más cercanos y una
@@ -201,9 +215,7 @@ Las siete fases de desarrollo. En concreto:
 
 4. **Llenar la ficha de lote del producto que ya existe.** Se publicó sin
    ella, así que su tabla no aparece y su tarjeta no lleva badge de especie.
-   Eso es el comportamiento correcto con campos vacíos, no un error. También
-   falta cambiar su título de “Cordyceps · Cápsulas 30” a “Cordyceps ·
-   Microdosis 30 cápsulas” para que coincida con la línea acordada.
+   Eso es el comportamiento correcto con campos vacíos, no un error.
 
 5. **Conseguir fotografías y datos físicos de cada producto.** Sin precio,
    contenido real, ingredientes, alérgenos y lote, los borradores no deben
@@ -220,12 +232,13 @@ Las siete fases de desarrollo. En concreto:
 
 ### Configuración pendiente
 
-7. **Cabecera y pie de Blocksy.** La portada usa el pie propio del tema; falta
+7. **Definir una tarifa para pedidos menores de $900.** Hoy el checkout solo
+   permite continuar cuando aplica el envío gratis. No inventar una tarifa:
+   hace falta decidir costo, servicio y zonas remotas.
+8. **Cabecera y pie de Blocksy.** La portada usa el pie propio del tema; falta
    revisar las plantillas internas. Se hace desde el personalizador de Blocksy, que guarda en base
    de datos y no en este repositorio. Es una excepción consciente al criterio
    de tenerlo todo en código; está anotada en AGENTS.md.
-8. **Traducir los títulos y slugs de Shop, Cart, Checkout y My account.** El
-   menú ya muestra etiquetas en español y está asignado a cabecera y móvil.
 
 El nombre, la descripción corta, el idioma Español de México, la zona horaria
 de Ciudad de México, las unidades métricas, la página de privacidad y las
@@ -234,8 +247,10 @@ páginas inglesas antiguas ya están en la papelera.
 
 ### Probar en el navegador
 
-12. **Flujo completo de compra.** Pedido con SPEI, subida del comprobante,
-    verificación y confirmación desde el panel. Nunca se ha probado entero.
+12. **Completar el flujo de compra.** El 12 de septiembre de 2026 se verificó
+    hasta el checkout: producto, cantidad, total de $900, envío gratis, SPEI,
+    privacidad y términos. Falta crear un pedido de prueba, subir un
+    comprobante marcado SIN VALOR, verificarlo y confirmarlo desde el panel.
 
 13. **Revisar el modo de próxima apertura de WooCommerce.** El 9 de septiembre
     de 2026 la portada era pública, pero una visita sin sesión a la ficha del
@@ -246,10 +261,10 @@ páginas inglesas antiguas ya están en la papelera.
 
 - Sacar los comprobantes de la raíz web definiendo
   `COREMUSHROOM_DIR_COMPROBANTES` en `wp-config.php`.
-- Traducir los slugs de las páginas de tienda, hoy en inglés. Ya no rompe
-  nada: los enlaces de los patterns se resuelven solos.
-- Desactivar el plugin Hostinger Reach si no se usa. Es la única dependencia
-  externa del sitio y ve la IP de cada visitante.
+- Actualizar Blocksy 2.1.56 a 2.1.57 después de tomar un respaldo y revisar el
+  sitio. El tema hijo no modifica archivos del padre.
+- Borrar los plugins y temas inactivos solo después de decidir cuáles se
+  conservarán como respaldo. Desactivarlos ya retiró su código del sitio.
 
 ---
 
