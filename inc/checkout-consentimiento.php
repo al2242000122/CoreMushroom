@@ -29,6 +29,124 @@ const COREMUSHROOM_CONSENT_ACEPTADO = '_coremushroom_terminos_aceptados';
 const COREMUSHROOM_CONSENT_FECHA    = '_coremushroom_terminos_fecha';
 const COREMUSHROOM_CONSENT_PAGINA   = '_coremushroom_terminos_pagina';
 const COREMUSHROOM_CONSENT_VERSION  = '_coremushroom_terminos_version';
+const COREMUSHROOM_EDAD_ACEPTADA    = '_coremushroom_mayoria_edad';
+const COREMUSHROOM_EDAD_FECHA       = '_coremushroom_mayoria_edad_fecha';
+const COREMUSHROOM_EDAD_CAMPO_BLOQUES = 'coremushroom/mayor-edad';
+
+/**
+ * Lee un dato del checkout clasico, incluso durante su actualizacion AJAX.
+ *
+ * WooCommerce envia el formulario serializado dentro de post_data cuando
+ * recalcula totales. Leer solo la clave superior haria que la casilla se
+ * desmarcara visualmente en cada recalculo.
+ *
+ * @param string $clave Clave del campo.
+ * @return string
+ */
+function coremushroom_dato_checkout_clasico( $clave ) {
+	$valor = wc_get_post_data_by_key( $clave, '' );
+
+	if ( '' !== $valor ) {
+		return (string) $valor;
+	}
+
+	$serializado = wc_get_post_data_by_key( 'post_data', '' );
+
+	if ( ! is_string( $serializado ) || '' === $serializado || strlen( $serializado ) > 65536 ) {
+		return '';
+	}
+
+	$datos = array();
+	wp_parse_str( wp_unslash( $serializado ), $datos );
+
+	return isset( $datos[ $clave ] ) && is_scalar( $datos[ $clave ] )
+		? (string) $datos[ $clave ]
+		: '';
+}
+
+/**
+ * Dibuja la confirmacion obligatoria de mayoria de edad.
+ *
+ * Se mantiene separada de la casilla nativa de terminos porque acredita un
+ * hecho distinto. WooCommerce conserva el valor cuando recarga el checkout
+ * por un error en otro campo.
+ */
+function coremushroom_campo_mayoria_edad() {
+	woocommerce_form_field(
+		'coremushroom_mayor_edad',
+		array(
+			'type'     => 'checkbox',
+			'class'    => array( 'form-row', 'validate-required' ),
+			'required' => true,
+			'label'    => __( 'Confirmo que tengo 18 años o más.', 'coremushroom' ),
+		),
+		coremushroom_dato_checkout_clasico( 'coremushroom_mayor_edad' )
+	);
+}
+add_action( 'woocommerce_review_order_before_submit', 'coremushroom_campo_mayoria_edad', 5 );
+
+/**
+ * Impide crear el pedido si no se confirmo la mayoria de edad.
+ */
+function coremushroom_validar_mayoria_edad() {
+	if ( '1' === coremushroom_dato_checkout_clasico( 'coremushroom_mayor_edad' ) ) {
+		return;
+	}
+
+	wc_add_notice(
+		__( 'Confirma que tienes 18 años o más para completar el pedido.', 'coremushroom' ),
+		'error'
+	);
+}
+add_action( 'woocommerce_checkout_process', 'coremushroom_validar_mayoria_edad' );
+
+/**
+ * Registra la misma confirmacion para Checkout Blocks y Store API.
+ *
+ * Los ganchos del checkout clasico no se ejecutan en Store API. El campo
+ * oficial de WooCommerce aporta la validacion obligatoria en servidor y
+ * guarda el valor en el pedido cuando se use el checkout por bloques.
+ */
+function coremushroom_registrar_mayoria_edad_bloques() {
+	if ( ! function_exists( 'woocommerce_register_additional_checkout_field' ) ) {
+		return;
+	}
+
+	woocommerce_register_additional_checkout_field(
+		array(
+			'id'            => COREMUSHROOM_EDAD_CAMPO_BLOQUES,
+			'label'         => __( 'Confirmo que tengo 18 años o más.', 'coremushroom' ),
+			'location'      => 'order',
+			'type'          => 'checkbox',
+			'required'      => true,
+			'error_message' => __( 'Confirma que tienes 18 años o más para completar el pedido.', 'coremushroom' ),
+		)
+	);
+}
+add_action( 'woocommerce_init', 'coremushroom_registrar_mayoria_edad_bloques' );
+
+/**
+ * Copia el valor gestionado por Store API a las claves de auditoria propias.
+ *
+ * @param string      $clave  Identificador del campo adicional.
+ * @param mixed       $valor  Valor ya validado por WooCommerce.
+ * @param string      $grupo  Grupo de almacenamiento de WooCommerce.
+ * @param WC_Data     $objeto Pedido o cliente que recibe el dato.
+ */
+function coremushroom_guardar_mayoria_edad_bloques( $clave, $valor, $grupo, $objeto ) {
+	if (
+		COREMUSHROOM_EDAD_CAMPO_BLOQUES !== $clave ||
+		'other' !== $grupo ||
+		! $objeto instanceof WC_Order ||
+		! in_array( $valor, array( true, 1, '1', 'yes' ), true )
+	) {
+		return;
+	}
+
+	$objeto->update_meta_data( COREMUSHROOM_EDAD_ACEPTADA, 'si' );
+	$objeto->update_meta_data( COREMUSHROOM_EDAD_FECHA, current_time( 'mysql' ) );
+}
+add_action( 'woocommerce_set_additional_field_value', 'coremushroom_guardar_mayoria_edad_bloques', 10, 4 );
 
 /**
  * Avisa en el panel si la pagina de terminos no esta configurada.
@@ -78,6 +196,11 @@ function coremushroom_guardar_consentimiento( $pedido, $datos ) {
 		return;
 	}
 
+	if ( '1' === coremushroom_dato_checkout_clasico( 'coremushroom_mayor_edad' ) ) {
+		$pedido->update_meta_data( COREMUSHROOM_EDAD_ACEPTADA, 'si' );
+		$pedido->update_meta_data( COREMUSHROOM_EDAD_FECHA, current_time( 'mysql' ) );
+	}
+
 	$pagina_id = (int) wc_terms_and_conditions_page_id();
 
 	if ( ! $pagina_id ) {
@@ -121,6 +244,14 @@ function coremushroom_mostrar_consentimiento( $pedido ) {
 	}
 
 	echo '<h4>' . esc_html__( 'Aceptación de términos', 'coremushroom' ) . '</h4>';
+
+	if ( 'si' === $pedido->get_meta( COREMUSHROOM_EDAD_ACEPTADA ) ) {
+		printf(
+			'<p><strong>%1$s</strong> %2$s</p>',
+			esc_html__( 'Mayoría de edad confirmada:', 'coremushroom' ),
+			esc_html( $pedido->get_meta( COREMUSHROOM_EDAD_FECHA ) )
+		);
+	}
 
 	if ( 'si' !== $aceptado ) {
 		printf(

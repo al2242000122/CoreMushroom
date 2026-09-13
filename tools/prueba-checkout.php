@@ -12,6 +12,9 @@ $TEMA = $argv[1] ?? '.';
 $GLOBALS['terminos_id'] = 0;
 $GLOBALS['cap']         = true;
 $GLOBALS['paginas']     = [];
+$GLOBALS['post_data']   = [];
+$GLOBALS['avisos']      = [];
+$GLOBALS['campos_checkout'] = [];
 
 function add_action($h, $f, $p = 10, $a = 1) { $GLOBALS['ganchos'][$h][] = $f; }
 function add_filter($h, $f, $p = 10, $a = 1) { $GLOBALS['ganchos'][$h][] = $f; }
@@ -23,6 +26,24 @@ function get_post($id) { return isset($GLOBALS['paginas'][$id]) ? (object) ['ID'
 function get_permalink($id) { return 'https://ejemplo.test/terminos/'; }
 function get_the_title($id) { return $GLOBALS['paginas'][$id]['titulo'] ?? ''; }
 function admin_url($r = '') { return 'https://ejemplo.test/wp-admin/' . $r; }
+function wc_get_post_data_by_key($k, $d = '') { return $GLOBALS['post_data'][$k] ?? $d; }
+function wc_add_notice($m, $t = 'success') { $GLOBALS['avisos'][] = ['mensaje' => $m, 'tipo' => $t]; }
+function wp_unslash($v) { return $v; }
+function wp_parse_str($s, &$r) { parse_str($s, $r); }
+function woocommerce_register_additional_checkout_field($args) {
+    $GLOBALS['campos_checkout'][] = $args;
+    return true;
+}
+function woocommerce_form_field($k, $args, $value = null) {
+    printf(
+        '<p class="%s"><label><input type="checkbox" name="%s" value="1"%s> %s%s</label></p>',
+        htmlspecialchars(implode(' ', $args['class'] ?? []), ENT_QUOTES, 'UTF-8'),
+        htmlspecialchars($k, ENT_QUOTES, 'UTF-8'),
+        '1' === (string) $value ? ' checked' : '',
+        htmlspecialchars($args['label'] ?? '', ENT_QUOTES, 'UTF-8'),
+        !empty($args['required']) ? ' *' : ''
+    );
+}
 function __($t, $d = '') { return $t; }
 function esc_html__($t, $d = '') { return htmlspecialchars($t, ENT_QUOTES, 'UTF-8'); }
 function esc_html($t) { return htmlspecialchars((string) $t, ENT_QUOTES, 'UTF-8'); }
@@ -47,7 +68,72 @@ function af($cond, $msg) {
     if ($cond) { echo "OK    $msg\n"; } else { echo "FALLA $msg\n"; $fallos++; }
 }
 
+echo "--- Mayoria de edad obligatoria ---\n";
+af(function_exists('coremushroom_campo_mayoria_edad'), 'registra el campo de mayoria de edad');
+af(function_exists('coremushroom_validar_mayoria_edad'), 'registra la validacion de mayoria de edad');
+
+if (function_exists('coremushroom_campo_mayoria_edad')) {
+    $GLOBALS['post_data'] = [];
+    ob_start(); coremushroom_campo_mayoria_edad(); $campoEdad = ob_get_clean();
+    af(str_contains($campoEdad, 'name="coremushroom_mayor_edad"'), 'la casilla usa una clave propia');
+    af(str_contains($campoEdad, '18 años'), 'la casilla explica la edad minima');
+    af(str_contains($campoEdad, '*'), 'la casilla se presenta como obligatoria');
+
+    $GLOBALS['post_data'] = [
+        'post_data' => 'billing_first_name=Ada&coremushroom_mayor_edad=1',
+    ];
+    ob_start(); coremushroom_campo_mayoria_edad(); $campoAjax = ob_get_clean();
+    af(str_contains($campoAjax, ' checked'),
+       'conserva la casilla durante una actualizacion AJAX del checkout clasico');
+}
+
+if (function_exists('coremushroom_validar_mayoria_edad')) {
+    $GLOBALS['post_data'] = [];
+    $GLOBALS['avisos'] = [];
+    coremushroom_validar_mayoria_edad();
+    af(count($GLOBALS['avisos']) === 1 && $GLOBALS['avisos'][0]['tipo'] === 'error',
+       'detiene el checkout si falta la confirmacion de edad');
+
+    $GLOBALS['post_data'] = ['coremushroom_mayor_edad' => '1'];
+    $GLOBALS['avisos'] = [];
+    coremushroom_validar_mayoria_edad();
+    af($GLOBALS['avisos'] === [], 'acepta la confirmacion marcada');
+}
+
+echo "--- Checkout Blocks y Store API ---\n";
+af(function_exists('coremushroom_registrar_mayoria_edad_bloques'),
+   'registra la confirmacion para Checkout Blocks');
+af(function_exists('coremushroom_guardar_mayoria_edad_bloques'),
+   'sincroniza la constancia creada por Store API');
+
+if (function_exists('coremushroom_registrar_mayoria_edad_bloques')) {
+    $GLOBALS['campos_checkout'] = [];
+    coremushroom_registrar_mayoria_edad_bloques();
+    $campoBloques = $GLOBALS['campos_checkout'][0] ?? [];
+    af(($campoBloques['id'] ?? '') === 'coremushroom/mayor-edad',
+       'usa un identificador con espacio de nombres');
+    af(($campoBloques['location'] ?? '') === 'order',
+       'guarda la confirmacion solo en el pedido');
+    af(($campoBloques['type'] ?? '') === 'checkbox' && !empty($campoBloques['required']),
+       'Store API exige que la casilla este marcada');
+}
+
+if (function_exists('coremushroom_guardar_mayoria_edad_bloques')) {
+    $pedidoBloques = new WC_Order();
+    coremushroom_guardar_mayoria_edad_bloques(
+        'coremushroom/mayor-edad',
+        true,
+        'other',
+        $pedidoBloques
+    );
+    af($pedidoBloques->get_meta(COREMUSHROOM_EDAD_ACEPTADA) === 'si',
+       'Store API guarda la confirmacion en la clave de auditoria');
+    af($pedidoBloques->get_meta(COREMUSHROOM_EDAD_FECHA) === '2026-09-05 12:00:00',
+       'Store API guarda la fecha de confirmacion');
+}
+
 echo "--- Con pagina de terminos configurada ---\n";
+$GLOBALS['post_data'] = ['coremushroom_mayor_edad' => '1'];
 $GLOBALS['terminos_id'] = 42;
 $GLOBALS['paginas'][42] = ['mod' => '2026-08-20 09:30:00', 'titulo' => 'Terminos de uso'];
 
@@ -58,6 +144,12 @@ af($pedido->get_meta(COREMUSHROOM_CONSENT_FECHA) === '2026-09-05 12:00:00', 'gua
 af((int) $pedido->get_meta(COREMUSHROOM_CONSENT_PAGINA) === 42, 'guarda que pagina se acepto');
 af($pedido->get_meta(COREMUSHROOM_CONSENT_VERSION) === '2026-08-20 09:30:00',
    'guarda la version del texto, no solo que se acepto');
+af(defined('COREMUSHROOM_EDAD_ACEPTADA'), 'define la clave de confirmacion de edad');
+af(defined('COREMUSHROOM_EDAD_FECHA'), 'define la fecha de confirmacion de edad');
+if (defined('COREMUSHROOM_EDAD_ACEPTADA') && defined('COREMUSHROOM_EDAD_FECHA')) {
+    af($pedido->get_meta(COREMUSHROOM_EDAD_ACEPTADA) === 'si', 'guarda la confirmacion de mayoria de edad');
+    af($pedido->get_meta(COREMUSHROOM_EDAD_FECHA) === '2026-09-05 12:00:00', 'guarda cuando se confirmo la edad');
+}
 
 echo "\n--- Sin pagina de terminos ---\n";
 $GLOBALS['terminos_id'] = 0;
@@ -79,6 +171,7 @@ $pedido3 = new WC_Order();
 coremushroom_guardar_consentimiento($pedido3, []);
 ob_start(); coremushroom_mostrar_consentimiento($pedido3); $html = ob_get_clean();
 af(str_contains($html, 'Aceptación de términos'), 'imprime el encabezado');
+af(str_contains($html, 'Mayoría de edad confirmada'), 'muestra la confirmacion de edad en el pedido');
 af(str_contains($html, '2026-09-05 12:00:00'), 'muestra la fecha');
 af(str_contains($html, '2026-08-20 09:30:00'), 'muestra la version del texto');
 af(str_contains($html, 'href="https://ejemplo.test/terminos/"'), 'enlaza la pagina aceptada');
