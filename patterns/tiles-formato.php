@@ -53,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:group {"backgroundColor":"trametes","textColor":"tinta","style":{"border":{"radius":"20px"},"spacing":{"padding":{"top":"var:preset|spacing|55","bottom":"var:preset|spacing|55","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group has-tinta-color has-trametes-background-color has-text-color has-background" style="border-radius:20px;padding-top:var(--wp--preset--spacing--55);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--55);padding-left:var(--wp--preset--spacing--50)"><!-- wp:heading {"level":3,"fontSize":"xl"} -->
-<h3 class="wp-block-heading has-xl-font-size">Cápsulas</h3>
+<h3 class="wp-block-heading has-xl-font-size">Microdosis</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"sm"} -->

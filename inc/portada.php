@@ -25,6 +25,22 @@ function coremushroom_actualizar_portada_publicada( $contenido ) {
 		return $contenido;
 	}
 
+	$paginas_tienda = array(
+		'shop'      => '/catalogo/',
+		'cart'      => '/carrito/',
+		'myaccount' => '/mi-cuenta/',
+	);
+
+	$urls_tienda = array();
+
+	foreach ( $paginas_tienda as $pagina => $respaldo ) {
+		$url = function_exists( 'wc_get_page_permalink' )
+			? wc_get_page_permalink( $pagina )
+			: '';
+
+		$urls_tienda[ $pagina ] = $url ? $url : home_url( $respaldo );
+	}
+
 	$reemplazos = array(
 		'Envio gratis en pedidos desde 900 pesos' => 'Envío gratis en pedidos desde $900',
 		'HONGOS FUNCIONALES'                     => 'HONGOS PARA TODOS LOS DÍAS',
@@ -35,7 +51,8 @@ function coremushroom_actualizar_portada_publicada( $contenido ) {
 		'>Como enviamos<'                        => '>Cómo enviamos<',
 		'Cacao 70% con extracto. En barra y en pieza individual.' => 'Cacao 70% con extractos de hongos, en barras para disfrutar y compartir.',
 		'Hebra suelta y en sobre. Para preparar en caliente.' => 'Una pausa cálida, en hebras sueltas o en sobres.',
-		'>Capsula<'                              => '>Cápsulas<',
+		'>Capsula<'                              => '>Microdosis<',
+		'>Cápsulas<'                             => '>Microdosis<',
 		'Extracto en capsula vegetal. Frasco de 60 y de 120.' => 'Un formato práctico y sencillo para acompañar tu rutina.',
 		'Envio a todo Mexico'                    => 'Envíos a todo México',
 		'Paqueteria con guia rastreable. Envio gratis desde 900 pesos.' => 'Paquetería con guía rastreable. Envío gratis desde $900.',
@@ -46,6 +63,12 @@ function coremushroom_actualizar_portada_publicada( $contenido ) {
 		'Derivados de Cordyceps, Hericium y Trametes. Chocolate, tisana y capsula.' => 'Chocolate, tisanas y cápsulas con Cordyceps, Hericium, Trametes y Ganoderma.',
 		'href="/envios"'                        => 'href="' . esc_url( home_url( '/politica-de-envios/' ) ) . '"',
 		'href="/uso-previsto"'                  => 'href="' . esc_url( home_url( '/declaracion-de-uso-previsto/' ) ) . '"',
+		'href="' . home_url( '/shop/' ) . '"'   => 'href="' . esc_url( $urls_tienda['shop'] ) . '"',
+		'href="' . home_url( '/cart/' ) . '"'   => 'href="' . esc_url( $urls_tienda['cart'] ) . '"',
+		'href="' . home_url( '/my-account/' ) . '"' => 'href="' . esc_url( $urls_tienda['myaccount'] ) . '"',
+		'href="/shop/"'                        => 'href="' . esc_url( $urls_tienda['shop'] ) . '"',
+		'href="/cart/"'                        => 'href="' . esc_url( $urls_tienda['cart'] ) . '"',
+		'href="/my-account/"'                  => 'href="' . esc_url( $urls_tienda['myaccount'] ) . '"',
 	);
 
 	return strtr( (string) $contenido, $reemplazos );
