@@ -221,20 +221,30 @@ Las siete fases de desarrollo. En concreto:
    contenido real, ingredientes, alérgenos y lote, los borradores no deben
    publicarse.
 
-6. **Definir el checkout de CoreAdaptogenos para tarjeta y OXXO.** Falta la URL
-   definitiva, saber qué plataforma usa y confirmar qué pasarela aprobó el
-   catálogo real. CoreMushroom conservará el pedido y redirigirá mediante una
+6. **Conectar el checkout de CoreAdaptogenos para tarjeta y OXXO.** El dueño
+   confirmó WordPress/WooCommerce y eligió Stripe el 15 de septiembre de 2026.
+   Faltan dominio definitivo, conexión de Stripe y aprobación del catálogo real.
+   Se usará la extensión oficial de Stripe y el checkout nativo de WooCommerce.
+   CoreMushroom conservará el pedido y redirigirá mediante una
    sesión opaca; el monto se recuperará de servidor a servidor y el pago solo
    se confirmará con webhook firmado. El cliente verá antes de salir que
    CoreAdaptogenos es la razón social cobradora.
    La metodología acordada está en
    [docs/pagos-coreadaptogenos.md](docs/pagos-coreadaptogenos.md).
 
-   Al revisar el repositorio local de CoreAdaptogenos el 15 de septiembre,
-   solo hay un prototipo React/Vite cuyo pago en línea es una simulación si
-   no se conecta WooCommerce. No usar esa ruta para pedidos reales ni mostrar
-   tarjeta en CoreMushroom hasta que el receptor, la pasarela y las pruebas
-   completas existan.
+   El 15 de septiembre se añadió al repositorio local de CoreAdaptogenos
+   una ruta receptora de sesión opaca que falla cerrada y una matriz de pruebas
+   de URL, importe, vigencia e identidad. Su checkout general sigue pudiendo
+   ser una simulación y aún no existe el backend de sesiones ni la pasarela
+   aprobada. No mostrar tarjeta en CoreMushroom hasta integrar y probar ambos
+   servidores y el cobro real.
+
+   Se confirmó acceso al WordPress receptor y se instaló y activó la extensión
+   oficial WooCommerce Stripe Gateway 11.0.0. La pantalla ofrece conectar una
+   cuenta de pruebas; el dueño debe completar el acceso y las condiciones de
+   Stripe. No hay cuenta conectada ni webhooks de pruebas verificados todavía.
+   El receptor React está guardado en la rama
+   `codex/coremushroom-payment-receiver` del otro repo; no está desplegado.
 
 ### Configuración pendiente
 

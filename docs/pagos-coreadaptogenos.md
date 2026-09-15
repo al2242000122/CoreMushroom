@@ -1,8 +1,21 @@
 # Metodología de pagos entre CoreMushroom y CoreAdaptogenos
 
 Estado: decisión arquitectónica aprobada; integración de tarjeta y OXXO aún no
-implementada. El repositorio local de CoreAdaptogenos es un prototipo
-React/Vite con pago en línea demostrativo; no es un receptor de cobros reales.
+activa. El repositorio local de CoreAdaptogenos tiene una pantalla receptora
+de sesión opaca (`/pago/coremushroom/:session`) que falla cerrada y permanece
+inactiva sin backend y pasarela. El checkout normal del prototipo React/Vite
+puede ser una simulación; no es un receptor de cobros reales.
+
+Actualización del 15 de septiembre de 2026: el dueño confirma WordPress y
+WooCommerce como backend receptor y elige Stripe. CoreAdaptogenos aún no tiene
+dominio definitivo. La cuenta y la aprobación del catálogo no se han verificado.
+La implementación prevista usa la extensión oficial de Stripe para WooCommerce
+y su checkout nativo; el puente propio transportará los pedidos y conciliará
+sus estados. No se desarrollará un formulario propio para capturar tarjetas.
+Se confirmó el panel del WordPress temporal receptor y WooCommerce activo.
+La extensión oficial WooCommerce Stripe Gateway 11.0.0 se instaló y activó;
+la conexión de la cuenta y el modo de pruebas siguen pendientes. Activar el
+plugin no significa que el puente ni los cobros estén habilitados.
 
 ## Propósito
 
@@ -147,8 +160,8 @@ nunca mostrará “pagado” basándose únicamente en la redirección.
 ## Datos pendientes antes de implementar
 
 1. Dominio y URL final del checkout de CoreAdaptogenos.
-2. Plataforma y versión de WordPress/WooCommerce, si aplica.
-3. Pasarela aprobada y métodos habilitados en su contrato.
+2. Verificar compatibilidad de versiones del WordPress/WooCommerce receptor.
+3. Cuenta Stripe aprobada y métodos habilitados en su contrato; OXXO por verificar.
 4. Descriptor que verá el tarjetahabiente.
 5. Credenciales de pruebas y llave pública para verificar webhooks.
 6. Política final de expiración para referencias OXXO.
@@ -175,3 +188,8 @@ directamente en este tema.
 5. Se verifican las rutas de error, rechazo, referencia OXXO pendiente y
    reembolso contra la pasarela y ambos pedidos antes de exponer tarjeta u
    OXXO al público.
+
+El contrato público que consumirá esa pantalla está documentado en
+`CoreAdaptogenos/docs/coremushroom-payment-bridge.md`. El frontend no recibe
+datos de tarjeta ni confirma pagos; la sesión, su firma y el webhook pertenecen
+a los dos backends aún pendientes.
