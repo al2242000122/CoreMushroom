@@ -349,7 +349,6 @@ papelera.
 
 - Sacar los comprobantes de la raíz web con la constante
   `COREMUSHROOM_DIR_COMPROBANTES` en `wp-config.php`.
-- Actualizar Blocksy 2.1.56 a 2.1.57 después de respaldar y revisar el sitio.
 - Borrar plugins y temas inactivos solo cuando se decida qué tema conservar
   como respaldo.
 
@@ -360,7 +359,7 @@ papelera.
   `domains/core.bancodeesporas.com/`. El campo Directory del despliegue por
   Git lleva el prefijo `core/`. Es relativo al `public_html` de la cuenta,
   que es compartida entre el dominio principal y el subdominio.
-- Blocksy 2.1.56. Su handle de estilos es `ct-main-styles` y usa las
+- Blocksy 2.1.57 (actualizado el 12 de septiembre de 2026). Su handle de estilos es `ct-main-styles` y usa las
   variables `--theme-palette-color-1` a `-8`, `--theme-font-family`,
   `--theme-text-color` y `--theme-normal-container-max-width`.
 - Blocksy declara su paleta en un bloque en línea con id
@@ -393,3 +392,8 @@ papelera.
 - Se verificó el recorrido hasta el checkout con dos unidades: total $900,
   envío gratis y SPEI como único método. Crear el pedido y cargar el
   comprobante siguen pendientes porque generan datos reales en producción.
+- Blocksy se actualizó de 2.1.56 a 2.1.57 y se comprobaron portada, catálogo,
+  carrito, checkout, cuenta y ficha de producto después de la actualización.
+- La portada publicada corrige al renderizar sus enlaces históricos de tienda
+  a `/catalogo/`, `/carrito/` y `/mi-cuenta/`, y muestra Microdosis como nombre
+  de la línea de cápsulas.

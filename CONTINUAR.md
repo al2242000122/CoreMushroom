@@ -37,7 +37,7 @@ tal cual a `wp-content/themes/coremushroom`.
 | Sitio de desarrollo | `core.bancodeesporas.com` |
 | Repositorio público | `github.com/al2242000122/CoreMushroom` |
 | Hosting | Hostinger, LiteSpeed, PHP 8.3 |
-| Tema padre | Blocksy 2.1.56, no se toca nunca |
+| Tema padre | Blocksy 2.1.57; sus archivos no se editan |
 | Tienda | WooCommerce |
 
 El dominio definitivo todavía no se compra. El sitio vive en un subdominio con
@@ -230,6 +230,12 @@ Las siete fases de desarrollo. En concreto:
    La metodología acordada está en
    [docs/pagos-coreadaptogenos.md](docs/pagos-coreadaptogenos.md).
 
+   Al revisar el repositorio local de CoreAdaptogenos el 15 de septiembre,
+   solo hay un prototipo React/Vite cuyo pago en línea es una simulación si
+   no se conecta WooCommerce. No usar esa ruta para pedidos reales ni mostrar
+   tarjeta en CoreMushroom hasta que el receptor, la pasarela y las pruebas
+   completas existan.
+
 ### Configuración pendiente
 
 7. **Definir una tarifa para pedidos menores de $900.** Hoy el checkout solo
@@ -261,8 +267,6 @@ páginas inglesas antiguas ya están en la papelera.
 
 - Sacar los comprobantes de la raíz web definiendo
   `COREMUSHROOM_DIR_COMPROBANTES` en `wp-config.php`.
-- Actualizar Blocksy 2.1.56 a 2.1.57 después de tomar un respaldo y revisar el
-  sitio. El tema hijo no modifica archivos del padre.
 - Borrar los plugins y temas inactivos solo después de decidir cuáles se
   conservarán como respaldo. Desactivarlos ya retiró su código del sitio.
 

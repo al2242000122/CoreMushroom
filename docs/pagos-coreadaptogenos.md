@@ -1,7 +1,8 @@
 # Metodología de pagos entre CoreMushroom y CoreAdaptogenos
 
 Estado: decisión arquitectónica aprobada; integración de tarjeta y OXXO aún no
-implementada.
+implementada. El repositorio local de CoreAdaptogenos es un prototipo
+React/Vite con pago en línea demostrativo; no es un receptor de cobros reales.
 
 ## Propósito
 
@@ -156,3 +157,21 @@ nunca mostrará “pagado” basándose únicamente en la redirección.
 Hasta tener esos datos y completar pruebas en sandbox, la opción de tarjeta de
 CoreMushroom permanece oculta. No se escribirá una pasarela que capture tarjeta
 directamente en este tema.
+
+## Criterios de activación del puente
+
+1. CoreAdaptogenos ofrece un endpoint HTTPS autenticado que recibe un
+   identificador opaco, recupera pedido y monto de CoreMushroom de servidor a
+   servidor y devuelve la URL creada por la pasarela oficial. El checkout
+   identifica de forma visible al cobrador y el descriptor bancario.
+2. El adquirente confirma por escrito que conoce ambas marcas, el dominio de
+   origen y el catálogo real. El método aprobado se prueba en sandbox.
+3. La notificación al pedido de origen exige firma válida, vigencia, nonce
+   irrepetible, coincidencia de pedido, importe en centavos, MXN y entorno.
+   Reintentar el evento no duplica el cobro ni cambia dos veces el pedido.
+4. En caso de caída del receptor, el pedido queda pendiente y ofrece volver a
+   SPEI; ninguna pantalla lo anuncia como pagado. El retorno del navegador no
+   marca el pedido como pagado.
+5. Se verifican las rutas de error, rechazo, referencia OXXO pendiente y
+   reembolso contra la pasarela y ambos pedidos antes de exponer tarjeta u
+   OXXO al público.
