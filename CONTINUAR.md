@@ -120,6 +120,9 @@ php tools/prueba-lote.php .
 # Cobro por SPEI
 php tools/prueba-spei.php .
 
+# Puente firmado de tarjeta hacia CoreAdaptogenos
+php tools/prueba-pago-coreadaptogenos.php .
+
 # Subida y acceso al comprobante
 php tools/prueba-comprobante.php .
 
@@ -221,7 +224,7 @@ Las siete fases de desarrollo. En concreto:
    contenido real, ingredientes, alérgenos y lote, los borradores no deben
    publicarse.
 
-6. **Conectar el checkout de CoreAdaptogenos para tarjeta y OXXO.** El dueño
+6. **Activar y probar el checkout de CoreAdaptogenos para tarjeta.** El dueño
    confirmó WordPress/WooCommerce y eligió Stripe el 15 de septiembre de 2026.
    El dominio definitivo `coreadaptogenos.app` se registró en Name.com y se
    conectó al WordPress receptor de Hostinger el 16 de septiembre. Name.com
@@ -236,15 +239,15 @@ Las siete fases de desarrollo. En concreto:
    La metodología acordada está en
    [docs/pagos-coreadaptogenos.md](docs/pagos-coreadaptogenos.md).
 
-   El 15 de septiembre se añadió al repositorio local de CoreAdaptogenos
-   una ruta receptora de sesión opaca que falla cerrada y una matriz de pruebas
-   de URL, importe, vigencia e identidad. Su checkout general sigue pudiendo
-   ser una simulación y aún no existe el backend de sesiones ni la pasarela
-   aprobada. No mostrar tarjeta en CoreMushroom hasta integrar y probar ambos
-   servidores y el cobro real.
+   El puente servidor ya existe en ambos repositorios. CoreMushroom emite una
+   sesión firmada y recibe el callback; el plugin de CoreAdaptogenos crea un
+   pedido espejo transparente y abre el `order-pay` oficial de WooCommerce con
+   Stripe como única pasarela. Falta instalarlo, guardar el secreto compartido,
+   conectar Stripe sandbox y probar el recorrido completo. No mostrar tarjeta
+   al público antes de que todo eso pase. OXXO queda para una fase posterior.
 
-   Se confirmó acceso al WordPress receptor en `coreadaptogenos.app` y se
-   instaló y activó la extensión
+   Se confirmó acceso al WordPress receptor mediante el host temporal de
+   Hostinger y se instaló y activó la extensión
    oficial WooCommerce Stripe Gateway 11.0.0. La pantalla ofrece conectar una
    cuenta de pruebas; el dueño debe completar el acceso y las condiciones de
    Stripe. No hay cuenta conectada ni webhooks de pruebas verificados todavía.

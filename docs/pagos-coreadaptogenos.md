@@ -1,10 +1,11 @@
 # Metodología de pagos entre CoreMushroom y CoreAdaptogenos
 
-Estado: decisión arquitectónica aprobada; integración de tarjeta y OXXO aún no
-activa. El repositorio local de CoreAdaptogenos tiene una pantalla receptora
-de sesión opaca (`/pago/coremushroom/:session`) que falla cerrada y permanece
-inactiva sin backend y pasarela. El checkout normal del prototipo React/Vite
-puede ser una simulación; no es un receptor de cobros reales.
+Estado: el puente de tarjeta está implementado en ambos repositorios y falla
+cerrado. CoreMushroom contiene la pasarela emisora y el callback firmado;
+CoreAdaptogenos contiene el plugin receptor que crea un pedido WooCommerce
+espejo y entrega su URL nativa `order-pay`. Todavía no está activo porque
+faltan DNS/SSL, instalar el plugin receptor, guardar el secreto compartido y
+conectar Stripe en pruebas. OXXO queda fuera de esta primera versión.
 
 Actualización del 15 de septiembre de 2026: el dueño confirma WordPress y
 WooCommerce como backend receptor y elige Stripe. Su dominio definitivo es
@@ -45,12 +46,10 @@ sequenceDiagram
 
     C->>M: Confirma carrito y datos de envío
     M->>M: Crea pedido pendiente
-    M->>A: Crea sesión con un identificador opaco
-    A->>M: Solicita los datos mediante llamada autenticada
-    M-->>A: Devuelve pedido, monto, moneda y vigencia
-    A->>A: Valida los datos y la sesión
-    A->>P: Crea checkout con API oficial
-    A-->>M: Devuelve URL opaca de checkout
+    M->>A: Envía sesión y pedido mediante POST firmado
+    A->>A: Valida firma, nonce, total y catálogo
+    A->>A: Crea pedido espejo de solo pago
+    A-->>M: Devuelve URL order-pay firmada
     M-->>C: Informa quién cobrará y redirige
     C->>P: Paga con tarjeta u obtiene referencia OXXO
     P->>A: Webhook firmado
@@ -64,6 +63,12 @@ El regreso del navegador no confirma un pago. Los parámetros de una URL los
 puede modificar el cliente. La única confirmación válida llega por webhook
 firmado, se contrasta con la API de la pasarela cuando corresponda y después se
 notifica de servidor a servidor a CoreMushroom.
+
+Cada pedido conserva una sesión estable y un único pedido espejo. La sesión
+vence en una hora y queda ligada al entorno de Stripe (test o live). Los
+callbacks de pago, reembolso y reversión usan un identificador de evento
+atómico; una respuesta 200 que no confirme los identificadores exactos no
+detiene los reintentos.
 
 ## Responsabilidad de cada sistema
 
@@ -192,7 +197,7 @@ directamente en este tema.
    reembolso contra la pasarela y ambos pedidos antes de exponer tarjeta u
    OXXO al público.
 
-El contrato público que consumirá esa pantalla está documentado en
+El contrato está documentado también en
 `CoreAdaptogenos/docs/coremushroom-payment-bridge.md`. El frontend no recibe
-datos de tarjeta ni confirma pagos; la sesión, su firma y el webhook pertenecen
-a los dos backends aún pendientes.
+datos de tarjeta ni confirma pagos. La primera versión redirige directamente
+al `order-pay` de WooCommerce; la pantalla React queda como mejora posterior.

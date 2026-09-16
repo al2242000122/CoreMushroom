@@ -74,9 +74,10 @@ que depende de datos, contenido, revisión legal y configuración de WordPress.
 - **SPEI manual con comprobante** es el método principal. Comisión cero. El
   cliente transfiere, sube su comprobante, el dueño verifica y el pedido
   avanza. Es lo que permite vender sin depender de ninguna aprobación.
-- **Tarjeta**: Stripe, elegido el 15 de septiembre de 2026. Usar su extensión
-  oficial para WooCommerce en CoreAdaptogenos. La elección no implica aprobación
-  de la cuenta ni del catálogo; ambas marcas y los productos reales se declaran.
+- **Tarjeta**: Stripe mediante su extensión oficial en el WooCommerce de
+  CoreAdaptogenos. El puente propio usa HMAC, nonce, total exacto en centavos,
+  pedido espejo transparente y callback servidor a servidor. Permanece oculto
+  hasta completar SSL, secreto compartido y una compra íntegra en sandbox.
 - **Backend receptor**: WordPress/WooCommerce confirmado por el dueño. El repo
   de CoreAdaptogenos contiene el frontend React y su conexión Store API, no el
   plugin servidor del puente. El dominio definitivo es
@@ -105,12 +106,15 @@ La metodología completa y su contrato de seguridad están en
   marca pagado después de validar un webhook firmado y comprobar del lado del
   servidor el identificador, importe, moneda y estado. Cada evento debe ser
   idempotente para tolerar reintentos.
+- La sesión de tarjeta es estable por pedido, vence en una hora y queda ligada
+  al entorno real de Stripe (test o live). Pago, reembolso y reversión se
+  concilian mediante eventos firmados con deduplicación atómica.
 - La entrada de tarjeta sigue oculta hasta que Stripe apruebe la cuenta y el
   catálogo real, existan credenciales de pruebas y se verifiquen el puente y
   los webhooks sobre `https://coreadaptogenos.app`.
-- El repo local de CoreAdaptogenos ya tiene una ruta receptora de sesión opaca
-  `/pago/coremushroom/:session` que falla cerrada; no tiene todavía backend
-  de sesiones ni checkout aprobado para estos pedidos. Ver el contrato en
+- El repo local de CoreAdaptogenos contiene el plugin receptor WooCommerce que
+  crea el pedido espejo y restringe su checkout a Stripe. Permanece cerrado
+  hasta instalarlo, compartir el secreto y completar las pruebas. Ver el contrato en
   `CoreAdaptogenos/docs/coremushroom-payment-bridge.md`.
 
 ### Petición rechazada y por qué
@@ -142,9 +146,10 @@ sabiendas, no un dominio pantalla.
   tanto en la página de gracias como en el correo, incluida versión de texto
   plano. La CLABE se valida con su dígito verificador antes de guardarse: una
   CLABE mal capturada manda el dinero de los clientes a otra cuenta.
-- Hueco de tarjeta registrado pero con `is_available()` en false siempre. No
-  se le muestra al cliente un método que no cobra. El día que haya cuenta con
-  un procesador se sustituye por su plugin oficial y esta entrada se retira.
+- Pasarela de tarjeta implementada en `inc/pago-coreadaptogenos.php`. Falla
+  cerrada: solo aparece con MXN, endpoint HTTPS exacto, secreto de al menos 32
+  caracteres y activación explícita. Stripe captura la tarjeta únicamente en
+  CoreAdaptogenos; ningún código del tema recibe números de tarjeta.
 
 - Subida del comprobante y verificación desde el panel, en
   `inc/comprobante.php`.

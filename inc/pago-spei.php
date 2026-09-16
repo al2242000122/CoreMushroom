@@ -113,7 +113,6 @@ function coremushroom_registrar_pasarelas( $pasarelas ) {
 	}
 
 	$pasarelas[] = 'CoreMushroom_Gateway_SPEI';
-	$pasarelas[] = 'CoreMushroom_Gateway_Tarjeta';
 
 	return $pasarelas;
 }
@@ -325,62 +324,6 @@ function coremushroom_definir_pasarelas() {
 		}
 	}
 
-	/**
-	 * Tarjeta, registrada pero sin integrar.
-	 *
-	 * Existe para que el dia que haya credenciales de un procesador se
-	 * encienda con un interruptor, sin tocar el checkout. Nace desactivada y
-	 * ademas is_available() devuelve false pase lo que pase, para que no
-	 * pueda aparecerle a un cliente por accidente un metodo que no cobra.
-	 */
-	class CoreMushroom_Gateway_Tarjeta extends WC_Payment_Gateway {
-
-		/**
-		 * Constructor.
-		 */
-		public function __construct() {
-			$this->id                 = 'coremushroom_tarjeta';
-			$this->has_fields         = false;
-			$this->method_title       = __( 'Tarjeta (sin integrar)', 'coremushroom' );
-			$this->method_description = __(
-				'Hueco reservado. No cobra nada y no se muestra en el checkout. Cuando haya cuenta con Conekta, Stripe u otro procesador, se sustituye por su plugin oficial y esta entrada se retira.',
-				'coremushroom'
-			);
-
-			$this->init_form_fields();
-			$this->init_settings();
-
-			add_action(
-				'woocommerce_update_options_payment_gateways_' . $this->id,
-				array( $this, 'process_admin_options' )
-			);
-		}
-
-		/**
-		 * Campos de configuracion.
-		 */
-		public function init_form_fields() {
-			$this->form_fields = array(
-				'aviso' => array(
-					'title'       => __( 'Estado', 'coremushroom' ),
-					'type'        => 'title',
-					'description' => __(
-						'Sin integrar. El cliente no ve esta opción en el checkout. Mostrar un método de pago que no cobra hace que la gente abandone el carrito, así que permanece oculta hasta que exista una integración real.',
-						'coremushroom'
-					),
-				),
-			);
-		}
-
-		/**
-		 * Nunca disponible mientras no exista integracion.
-		 *
-		 * @return bool
-		 */
-		public function is_available() {
-			return false;
-		}
-	}
 }
 
 

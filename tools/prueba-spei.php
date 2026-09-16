@@ -155,18 +155,13 @@ if (true) {
 
 $g2 = coremushroom_registrar_pasarelas([]);
 af(class_exists('CoreMushroom_Gateway_SPEI'), 'con la clase padre, la pasarela SPEI queda declarada');
-af(class_exists('CoreMushroom_Gateway_Tarjeta'), 'y tambien el hueco de tarjeta');
 af(in_array('CoreMushroom_Gateway_SPEI', $g2, true), 'WooCommerce recibe la pasarela SPEI');
-af(in_array('CoreMushroom_Gateway_Tarjeta', $g2, true), 'WooCommerce recibe el hueco de tarjeta');
 
 $g3 = coremushroom_registrar_pasarelas([]);
-af(count($g3) === 2, 'llamarlo dos veces no duplica ni vuelve a declarar');
+af(count($g3) === 1, 'llamarlo dos veces no vuelve a declarar la clase');
 
 $spei = new CoreMushroom_Gateway_SPEI();
 af($spei->id === 'coremushroom_spei', 'la pasarela SPEI se puede instanciar');
 af($spei->method_title === 'Transferencia SPEI', 'su nombre en el panel es Transferencia SPEI');
-$tarjeta = new CoreMushroom_Gateway_Tarjeta();
-af($tarjeta->is_available() === false, 'el hueco de tarjeta nunca esta disponible');
-
 echo "\n" . (0 === $fallos ? 'TODO OK' : "$fallos FALLOS") . "\n";
 exit(0 === $fallos ? 0 : 1);
