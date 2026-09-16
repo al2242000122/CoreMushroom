@@ -102,18 +102,20 @@ detiene los reintentos.
 
 ## Contrato mínimo de una sesión
 
-La URL solo contiene un identificador aleatorio de al menos 128 bits. Los datos
-reales se intercambian por HTTPS entre servidores.
+La URL solo contiene el identificador opaco de la sesión. La sesión se deriva
+de forma estable para un pedido y los datos reales se intercambian por HTTPS
+entre servidores.
 
 | Campo | Regla |
 |---|---|
-| `session_id` | Aleatorio, de un solo uso y sin datos del cliente |
-| `origin_order_id` | Referencia interna; no autoriza por sí sola |
+| `session` | Hexadecimal opaco estable por pedido y sin datos del cliente |
+| `source_order_id` | Referencia interna; no autoriza por sí sola |
 | `amount_minor` | Entero en centavos, calculado por CoreMushroom |
 | `currency` | `MXN` y comparación exacta en ambos extremos |
-| `method` | `card` u `oxxo`, dentro de una lista cerrada |
-| `expires_at` | Vigencia corta; propuesta inicial de 15 minutos |
-| `idempotency_key` | Impide crear o aplicar dos veces el mismo cobro |
+| `method` | `card`, dentro de una lista cerrada |
+| `environment` | `test` o `live`, comparado con Stripe real |
+| `expires_at` | Una hora desde la primera apertura |
+| `event_id` | Impide aplicar dos veces pago, reembolso o reversión |
 | `return_url` | Lista permitida; nunca aceptada desde un parámetro libre |
 
 Las solicitudes entre ambos sitios llevan marca de tiempo, nonce y firma HMAC,
@@ -127,9 +129,7 @@ se guardan en variables de entorno o `wp-config.php`, nunca en Git.
 | Sesión creada | Pendiente de pago |
 | Tarjeta aprobada y verificada | Procesando |
 | Tarjeta rechazada o sesión vencida | Pendiente de pago o fallido |
-| Referencia OXXO emitida | En espera |
-| OXXO pagado y verificado | Procesando |
-| OXXO vencido | Cancelado según la política vigente |
+| Pago tardío o reversión | Conciliación manual; no se autoriza el envío automáticamente |
 | Reembolso confirmado | Reembolsado |
 
 Una transición repetida debe producir el mismo resultado sin duplicar notas,
