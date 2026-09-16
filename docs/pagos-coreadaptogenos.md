@@ -7,8 +7,10 @@ inactiva sin backend y pasarela. El checkout normal del prototipo React/Vite
 puede ser una simulación; no es un receptor de cobros reales.
 
 Actualización del 15 de septiembre de 2026: el dueño confirma WordPress y
-WooCommerce como backend receptor y elige Stripe. CoreAdaptogenos aún no tiene
-dominio definitivo. La cuenta y la aprobación del catálogo no se han verificado.
+WooCommerce como backend receptor y elige Stripe. Su dominio definitivo es
+`https://coreadaptogenos.app`; se registró en Name.com y se conectó al WordPress
+de Hostinger el 16 de septiembre de 2026. La propagación DNS y el SSL pueden
+tardar hasta 24 horas. La cuenta y la aprobación del catálogo no se han verificado.
 La implementación prevista usa la extensión oficial de Stripe para WooCommerce
 y su checkout nativo; el puente propio transportará los pedidos y conciliará
 sus estados. No se desarrollará un formulario propio para capturar tarjetas.
@@ -159,7 +161,8 @@ nunca mostrará “pagado” basándose únicamente en la redirección.
 
 ## Datos pendientes antes de implementar
 
-1. Dominio y URL final del checkout de CoreAdaptogenos.
+1. URL final del checkout sobre `https://coreadaptogenos.app`, una vez que DNS
+   y SSL estén activos.
 2. Verificar compatibilidad de versiones del WordPress/WooCommerce receptor.
 3. Cuenta Stripe aprobada y métodos habilitados en su contrato; OXXO por verificar.
 4. Descriptor que verá el tarjetahabiente.

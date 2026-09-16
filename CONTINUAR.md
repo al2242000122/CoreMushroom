@@ -223,7 +223,11 @@ Las siete fases de desarrollo. En concreto:
 
 6. **Conectar el checkout de CoreAdaptogenos para tarjeta y OXXO.** El dueño
    confirmó WordPress/WooCommerce y eligió Stripe el 15 de septiembre de 2026.
-   Faltan dominio definitivo, conexión de Stripe y aprobación del catálogo real.
+   El dominio definitivo `coreadaptogenos.app` se registró en Name.com y se
+   conectó al WordPress receptor de Hostinger el 16 de septiembre. Name.com
+   conserva como únicos nameservers `aurora.dns-parking.com` y
+   `nebula.dns-parking.com`; la propagación y emisión de SSL pueden tardar
+   hasta 24 horas. Faltan conexión de Stripe y aprobación del catálogo real.
    Se usará la extensión oficial de Stripe y el checkout nativo de WooCommerce.
    CoreMushroom conservará el pedido y redirigirá mediante una
    sesión opaca; el monto se recuperará de servidor a servidor y el pago solo
@@ -239,7 +243,8 @@ Las siete fases de desarrollo. En concreto:
    aprobada. No mostrar tarjeta en CoreMushroom hasta integrar y probar ambos
    servidores y el cobro real.
 
-   Se confirmó acceso al WordPress receptor y se instaló y activó la extensión
+   Se confirmó acceso al WordPress receptor en `coreadaptogenos.app` y se
+   instaló y activó la extensión
    oficial WooCommerce Stripe Gateway 11.0.0. La pantalla ofrece conectar una
    cuenta de pruebas; el dueño debe completar el acceso y las condiciones de
    Stripe. No hay cuenta conectada ni webhooks de pruebas verificados todavía.

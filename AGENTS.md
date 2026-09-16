@@ -79,7 +79,11 @@ que depende de datos, contenido, revisión legal y configuración de WordPress.
   de la cuenta ni del catálogo; ambas marcas y los productos reales se declaran.
 - **Backend receptor**: WordPress/WooCommerce confirmado por el dueño. El repo
   de CoreAdaptogenos contiene el frontend React y su conexión Store API, no el
-  plugin servidor del puente. El dominio definitivo sigue pendiente.
+  plugin servidor del puente. El dominio definitivo es
+  `https://coreadaptogenos.app`; se registró en Name.com y se conectó al
+  WordPress receptor de Hostinger el 16 de septiembre de 2026. Sus nameservers
+  son `aurora.dns-parking.com` y `nebula.dns-parking.com`. DNS y SSL pueden
+  tardar hasta 24 horas en quedar disponibles después del cambio.
 
 ### Arquitectura prevista para tarjeta y OXXO
 
@@ -101,8 +105,9 @@ La metodología completa y su contrato de seguridad están en
   marca pagado después de validar un webhook firmado y comprobar del lado del
   servidor el identificador, importe, moneda y estado. Cada evento debe ser
   idempotente para tolerar reintentos.
-- La entrada de tarjeta sigue oculta hasta conocer el dominio, la plataforma,
-  la pasarela aprobada y las credenciales de pruebas de CoreAdaptogenos.
+- La entrada de tarjeta sigue oculta hasta que Stripe apruebe la cuenta y el
+  catálogo real, existan credenciales de pruebas y se verifiquen el puente y
+  los webhooks sobre `https://coreadaptogenos.app`.
 - El repo local de CoreAdaptogenos ya tiene una ruta receptora de sesión opaca
   `/pago/coremushroom/:session` que falla cerrada; no tiene todavía backend
   de sesiones ni checkout aprobado para estos pedidos. Ver el contrato en
