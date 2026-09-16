@@ -3,9 +3,10 @@
 Estado: el puente de tarjeta está implementado en ambos repositorios y falla
 cerrado. CoreMushroom contiene la pasarela emisora y el callback firmado;
 CoreAdaptogenos contiene el plugin receptor que crea un pedido WooCommerce
-espejo y entrega su URL nativa `order-pay`. Todavía no está activo porque
-faltan DNS/SSL, instalar el plugin receptor, guardar el secreto compartido y
-conectar Stripe en pruebas. OXXO queda fuera de esta primera versión.
+espejo y entrega su URL nativa `order-pay`. El plugin receptor está instalado y
+activo en el WordPress temporal, y el secreto compartido ya está guardado en
+ambos paneles. Todavía faltan DNS/SSL, conectar Stripe en pruebas y verificar
+el recorrido completo. OXXO queda fuera de esta primera versión.
 
 Actualización del 15 de septiembre de 2026: el dueño confirma WordPress y
 WooCommerce como backend receptor y elige Stripe. Su dominio definitivo es
@@ -19,6 +20,13 @@ Se confirmó el panel del WordPress temporal receptor y WooCommerce activo.
 La extensión oficial WooCommerce Stripe Gateway 11.0.0 se instaló y activó;
 la conexión de la cuenta y el modo de pruebas siguen pendientes. Activar el
 plugin no significa que el puente ni los cobros estén habilitados.
+
+Actualización del 16 de septiembre de 2026: el plugin propio se instaló y
+activó en el receptor temporal. El endpoint acepta únicamente sesiones firmadas
+desde `https://core.bancodeesporas.com`. CoreMushroom conserva el mismo secreto,
+el receptor final `https://coreadaptogenos.app` y el entorno `test`, pero la
+pasarela permanece desactivada hasta verificar el dominio, SSL, Stripe y los
+webhooks.
 
 ## Propósito
 
@@ -166,8 +174,13 @@ nunca mostrará “pagado” basándose únicamente en la redirección.
 
 ## Datos pendientes antes de implementar
 
-1. URL final del checkout sobre `https://coreadaptogenos.app`, una vez que DNS
-   y SSL estén activos.
+1. DNS y SSL de `https://coreadaptogenos.app`. Name.com todavía publica como
+   nameservers `aurora.dns-parking.com` y `nebula.dns-parking.com`, pero una
+   consulta pública no encuentra registro A. La guía de Hostinger indica `A @`
+   hacia `46.202.199.0` y `CNAME www` hacia `coreadaptogenos.app`, ambos con
+   TTL 300. El editor DNS de Hostinger devolvió “Dominio no encontrado”; hay
+   que completar los registros en el proveedor DNS que quede como autoridad,
+   sin mezclar ambos paneles.
 2. Verificar compatibilidad de versiones del WordPress/WooCommerce receptor.
 3. Cuenta Stripe aprobada y métodos habilitados en su contrato; OXXO por verificar.
 4. Descriptor que verá el tarjetahabiente.

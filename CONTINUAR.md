@@ -34,15 +34,17 @@ tal cual a `wp-content/themes/coremushroom`.
 
 | Dato | Valor |
 |---|---|
-| Sitio de desarrollo | `core.bancodeesporas.com` |
+| Sitio escaparate | `core.bancodeesporas.com` |
+| Sitio receptor de pagos | `coreadaptogenos.app` (DNS aún pendiente) |
 | Repositorio público | `github.com/al2242000122/CoreMushroom` |
 | Hosting | Hostinger, LiteSpeed, PHP 8.3 |
 | Tema padre | Blocksy 2.1.57; sus archivos no se editan |
 | Tienda | WooCommerce |
 
-El dominio definitivo todavía no se compra. El sitio vive en un subdominio con
-la indexación bloqueada a propósito. **No quites esa casilla** hasta que el
-sitio esté en su dominio real.
+El dominio receptor `coreadaptogenos.app` ya está registrado en Name.com, pero
+todavía no tiene un registro A público. CoreMushroom vive en
+`core.bancodeesporas.com` y conserva la indexación bloqueada mientras se termina
+la conexión del cobrador.
 
 ---
 
@@ -175,6 +177,16 @@ Las siete fases de desarrollo. En concreto:
   Microdosis y con su slug definitivo.
 - CLABE y beneficiario capturados en la pasarela SPEI.
 - LiteSpeed Cache instalado y activo.
+- La tienda dejó el modo “Próximamente” y ya es pública. El checkout muestra
+  únicamente SPEI, términos y mayoría de edad.
+- El plugin receptor propio de CoreAdaptogenos está instalado y activo en el
+  WordPress temporal. Su endpoint está habilitado, con origen permitido en
+  `https://core.bancodeesporas.com`.
+- El mismo secreto compartido quedó guardado en ambos paneles. Nunca se escribe
+  en Git ni se muestra en esta memoria.
+- La pasarela “Tarjeta mediante CoreAdaptógenos” conserva el receptor
+  `https://coreadaptogenos.app`, entorno de pruebas y el secreto compartido,
+  pero permanece desactivada para el público.
 - Ventas y envíos limitados a México. La zona México ofrece envío terrestre
   gratis desde $900; por debajo de ese monto no se ofrece una tarifa hasta
   definir su costo real.
@@ -224,7 +236,7 @@ Las siete fases de desarrollo. En concreto:
    contenido real, ingredientes, alérgenos y lote, los borradores no deben
    publicarse.
 
-6. **Activar y probar el checkout de CoreAdaptogenos para tarjeta.** El dueño
+6. **Conectar DNS/SSL y probar el checkout de CoreAdaptogenos para tarjeta.** El dueño
    confirmó WordPress/WooCommerce y eligió Stripe el 15 de septiembre de 2026.
    El dominio definitivo `coreadaptogenos.app` se registró en Name.com y se
    conectó al WordPress receptor de Hostinger el 16 de septiembre. Name.com
@@ -242,12 +254,13 @@ Las siete fases de desarrollo. En concreto:
    El puente servidor ya existe en ambos repositorios. CoreMushroom emite una
    sesión firmada y recibe el callback; el plugin de CoreAdaptogenos crea un
    pedido espejo transparente y abre el `order-pay` oficial de WooCommerce con
-   Stripe como única pasarela. Falta instalarlo, guardar el secreto compartido,
-   conectar Stripe sandbox y probar el recorrido completo. No mostrar tarjeta
-   al público antes de que todo eso pase. OXXO queda para una fase posterior.
+   Stripe como única pasarela. El plugin y el secreto ya están configurados.
+   Falta DNS/SSL, conectar Stripe sandbox y probar el recorrido completo. No
+   mostrar tarjeta al público antes de que todo eso pase. OXXO queda para una
+   fase posterior.
 
    Se confirmó acceso al WordPress receptor mediante el host temporal de
-   Hostinger y se instaló y activó la extensión
+   Hostinger y se instalaron y activaron el plugin propio y la extensión
    oficial WooCommerce Stripe Gateway 11.0.0. La pantalla ofrece conectar una
    cuenta de pruebas; el dueño debe completar el acceso y las condiciones de
    Stripe. No hay cuenta conectada ni webhooks de pruebas verificados todavía.
@@ -276,10 +289,9 @@ páginas inglesas antiguas ya están en la papelera.
     privacidad y términos. Falta crear un pedido de prueba, subir un
     comprobante marcado SIN VALOR, verificarlo y confirmarlo desde el panel.
 
-13. **Revisar el modo de próxima apertura de WooCommerce.** El 9 de septiembre
-    de 2026 la portada era pública, pero una visita sin sesión a la ficha del
-    producto todavía mostraba el mensaje inglés "Great things are on the
-    horizon". No abrir el catálogo hasta terminar los datos legales y de lote.
+13. **Revisar la ficha pública del producto.** La tienda ya está publicada;
+    comprobar la ficha, los datos de lote y el recorrido de SPEI después de
+    cargar el catálogo real.
 
 ### Mejoras que no bloquean
 

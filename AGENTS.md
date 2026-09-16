@@ -85,6 +85,11 @@ que depende de datos, contenido, revisión legal y configuración de WordPress.
   WordPress receptor de Hostinger el 16 de septiembre de 2026. Sus nameservers
   son `aurora.dns-parking.com` y `nebula.dns-parking.com`. DNS y SSL pueden
   tardar hasta 24 horas en quedar disponibles después del cambio.
+  Al verificar el 16 de septiembre, el dominio todavía no devolvía registro A;
+  la guía de Hostinger indicó `46.202.199.0` para `@` y
+  `coreadaptogenos.app` para `www`. El editor DNS de Hostinger rechazó el alta
+  con “Dominio no encontrado”; no asumir que el dominio está operativo hasta
+  que una consulta pública confirme A y HTTPS.
 
 ### Arquitectura prevista para tarjeta y OXXO
 
@@ -113,9 +118,15 @@ La metodología completa y su contrato de seguridad están en
   catálogo real, existan credenciales de pruebas y se verifiquen el puente y
   los webhooks sobre `https://coreadaptogenos.app`.
 - El repo local de CoreAdaptogenos contiene el plugin receptor WooCommerce que
-  crea el pedido espejo y restringe su checkout a Stripe. Permanece cerrado
-  hasta instalarlo, compartir el secreto y completar las pruebas. Ver el contrato en
-  `CoreAdaptogenos/docs/coremushroom-payment-bridge.md`.
+  crea el pedido espejo y restringe su checkout a Stripe. El plugin ya está
+  instalado en el WordPress temporal y el endpoint está habilitado; la tarjeta
+  pública sigue cerrada hasta completar DNS, SSL, Stripe y las pruebas. Ver el
+  contrato en `CoreAdaptogenos/docs/coremushroom-payment-bridge.md`.
+
+- El 16 de septiembre de 2026 el plugin receptor se instaló y activó en el
+  WordPress temporal. El endpoint está habilitado y el mismo secreto está
+  guardado en ambos paneles; la pasarela emisora de CoreMushroom sigue
+  desactivada hasta terminar DNS/SSL y Stripe.
 
 ### Petición rechazada y por qué
 
@@ -179,6 +190,8 @@ sabiendas, no un dominio pantalla.
 
 - Probar el tramo que sí crea datos: realizar un pedido de prueba, subir un
   comprobante marcado SIN VALOR y confirmarlo desde el panel.
+- Terminar DNS/SSL de `coreadaptogenos.app` y conectar Stripe en pruebas antes
+  de mostrar tarjeta al público.
 
 ## Reglas del código PHP
 
