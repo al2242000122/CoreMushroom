@@ -79,17 +79,14 @@ que depende de datos, contenido, revisión legal y configuración de WordPress.
   pedido espejo transparente y callback servidor a servidor. Permanece oculto
   hasta completar SSL, secreto compartido y una compra íntegra en sandbox.
 - **Backend receptor**: WordPress/WooCommerce confirmado por el dueño. El repo
-  de CoreAdaptogenos contiene el frontend React y su conexión Store API, no el
-  plugin servidor del puente. El dominio definitivo es
+  de CoreAdaptogenos contiene tanto el frontend React como el plugin receptor
+  WooCommerce. El dominio definitivo es
   `https://coreadaptogenos.app`; se registró en Name.com y se conectó al
   WordPress receptor de Hostinger el 16 de septiembre de 2026. Sus nameservers
-  son `aurora.dns-parking.com` y `nebula.dns-parking.com`. DNS y SSL pueden
-  tardar hasta 24 horas en quedar disponibles después del cambio.
-  Al verificar el 16 de septiembre, el dominio todavía no devolvía registro A;
-  la guía de Hostinger indicó `46.202.199.0` para `@` y
-  `coreadaptogenos.app` para `www`. El editor DNS de Hostinger rechazó el alta
-  con “Dominio no encontrado”; no asumir que el dominio está operativo hasta
-  que una consulta pública confirme A y HTTPS.
+  son `aurora.dns-parking.com` y `nebula.dns-parking.com`. El 16 de septiembre
+  aún no había registro A; el 19 de septiembre ya resolvía y servía WordPress
+  con HTTPS válido. La ruta REST del plugin receptor existe y rechaza POST sin
+  firma con 401. El siguiente paso es conectar Stripe y probar el flujo.
 
 ### Arquitectura prevista para tarjeta y OXXO
 
@@ -120,13 +117,13 @@ La metodología completa y su contrato de seguridad están en
 - El repo local de CoreAdaptogenos contiene el plugin receptor WooCommerce que
   crea el pedido espejo y restringe su checkout a Stripe. El plugin ya está
   instalado en el WordPress temporal y el endpoint está habilitado; la tarjeta
-  pública sigue cerrada hasta completar DNS, SSL, Stripe y las pruebas. Ver el
+  pública sigue cerrada hasta completar Stripe y las pruebas. Ver el
   contrato en `CoreAdaptogenos/docs/coremushroom-payment-bridge.md`.
 
 - El 16 de septiembre de 2026 el plugin receptor se instaló y activó en el
   WordPress temporal. El endpoint está habilitado y el mismo secreto está
   guardado en ambos paneles; la pasarela emisora de CoreMushroom sigue
-  desactivada hasta terminar DNS/SSL y Stripe.
+  desactivada hasta conectar Stripe y verificar el flujo.
 
 ### Petición rechazada y por qué
 
@@ -190,8 +187,8 @@ sabiendas, no un dominio pantalla.
 
 - Probar el tramo que sí crea datos: realizar un pedido de prueba, subir un
   comprobante marcado SIN VALOR y confirmarlo desde el panel.
-- Terminar DNS/SSL de `coreadaptogenos.app` y conectar Stripe en pruebas antes
-  de mostrar tarjeta al público.
+- Conectar Stripe en pruebas y comprobar pago, rechazo, reembolso y callback
+  entre ambos WordPress antes de mostrar tarjeta al público.
 
 ## Reglas del código PHP
 

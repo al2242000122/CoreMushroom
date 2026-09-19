@@ -5,7 +5,8 @@ cerrado. CoreMushroom contiene la pasarela emisora y el callback firmado;
 CoreAdaptogenos contiene el plugin receptor que crea un pedido WooCommerce
 espejo y entrega su URL nativa `order-pay`. El plugin receptor está instalado y
 activo en el WordPress temporal, y el secreto compartido ya está guardado en
-ambos paneles. Todavía faltan DNS/SSL, conectar Stripe en pruebas y verificar
+ambos paneles. El dominio final ya funciona por HTTPS. Todavía falta conectar
+Stripe en pruebas y verificar
 el recorrido completo. OXXO queda fuera de esta primera versión.
 
 Actualización del 15 de septiembre de 2026: el dueño confirma WordPress y
@@ -25,8 +26,14 @@ Actualización del 16 de septiembre de 2026: el plugin propio se instaló y
 activó en el receptor temporal. El endpoint acepta únicamente sesiones firmadas
 desde `https://core.bancodeesporas.com`. CoreMushroom conserva el mismo secreto,
 el receptor final `https://coreadaptogenos.app` y el entorno `test`, pero la
-pasarela permanece desactivada hasta verificar el dominio, SSL, Stripe y los
+pasarela permanece desactivada hasta verificar Stripe y los
 webhooks.
+
+Actualización del 19 de septiembre de 2026: el dominio final responde 200 por
+HTTPS tanto en la raíz como en `www`. La raíz REST declara la ruta del puente y
+un POST sin firma devuelve 401; no se ha enviado una sesión firmada de prueba.
+El panel de WordPress final solicita iniciar sesión de nuevo. No asumir que
+Stripe esté conectado hasta revisar su pantalla y ejecutar el flujo sandbox.
 
 ## Propósito
 
@@ -174,13 +181,10 @@ nunca mostrará “pagado” basándose únicamente en la redirección.
 
 ## Datos pendientes antes de implementar
 
-1. DNS y SSL de `https://coreadaptogenos.app`. Name.com todavía publica como
-   nameservers `aurora.dns-parking.com` y `nebula.dns-parking.com`, pero una
-   consulta pública no encuentra registro A. La guía de Hostinger indica `A @`
-   hacia `46.202.199.0` y `CNAME www` hacia `coreadaptogenos.app`, ambos con
-   TTL 300. El editor DNS de Hostinger devolvió “Dominio no encontrado”; hay
-   que completar los registros en el proveedor DNS que quede como autoridad,
-   sin mezclar ambos paneles.
+1. DNS y SSL de `https://coreadaptogenos.app`: completados y comprobados el
+   19 de septiembre. El DNS autoritativo sigue en `aurora.dns-parking.com` y
+   `nebula.dns-parking.com` y devuelve los A de Hostinger. No cambiar los
+   nameservers por la guía anterior, que quedó superada por la propagación.
 2. Verificar compatibilidad de versiones del WordPress/WooCommerce receptor.
 3. Cuenta Stripe aprobada y métodos habilitados en su contrato; OXXO por verificar.
 4. Descriptor que verá el tarjetahabiente.

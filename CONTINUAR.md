@@ -35,16 +35,16 @@ tal cual a `wp-content/themes/coremushroom`.
 | Dato | Valor |
 |---|---|
 | Sitio escaparate | `core.bancodeesporas.com` |
-| Sitio receptor de pagos | `coreadaptogenos.app` (DNS aún pendiente) |
+| Sitio receptor de pagos | `coreadaptogenos.app` (HTTPS activo) |
 | Repositorio público | `github.com/al2242000122/CoreMushroom` |
 | Hosting | Hostinger, LiteSpeed, PHP 8.3 |
 | Tema padre | Blocksy 2.1.57; sus archivos no se editan |
 | Tienda | WooCommerce |
 
-El dominio receptor `coreadaptogenos.app` ya está registrado en Name.com, pero
-todavía no tiene un registro A público. CoreMushroom vive en
-`core.bancodeesporas.com` y conserva la indexación bloqueada mientras se termina
-la conexión del cobrador.
+El dominio receptor `coreadaptogenos.app` está registrado en Name.com y ya
+resuelve al WordPress de Hostinger por HTTPS. CoreMushroom vive en
+`core.bancodeesporas.com` y conserva la indexación bloqueada mientras se
+terminan catálogo, revisión legal y cobro con tarjeta.
 
 ---
 
@@ -236,13 +236,14 @@ Las siete fases de desarrollo. En concreto:
    contenido real, ingredientes, alérgenos y lote, los borradores no deben
    publicarse.
 
-6. **Conectar DNS/SSL y probar el checkout de CoreAdaptogenos para tarjeta.** El dueño
+6. **Conectar Stripe y probar el checkout de CoreAdaptogenos para tarjeta.** El dueño
    confirmó WordPress/WooCommerce y eligió Stripe el 15 de septiembre de 2026.
    El dominio definitivo `coreadaptogenos.app` se registró en Name.com y se
    conectó al WordPress receptor de Hostinger el 16 de septiembre. Name.com
    conserva como únicos nameservers `aurora.dns-parking.com` y
-   `nebula.dns-parking.com`; la propagación y emisión de SSL pueden tardar
-   hasta 24 horas. Faltan conexión de Stripe y aprobación del catálogo real.
+   `nebula.dns-parking.com`. El 19 de septiembre se comprobaron registros A,
+   HTTPS 200 en raíz y www, WordPress en la raíz y la ruta REST del puente.
+   Faltan conexión de Stripe y aprobación del catálogo real.
    Se usará la extensión oficial de Stripe y el checkout nativo de WooCommerce.
    CoreMushroom conservará el pedido y redirigirá mediante una
    sesión opaca; el monto se recuperará de servidor a servidor y el pago solo
@@ -255,7 +256,7 @@ Las siete fases de desarrollo. En concreto:
    sesión firmada y recibe el callback; el plugin de CoreAdaptogenos crea un
    pedido espejo transparente y abre el `order-pay` oficial de WooCommerce con
    Stripe como única pasarela. El plugin y el secreto ya están configurados.
-   Falta DNS/SSL, conectar Stripe sandbox y probar el recorrido completo. No
+   Falta conectar Stripe sandbox y probar el recorrido completo. No
    mostrar tarjeta al público antes de que todo eso pase. OXXO queda para una
    fase posterior.
 
@@ -264,6 +265,8 @@ Las siete fases de desarrollo. En concreto:
    oficial WooCommerce Stripe Gateway 11.0.0. La pantalla ofrece conectar una
    cuenta de pruebas; el dueño debe completar el acceso y las condiciones de
    Stripe. No hay cuenta conectada ni webhooks de pruebas verificados todavía.
+   El panel en el dominio definitivo pide iniciar sesión de nuevo; el dueño
+   debe hacerlo directamente en `https://coreadaptogenos.app/wp-admin/`.
    El receptor React está guardado en la rama
    `codex/coremushroom-payment-receiver` del otro repo; no está desplegado.
 
