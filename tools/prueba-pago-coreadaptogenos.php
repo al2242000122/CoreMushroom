@@ -29,6 +29,8 @@ function absint( $v ) { return abs( (int) $v ); }
 function sanitize_text_field( $v ) { return trim( strip_tags( (string) $v ) ); }
 function wc_format_decimal( $v, $d = 2 ) { return number_format( (float) $v, $d, '.', '' ); }
 function wc_get_order( $id ) { return $GLOBALS['pedidos'][ $id ] ?? false; }
+function get_woocommerce_currency() { return 'MXN'; }
+function current_user_can( $capability ) { return 'manage_woocommerce' === $capability && ! empty( $GLOBALS['puente_admin'] ); }
 
 class WP_Error {
 	public $code;
@@ -138,7 +140,7 @@ if ( true ) {
 	abstract class WC_Payment_Gateway {
 		public $id, $has_fields, $method_title, $method_description, $form_fields, $title, $description, $settings = array();
 		public function init_settings() {}
-		public function get_option( $k, $d = '' ) { return $d; }
+		public function get_option( $k, $d = '' ) { return $this->settings[ $k ] ?? $d; }
 		public function get_field_key( $k ) { return 'gateway_' . $k; }
 		public function is_available() { return true; }
 		public function get_return_url( $o = null ) { return ''; }
@@ -147,6 +149,15 @@ if ( true ) {
 $pasarelas = coremushroom_registrar_pasarela_coreadaptogenos( array() );
 af( class_exists( 'CoreMushroom_Gateway_Tarjeta' ), 'declara la pasarela cuando WooCommerce esta listo' );
 af( in_array( 'CoreMushroom_Gateway_Tarjeta', $pasarelas, true ), 'entrega la clase a WooCommerce' );
+$pasarela = new CoreMushroom_Gateway_Tarjeta();
+$pasarela->settings = $config;
+$GLOBALS['puente_admin'] = false;
+af( ! $pasarela->is_available(), 'oculta el entorno de pruebas a clientes' );
+$GLOBALS['puente_admin'] = true;
+af( $pasarela->is_available(), 'permite probar el puente a un administrador' );
+$GLOBALS['puente_admin'] = false;
+$pasarela->settings['environment'] = 'live';
+af( $pasarela->is_available(), 'permite el entorno en vivo al publico cuando esta configurado' );
 
 echo "\n" . ( 0 === $fallos ? 'TODO OK' : "$fallos FALLOS" ) . "\n";
 exit( 0 === $fallos ? 0 : 1 );

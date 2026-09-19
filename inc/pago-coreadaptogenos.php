@@ -248,10 +248,11 @@ function coremushroom_definir_pasarela_coreadaptogenos() {
 			return $value;
 		}
 
-		/** Solo aparece con MXN y configuracion completa. */
+		/** En pruebas solo la ve quien administra WooCommerce; en vivo exige MXN y puente completo. */
 		public function is_available() {
 			return parent::is_available()
 				&& 'MXN' === get_woocommerce_currency()
+				&& ( 'test' !== $this->get_option( 'environment' ) || current_user_can( 'manage_woocommerce' ) )
 				&& coremushroom_puente_configurado( $this->settings );
 		}
 
