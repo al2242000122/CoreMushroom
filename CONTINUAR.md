@@ -254,21 +254,26 @@ Las siete fases de desarrollo. En concreto:
    sesión firmada y recibe el callback; el plugin de CoreAdaptogenos crea un
    pedido espejo transparente y abre el `order-pay` oficial de WooCommerce con
    Stripe como única pasarela. El plugin y el secreto ya están configurados.
-   Falta conectar Stripe sandbox y probar el recorrido completo. No
-   mostrar tarjeta al público antes de que todo eso pase. OXXO queda para una
-   fase posterior.
+   Stripe en pruebas ya está conectado; falta probar el recorrido completo.
+   La pasarela de pruebas de CoreMushroom solo se muestra a administradores.
+   No mostrar tarjeta al público antes de que todo eso pase. El dueño aclaró el
+   19 de septiembre que Stripe cobrará los pedidos de CoreMushroom en el
+   WooCommerce receptor; Conekta se reserva para ventas propias de
+   CoreAdaptogenos en otra fase. La restricción a Stripe del pedido espejo
+   impide que una futura instalación de Conekta altere este flujo. OXXO
+   queda para una fase posterior.
 
    Se confirmó acceso al WordPress receptor mediante el host temporal de
    Hostinger y se instalaron y activaron el plugin propio y la extensión
-   oficial WooCommerce Stripe Gateway 11.0.0. La pantalla ofrece conectar una
-   cuenta de pruebas; el dueño debe completar el acceso y las condiciones de
-   Stripe. No hay cuenta conectada ni webhooks de pruebas verificados todavía.
-   El dueño ya inició sesión en `https://coreadaptogenos.app/wp-admin/` y el
-   enlace de la cuenta de pruebas abrió el acceso de Stripe. Debe completar
-   la autenticación y las condiciones en Stripe directamente, sin compartir
-   claves. El 19 de septiembre aclaró que Stripe, y no Conekta, cobrará las
-   tarjetas de los pedidos originados en CoreMushroom; CoreMushroom solo
-   redirige y conserva el pedido.
+   oficial WooCommerce Stripe Gateway 11.0.0. El 19 de septiembre se
+   conectaron la cuenta en vivo y la de pruebas. WooCommerce muestra pagos
+   habilitados y liquidación deshabilitada; el dueño debe revisar las tareas
+   pendientes de su cuenta directamente en Stripe. El webhook en vivo está
+   configurado. El de pruebas rechazó sus primeras firmas; se usó el botón
+   oficial «Reconfigurar los webhooks», con autorización del dueño, y la
+   pantalla confirmó que quedó configurado. Falta demostrar la recepción
+   correcta de un evento nuevo mediante una compra de prueba. CoreMushroom
+   solo redirige y conserva el pedido; Stripe cobra en CoreAdaptogenos.
    El receptor React está guardado en la rama
    `codex/coremushroom-payment-receiver` del otro repo; no está desplegado.
 

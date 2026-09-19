@@ -79,6 +79,17 @@ datos comerciales y de producción, y configurar el cobro con tarjeta.
   CoreAdaptogenos. El puente propio usa HMAC, nonce, total exacto en centavos,
   pedido espejo transparente y callback servidor a servidor. Permanece oculto
   hasta completar SSL, secreto compartido y una compra íntegra en sandbox.
+- En entorno `test` la pasarela de CoreMushroom solo aparece a usuarios con
+  capacidad `manage_woocommerce`, para probar el puente sin exponerlo al
+  público. En `live` volverá a estar disponible para clientes solo cuando el
+  dueño active explícitamente la pasarela y el resto de los requisitos se
+  cumplan.
+- El 19 de septiembre de 2026 el dueño aclaró que Stripe cobrará los pedidos
+  originados en CoreMushroom mediante el pedido espejo de CoreAdaptogenos.
+  Conekta queda previsto solo para ventas directas de CoreAdaptogenos; no
+  debe habilitarse en pedidos espejo. La cuenta de Stripe en vivo quedó
+  conectada, pero todavía faltan pruebas, verificación de liquidaciones y
+  la confirmación de Stripe sobre el catálogo y los dos dominios.
 - **Backend receptor**: WordPress/WooCommerce confirmado por el dueño. El repo
   de CoreAdaptogenos contiene tanto el frontend React como el plugin receptor
   WooCommerce. El dominio definitivo es
