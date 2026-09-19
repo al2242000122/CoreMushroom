@@ -44,7 +44,7 @@ tal cual a `wp-content/themes/coremushroom`.
 El dominio receptor `coreadaptogenos.app` está registrado en Name.com y ya
 resuelve al WordPress de Hostinger por HTTPS. CoreMushroom vive en
 `core.bancodeesporas.com` y conserva la indexación bloqueada mientras se
-terminan catálogo, revisión legal y cobro con tarjeta.
+terminan catálogo y cobro con tarjeta.
 
 ---
 
@@ -140,6 +140,10 @@ php tools/prueba-portada.php .
 # Purga de LiteSpeed después de un despliegue
 php tools/prueba-cache.php .
 
+# Avisos legales antiguos y fichas sin fotografías
+php tools/prueba-legal.php .
+php tools/prueba-sin-fotos.php .
+
 ```
 
 Todos imprimen `TODO OK` o el número de fallos y salen con código 0 si pasan.
@@ -172,7 +176,8 @@ Las siete fases de desarrollo. En concreto:
 ### Configurado en el sitio
 
 - Portada publicada y asignada.
-- Las cuatro páginas legales publicadas, todavía en borrador legal.
+- Las cuatro páginas legales publicadas. El dueño confirmó terminada la
+  revisión legal el 19 de septiembre de 2026.
 - Un producto publicado: Cordyceps · Microdosis 30 cápsulas, en la categoría
   Microdosis y con su slug definitivo.
 - CLABE y beneficiario capturados en la pasarela SPEI.
@@ -212,17 +217,7 @@ Las siete fases de desarrollo. En concreto:
 
 ### Bloquea abrir la tienda
 
-1. **Revisar jurídicamente las páginas legales.** Los datos operativos y el
-   contacto ya están completos tanto en los patterns como en las cuatro páginas
-   guardadas en WordPress. Conservan sus revisiones nativas y el aviso visible
-   de borrador.
-
-2. **Revisión de un abogado** de esas cuatro páginas. Cada una abre con un
-   bloque verde que dice BORRADOR SIN REVISION LEGAL. Ese bloque se borra
-   cuando el abogado apruebe, no antes. Mientras esté, también aparece en la
-   descripción de la página para buscadores.
-
-3. **Completar los nueve borradores importados.** Se cargaron desde
+1. **Completar los nueve borradores importados.** Se cargaron desde
    [imports/catalogo-borradores.csv](imports/catalogo-borradores.csv) el 10 de
    septiembre de 2026. Están sin precio, inventario ni datos variables de
    producción. Solo precargan especie, formato y tipo de preparación; todo lo
@@ -232,9 +227,10 @@ Las siete fases de desarrollo. En concreto:
    ella, así que su tabla no aparece y su tarjeta no lleva badge de especie.
    Eso es el comportamiento correcto con campos vacíos, no un error.
 
-5. **Conseguir fotografías y datos físicos de cada producto.** Sin precio,
-   contenido real, ingredientes, alérgenos y lote, los borradores no deben
-   publicarse.
+5. **Conseguir datos físicos de cada producto.** El dueño pidió mantener los
+   nueve sin precio en borrador y no agregar fotografías por ahora. El tema
+   omite el marcador de imagen cuando no hay foto propia. Faltan precio,
+   contenido real, ingredientes, alérgenos y lote antes de ponerlos a la venta.
 
 6. **Conectar Stripe y probar el checkout de CoreAdaptogenos para tarjeta.** El dueño
    confirmó WordPress/WooCommerce y eligió Stripe el 15 de septiembre de 2026.

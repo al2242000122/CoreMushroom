@@ -7,8 +7,7 @@
  * Keywords: hero, portada, home, apertura
  * Viewport Width: 1400
  *
- * COPY PROVISIONAL. El definitivo se escribe en la Fase 6 y lo revisa un
- * abogado. No agregar aqui nada sobre efectos, beneficios ni resultados.
+ * No agregar aqui nada sobre efectos, beneficios ni resultados.
  */
 
 // Corta si el archivo se pide por URL. WordPress lo incluye durante init,

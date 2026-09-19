@@ -65,8 +65,9 @@ subdominio de desarrollo con la indexación bloqueada.
 
 ## Fase 5, pagos y checkout: TERMINADA
 
-Estado: las siete fases de código están terminadas y desplegadas. Falta lo
-que depende de datos, contenido, revisión legal y configuración de WordPress.
+Estado: las siete fases de código están terminadas y desplegadas. El dueño
+confirmó terminada la revisión legal el 19 de septiembre de 2026. Faltan
+datos comerciales y de producción, y configurar el cobro con tarjeta.
 
 ### Decisiones de pago, actualizadas
 
@@ -340,10 +341,7 @@ portada vacía produciría una medición engañosa.
 
 ### Bloquean vender
 
-1. **Obtener la revisión de un abogado** de las cuatro páginas legales. Los
-   datos operativos ya están completos en los patterns y en las páginas
-   guardadas de WordPress. El aviso visible de borrador se conserva.
-2. **Completar el catálogo.** Hay un producto publicado y nueve borradores
+1. **Completar el catálogo.** Hay un producto publicado y nueve borradores
    importados desde `imports/catalogo-borradores.csv`. Todos siguen sin precio,
    inventario ni datos variables de producción. El producto existente ya se
    llama “Cordyceps · Microdosis 30 cápsulas”, pero necesita su ficha de lote.
@@ -354,7 +352,8 @@ portada vacía produciría una medición engañosa.
 
 4. Precio, fotografía, ingredientes, alérgenos, contenido y datos reales de
    lote para cada producto.
-5. Revisión de un abogado antes de retirar el aviso visible de borrador.
+5. Los avisos temporales se retiraron de los patterns y se ocultan en las
+   páginas ya guardadas.
 
 ### Configuración de WordPress
 

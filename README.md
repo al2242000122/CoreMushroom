@@ -379,9 +379,8 @@ nombres de las especies porque así se llaman en la paleta, y porque los badges
 de producto sí van por especie. En los tiles el color solo distingue el
 formato.
 
-**El copy es provisional.** El definitivo se escribe en la Fase 6 y lo revisa
-un abogado. Ningún pattern lleva ni debe llevar afirmaciones sobre efectos,
-beneficios o resultados.
+Ningún pattern lleva ni debe llevar afirmaciones sobre efectos, beneficios o
+resultados.
 
 **La retícula usa el shortcode `[products]`, no el bloque de WooCommerce.**
 El shortcode es API estable; el marcado del bloque cambia entre versiones y un
@@ -470,12 +469,12 @@ Cuatro patterns más, en la misma categoría CoreMushroom:
 | `legal-envios.php` | Política de envíos |
 | `legal-uso-previsto.php` | Declaración de uso previsto |
 
-**Ninguno está listo para publicarse.** Los cuatro empiezan con un bloque
-verde limón que dice BORRADOR SIN REVISIÓN LEGAL. Ese bloque se borra a mano
-justo antes de publicar, y solo después de que un abogado haya revisado el
-texto.
+Los cuatro patterns ya no muestran el aviso temporal de revisión legal.
+Las páginas guardadas en WordPress se publicaron antes del cambio; el módulo
+`inc/legal.php` oculta ese bloque antiguo al renderizar y evita que aparezca
+en las descripciones para buscadores, sin modificar el resto de su contenido.
 
-### Antes de mandarlos a revisión
+### Estado de las páginas
 
 Los datos operativos confirmados ya están incorporados y no quedan marcadores
 entre dobles corchetes. Si las páginas se insertaron antes de este cambio, hay
@@ -483,9 +482,8 @@ que sincronizar su copia guardada desde el editor de WordPress; modificar un
 pattern no actualiza una página existente.
 
 El propietario pidió omitir razón social, RFC y domicilio fiscal completo. Los
-textos identifican CoreMushroom, Estado de México y el correo de contacto. El
-abogado debe decidir si esa identificación basta o qué dato adicional exige la
-versión final antes de retirar el aviso de borrador.
+textos identifican CoreMushroom, Estado de México y el correo de contacto.
+El dueño confirmó terminada la revisión legal el 19 de septiembre de 2026.
 
 ### El control de cumplimiento
 
@@ -505,9 +503,7 @@ cambio se ve en el historial como cualquier otro.
 No agregues una frase a esa lista solo para que el validador se calle. Si la
 frase afirma algo sobre lo que el producto hace, corrige la frase.
 
-Y una advertencia honesta: el validador es una red, no una garantía. Detecta
-lo que se le enseñó a detectar. La revisión de un abogado sigue siendo
-obligatoria antes de publicar.
+El validador es una red, no una garantía: solo detecta los patrones que conoce.
 
 ---
 

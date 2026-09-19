@@ -7,10 +7,7 @@
  * Keywords: legal, terminos, condiciones, venta
  * Viewport Width: 1400
  *
- * BORRADOR SIN REVISION LEGAL. Cubre uso del sitio, condiciones de venta, precios, cancelaciones y limitacion de responsabilidad.
  *
- * Los datos operativos fueron incorporados el 9 de septiembre de 2026.
- * Falta la revision de un abogado antes de retirar el aviso visible.
  */
 // Corta si el archivo se pide por URL. WordPress lo incluye durante init,
 // cuando ABSPATH ya existe, asi que al registrarse el patron no se corta.
@@ -19,17 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|65"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--65)"><!-- wp:group {"borderColor":"tinta","backgroundColor":"lima","textColor":"tinta","style":{"border":{"width":"2px","style":"solid"},"spacing":{"padding":{"top":"var:preset|spacing|45","bottom":"var:preset|spacing|45","left":"var:preset|spacing|50","right":"var:preset|spacing|50"},"margin":{"bottom":"var:preset|spacing|55"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group has-border-color has-tinta-border-color has-tinta-color has-lima-background-color has-text-color has-background" style="border-style:solid;border-width:2px;margin-bottom:var(--wp--preset--spacing--55);padding-top:var(--wp--preset--spacing--45);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--45);padding-left:var(--wp--preset--spacing--50)"><!-- wp:paragraph {"fontSize":"sm","style":{"typography":{"fontWeight":"700"}}} -->
-<p class="has-sm-font-size" style="font-weight:700">BORRADOR SIN REVISION LEGAL</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"fontSize":"sm"} -->
-<p class="has-sm-font-size">Este texto incorpora los datos operativos actuales de la tienda, pero todavia debe revisarlo un abogado. El bloque se retirara cuando esa revision termine.</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:group -->
-
-<!-- wp:heading {"level":1,"fontSize":"xxl"} -->
+<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--65)"><!-- wp:heading {"level":1,"fontSize":"xxl"} -->
 <h1 class="wp-block-heading has-xxl-font-size">Terminos de uso</h1>
 <!-- /wp:heading -->
 

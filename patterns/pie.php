@@ -7,11 +7,7 @@
  * Keywords: pie, footer, legal, avisos
  * Viewport Width: 1400
  *
- * Los cuatro enlaces legales apuntan a paginas que se redactan en la Fase 6 y
- * que revisa un abogado antes de publicarse. Mientras no existan, el enlace
- * devuelve 404: es preferible a borrarlo y olvidarlo.
- *
- * COPY PROVISIONAL.
+ * Los cuatro enlaces legales apuntan a paginas publicadas y revisadas.
  */
 
 // Corta si el archivo se pide por URL. WordPress lo incluye durante init,
