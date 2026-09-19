@@ -193,8 +193,10 @@ Las siete fases de desarrollo. En concreto:
   `https://coreadaptogenos.app`, entorno de pruebas y el secreto compartido,
   pero permanece desactivada para el público.
 - Ventas y envíos limitados a México. La zona México ofrece envío terrestre
-  gratis desde $900; por debajo de ese monto no se ofrece una tarifa hasta
-  definir su costo real.
+  gratis desde $900 y precio fijo de $120 por debajo de ese monto. El costo
+  fijo se guardó en WooCommerce el 19 de septiembre de 2026. Se comprobó un
+  carrito de $450 con total de $570 y otro de $900 con envío gratis y total
+  de $900. En el segundo, el cliente también puede elegir el método de $120.
 - Las páginas de WooCommerce se llaman Catálogo, Carrito, Finalizar compra y
   Mi cuenta, con slugs en español. Los textos de privacidad del checkout
   también están en español.
@@ -261,16 +263,22 @@ Las siete fases de desarrollo. En concreto:
    oficial WooCommerce Stripe Gateway 11.0.0. La pantalla ofrece conectar una
    cuenta de pruebas; el dueño debe completar el acceso y las condiciones de
    Stripe. No hay cuenta conectada ni webhooks de pruebas verificados todavía.
-   El panel en el dominio definitivo pide iniciar sesión de nuevo; el dueño
-   debe hacerlo directamente en `https://coreadaptogenos.app/wp-admin/`.
+   El dueño ya inició sesión en `https://coreadaptogenos.app/wp-admin/` y el
+   enlace de la cuenta de pruebas abrió el acceso de Stripe. Debe completar
+   la autenticación y las condiciones en Stripe directamente, sin compartir
+   claves. El 19 de septiembre aclaró que Stripe, y no Conekta, cobrará las
+   tarjetas de los pedidos originados en CoreMushroom; CoreMushroom solo
+   redirige y conserva el pedido.
    El receptor React está guardado en la rama
    `codex/coremushroom-payment-receiver` del otro repo; no está desplegado.
 
 ### Configuración pendiente
 
-7. **Definir una tarifa para pedidos menores de $900.** Hoy el checkout solo
-   permite continuar cuando aplica el envío gratis. No inventar una tarifa:
-   hace falta decidir costo, servicio y zonas remotas.
+7. **Afinar el nombre del envío de $120 si procede.** El dueño definió $120
+   para pedidos menores de $900 y se configuró «Precio fijo» en la zona México.
+   El 19 de septiembre se verificaron los dos lados del umbral en el carrito,
+   además del envío gratis y SPEI en el checkout. Queda decidir si el método
+   pagado debe describirse como exprés y qué plazo real ofrecerá.
 8. **Cabecera y pie de Blocksy.** La portada usa el pie propio del tema; falta
    revisar las plantillas internas. Se hace desde el personalizador de Blocksy, que guarda en base
    de datos y no en este repositorio. Es una excepción consciente al criterio

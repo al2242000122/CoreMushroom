@@ -357,8 +357,10 @@ portada vacía produciría una medición engañosa.
 
 ### Configuración de WordPress
 
-6. Definir una tarifa real para pedidos menores de $900. Hoy solo pueden
-   completar el checkout los pedidos que alcanzan el envío gratis.
+6. La tarifa fija de $120 para pedidos menores de $900 y el envío gratis al
+   alcanzar ese umbral se verificaron en el carrito el 19 de septiembre de
+   2026. A $450, el total fue $570; a $900, el total fue $900 con envío gratis.
+   En el checkout también se mostraron ambos métodos y SPEI.
 7. Revisar cabecera y pie de las plantillas internas desde Blocksy.
 
 El sitio ya usa Español de México, zona horaria de Ciudad de México, unidades
