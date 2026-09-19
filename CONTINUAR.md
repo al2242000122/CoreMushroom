@@ -189,9 +189,9 @@ Las siete fases de desarrollo. En concreto:
   `https://core.bancodeesporas.com`.
 - El mismo secreto compartido quedó guardado en ambos paneles. Nunca se escribe
   en Git ni se muestra en esta memoria.
-- La pasarela “Tarjeta mediante CoreAdaptógenos” conserva el receptor
-  `https://coreadaptogenos.app`, entorno de pruebas y el secreto compartido,
-  pero permanece desactivada para el público.
+- La pasarela “Tarjeta mediante CoreAdaptógenos” usa el receptor
+  `https://coreadaptogenos.app`, entorno de pruebas y el secreto compartido.
+  Está activada solo para administradores; el público sigue viendo SPEI.
 - Ventas y envíos limitados a México. La zona México ofrece envío terrestre
   gratis desde $900 y precio fijo de $120 por debajo de ese monto. El costo
   fijo se guardó en WooCommerce el 19 de septiembre de 2026. Se comprobó un
@@ -200,8 +200,8 @@ Las siete fases de desarrollo. En concreto:
 - Las páginas de WooCommerce se llaman Catálogo, Carrito, Finalizar compra y
   Mi cuenta, con slugs en español. Los textos de privacidad del checkout
   también están en español.
-- El checkout muestra únicamente SPEI. Los pagos con cheque y WooPayments
-  están desactivados. La casilla obligatoria de mayoría de edad se valida por
+- El checkout público muestra únicamente SPEI. Los pagos con cheque y
+  WooPayments están desactivados. La casilla obligatoria de mayoría de edad se valida por
   separado de la aceptación de términos y ambas constancias quedan en el
   pedido. La validación cubre el checkout clásico, Checkout Blocks y Store
   API.
@@ -234,15 +234,16 @@ Las siete fases de desarrollo. En concreto:
    omite el marcador de imagen cuando no hay foto propia. Faltan precio,
    contenido real, ingredientes, alérgenos y lote antes de ponerlos a la venta.
 
-6. **Conectar Stripe y probar el checkout de CoreAdaptogenos para tarjeta.** El dueño
+6. **Completar la habilitación comercial de Stripe.** El dueño
    confirmó WordPress/WooCommerce y eligió Stripe el 15 de septiembre de 2026.
    El dominio definitivo `coreadaptogenos.app` se registró en Name.com y se
    conectó al WordPress receptor de Hostinger el 16 de septiembre. Name.com
    conserva como únicos nameservers `aurora.dns-parking.com` y
    `nebula.dns-parking.com`. El 19 de septiembre se comprobaron registros A,
    HTTPS 200 en raíz y www, WordPress en la raíz y la ruta REST del puente.
-   Faltan conexión de Stripe y aprobación del catálogo real.
-   Se usará la extensión oficial de Stripe y el checkout nativo de WooCommerce.
+   Stripe está conectado en vivo y en pruebas; falta su aprobación del catálogo
+   real y de la relación entre los dos dominios, además de las liquidaciones.
+   Se usa la extensión oficial de Stripe y el checkout nativo de WooCommerce.
    CoreMushroom conservará el pedido y redirigirá mediante una
    sesión opaca; el monto se recuperará de servidor a servidor y el pago solo
    se confirmará con webhook firmado. El cliente verá antes de salir que
@@ -254,7 +255,7 @@ Las siete fases de desarrollo. En concreto:
    sesión firmada y recibe el callback; el plugin de CoreAdaptogenos crea un
    pedido espejo transparente y abre el `order-pay` oficial de WooCommerce con
    Stripe como única pasarela. El plugin y el secreto ya están configurados.
-   Stripe en pruebas ya está conectado; falta probar el recorrido completo.
+   Stripe en pruebas ya está conectado y el recorrido aprobado se completó.
    La pasarela de pruebas de CoreMushroom solo se muestra a administradores.
    No mostrar tarjeta al público antes de que todo eso pase. El dueño aclaró el
    19 de septiembre que Stripe cobrará los pedidos de CoreMushroom en el
@@ -270,10 +271,17 @@ Las siete fases de desarrollo. En concreto:
    habilitados y liquidación deshabilitada; el dueño debe revisar las tareas
    pendientes de su cuenta directamente en Stripe. El webhook en vivo está
    configurado. El de pruebas rechazó sus primeras firmas; se usó el botón
-   oficial «Reconfigurar los webhooks», con autorización del dueño, y la
-   pantalla confirmó que quedó configurado. Falta demostrar la recepción
-   correcta de un evento nuevo mediante una compra de prueba. CoreMushroom
+   oficial «Reconfigurar los webhooks», con autorización del dueño. Tras la
+   compra de prueba, WooCommerce confirmó que el webhook de las 21:37:48 UTC
+   se procesó correctamente; la pantalla aún indicaba al menos uno pendiente.
+   CoreMushroom
    solo redirige y conserva el pedido; Stripe cobra en CoreAdaptogenos.
+   El 19 de septiembre se probó con datos ficticios y tarjeta de pruebas:
+   CoreMushroom creó el pedido #55, el puente abrió el pedido espejo #27 en
+   CoreAdaptogenos y ambos quedaron en «Procesando» con $900 MXN pagados.
+   La página de gracias regresó a CoreMushroom; allí constan el callback de
+   pago y las aceptaciones de términos y mayoría de edad. No hubo cargo real.
+   Faltan escenarios controlados de rechazo y reembolso antes de pasar a vivo.
    El receptor React está guardado en la rama
    `codex/coremushroom-payment-receiver` del otro repo; no está desplegado.
 

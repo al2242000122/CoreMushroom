@@ -77,8 +77,9 @@ datos comerciales y de producción, y configurar el cobro con tarjeta.
   avanza. Es lo que permite vender sin depender de ninguna aprobación.
 - **Tarjeta**: Stripe mediante su extensión oficial en el WooCommerce de
   CoreAdaptogenos. El puente propio usa HMAC, nonce, total exacto en centavos,
-  pedido espejo transparente y callback servidor a servidor. Permanece oculto
-  hasta completar SSL, secreto compartido y una compra íntegra en sandbox.
+  pedido espejo transparente y callback servidor a servidor. La compra de
+  prueba se completó el 19 de septiembre de 2026; el modo de pruebas solo
+  muestra la pasarela a administradores. No se abre al público todavía.
 - En entorno `test` la pasarela de CoreMushroom solo aparece a usuarios con
   capacidad `manage_woocommerce`, para probar el puente sin exponerlo al
   público. En `live` volverá a estar disponible para clientes solo cuando el
@@ -88,7 +89,8 @@ datos comerciales y de producción, y configurar el cobro con tarjeta.
   originados en CoreMushroom mediante el pedido espejo de CoreAdaptogenos.
   Conekta queda previsto solo para ventas directas de CoreAdaptogenos; no
   debe habilitarse en pedidos espejo. La cuenta de Stripe en vivo quedó
-  conectada, pero todavía faltan pruebas, verificación de liquidaciones y
+  conectada y el pago de prueba se completó; faltan pruebas de rechazo y
+  reembolso, verificación de liquidaciones y
   la confirmación de Stripe sobre el catálogo y los dos dominios.
 - **Backend receptor**: WordPress/WooCommerce confirmado por el dueño. El repo
   de CoreAdaptogenos contiene tanto el frontend React como el plugin receptor
@@ -98,7 +100,8 @@ datos comerciales y de producción, y configurar el cobro con tarjeta.
   son `aurora.dns-parking.com` y `nebula.dns-parking.com`. El 16 de septiembre
   aún no había registro A; el 19 de septiembre ya resolvía y servía WordPress
   con HTTPS válido. La ruta REST del plugin receptor existe y rechaza POST sin
-  firma con 401. El siguiente paso es conectar Stripe y probar el flujo.
+  firma con 401. El flujo de tarjeta en pruebas quedó confirmado el 19 de
+  septiembre.
 
 ### Arquitectura prevista para tarjeta y OXXO
 
@@ -123,9 +126,10 @@ La metodología completa y su contrato de seguridad están en
 - La sesión de tarjeta es estable por pedido, vence en una hora y queda ligada
   al entorno real de Stripe (test o live). Pago, reembolso y reversión se
   concilian mediante eventos firmados con deduplicación atómica.
-- La entrada de tarjeta sigue oculta hasta que Stripe apruebe la cuenta y el
-  catálogo real, existan credenciales de pruebas y se verifiquen el puente y
-  los webhooks sobre `https://coreadaptogenos.app`.
+- La entrada de tarjeta sigue oculta al público hasta que Stripe apruebe la
+  cuenta, el catálogo real y ambos dominios, y habilite las liquidaciones.
+  El puente y un pago de prueba ya se verificaron sobre
+  `https://coreadaptogenos.app`.
 - El repo local de CoreAdaptogenos contiene el plugin receptor WooCommerce que
   crea el pedido espejo y restringe su checkout a Stripe. El plugin ya está
   instalado en el WordPress temporal y el endpoint está habilitado; la tarjeta
@@ -134,8 +138,8 @@ La metodología completa y su contrato de seguridad están en
 
 - El 16 de septiembre de 2026 el plugin receptor se instaló y activó en el
   WordPress temporal. El endpoint está habilitado y el mismo secreto está
-  guardado en ambos paneles; la pasarela emisora de CoreMushroom sigue
-  desactivada hasta conectar Stripe y verificar el flujo.
+  guardado en ambos paneles. La pasarela emisora está activada solo para
+  administradores en entorno de pruebas.
 
 ### Petición rechazada y por qué
 
@@ -199,8 +203,9 @@ sabiendas, no un dominio pantalla.
 
 - Probar el tramo que sí crea datos: realizar un pedido de prueba, subir un
   comprobante marcado SIN VALOR y confirmarlo desde el panel.
-- Conectar Stripe en pruebas y comprobar pago, rechazo, reembolso y callback
-  entre ambos WordPress antes de mostrar tarjeta al público.
+- Pago aprobado y callback comprobados entre ambos WordPress el 19 de
+  septiembre. Faltan rechazo y reembolso controlados, liquidaciones habilitadas
+  y aprobación del catálogo/dominios antes de mostrar tarjeta al público.
 
 ## Reglas del código PHP
 

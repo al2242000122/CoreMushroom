@@ -5,9 +5,11 @@ cerrado. CoreMushroom contiene la pasarela emisora y el callback firmado;
 CoreAdaptogenos contiene el plugin receptor que crea un pedido WooCommerce
 espejo y entrega su URL nativa `order-pay`. El plugin receptor está instalado y
 activo en el WordPress temporal, y el secreto compartido ya está guardado en
-ambos paneles. El dominio final ya funciona por HTTPS. Todavía falta conectar
-Stripe en pruebas y verificar
-el recorrido completo. OXXO queda fuera de esta primera versión.
+ambos paneles. El dominio final funciona por HTTPS. Stripe está conectado en
+pruebas y en vivo; el recorrido con tarjeta de prueba se completó el 19 de
+septiembre de 2026. La tarjeta sigue oculta al público porque Stripe aún
+muestra liquidaciones deshabilitadas y falta la revisión del catálogo y los
+dos dominios. OXXO queda fuera de esta primera versión.
 
 Actualización del 15 de septiembre de 2026: el dueño confirma WordPress y
 WooCommerce como backend receptor y elige Stripe. Su dominio definitivo es
@@ -18,9 +20,9 @@ La implementación prevista usa la extensión oficial de Stripe para WooCommerce
 y su checkout nativo; el puente propio transportará los pedidos y conciliará
 sus estados. No se desarrollará un formulario propio para capturar tarjetas.
 Se confirmó el panel del WordPress temporal receptor y WooCommerce activo.
-La extensión oficial WooCommerce Stripe Gateway 11.0.0 se instaló y activó;
-la conexión de la cuenta y el modo de pruebas siguen pendientes. Activar el
-plugin no significa que el puente ni los cobros estén habilitados.
+La extensión oficial WooCommerce Stripe Gateway 11.0.0 se instaló y activó.
+La cuenta y el modo de pruebas se conectaron el 19 de septiembre; la
+habilitación de cobros reales al público sigue pendiente.
 
 Actualización del 16 de septiembre de 2026: el plugin propio se instaló y
 activó en el receptor temporal. El endpoint acepta únicamente sesiones firmadas
@@ -32,8 +34,13 @@ webhooks.
 Actualización del 19 de septiembre de 2026: el dominio final responde 200 por
 HTTPS tanto en la raíz como en `www`. La raíz REST declara la ruta del puente y
 un POST sin firma devuelve 401; no se ha enviado una sesión firmada de prueba.
-El panel de WordPress final solicita iniciar sesión de nuevo. No asumir que
-Stripe esté conectado hasta revisar su pantalla y ejecutar el flujo sandbox.
+El flujo sandbox se ejecutó ese día: pedido #55 en CoreMushroom, pedido espejo
+#27 en CoreAdaptogenos, total de $900 MXN y ambos en estado «Procesando» tras
+un cargo simulado. WooCommerce confirmó que el webhook de prueba más reciente
+se procesó correctamente, aunque indicaba otro pendiente al cerrar la revisión.
+El entorno `test` de CoreMushroom solo muestra tarjeta a administradores;
+Stripe no debe pasar a vivo ni exponerse al público hasta resolver las
+liquidaciones y confirmar con Stripe el catálogo real y ambos dominios.
 
 ## Propósito
 
