@@ -20,6 +20,7 @@ $GLOBALS['ganchos'] = [];
 
 // Ningun add_action despacha nada. Es justo el punto de la prueba.
 function add_action($h, $f, $p = 10, $a = 1) { $GLOBALS['ganchos'][$h][] = $f; }
+function remove_action($h, $f, $p = 10) { return true; }
 function add_filter($h, $f, $p = 10, $a = 1) { $GLOBALS['ganchos'][$h][] = $f; }
 function add_shortcode($t, $f) { $GLOBALS['ganchos']['shortcode:' . $t][] = $f; }
 function add_meta_box() {}
@@ -90,6 +91,7 @@ $siempre = [
     'coremushroom_quitar_oembed_host',
     'coremushroom_avisar_identidad_sin_configurar',
     'coremushroom_actualizar_portada_publicada',
+    'coremushroom_retirar_aviso_revision_legal',
 ];
 
 $esperadas = [

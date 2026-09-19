@@ -519,6 +519,13 @@
   opacity: 0.75;
 }
 
+/* Sin foto propia, la ficha usa texto y todo el ancho disponible. */
+.woocommerce div.product.cm-producto--sin-imagen .summary {
+  float: none;
+  width: 100%;
+  max-width: var(--wp--custom--contenido--ancho);
+}
+
 /* ===========================================================================
  * 7. INSTRUCCIONES DE PAGO POR SPEI
  * Se imprimen en la pagina de gracias y en el correo del pedido. Reusan

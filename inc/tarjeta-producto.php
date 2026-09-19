@@ -19,6 +19,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Omite la imagen de relleno mientras una ficha no tenga fotografía propia.
+ * Cuando se añada una imagen real, WooCommerce vuelve a mostrarla sin cambios.
+ */
+function coremushroom_imagen_producto_si_existe() {
+	global $product;
+
+	if ( $product instanceof WC_Product && $product->get_image_id() ) {
+		woocommerce_template_loop_product_thumbnail();
+	}
+}
+remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10 );
+add_action( 'woocommerce_before_shop_loop_item_title', 'coremushroom_imagen_producto_si_existe', 10 );
+
+/**
+ * En la ficha individual evita la galería vacía y el cuadro de relleno.
+ */
+function coremushroom_galeria_producto_si_existe() {
+	global $product;
+
+	if ( $product instanceof WC_Product && ( $product->get_image_id() || $product->get_gallery_image_ids() ) ) {
+		woocommerce_show_product_images();
+	}
+}
+remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
+add_action( 'woocommerce_before_single_product_summary', 'coremushroom_galeria_producto_si_existe', 20 );
+
+/**
  * Badge de especie sobre la imagen del producto en el bucle.
  *
  * Prioridad 15: despues de la imagen, que se imprime en 10, para que el badge
@@ -131,6 +158,9 @@ function coremushroom_clases_bucle( $clases, $product = null ) {
 	}
 
 	$clases[] = 'cm-producto';
+	if ( ! $product->get_image_id() && ! $product->get_gallery_image_ids() ) {
+		$clases[] = 'cm-producto--sin-imagen';
+	}
 
 	$especie = coremushroom_obtener_lote( $product->get_id(), 'especie' );
 

@@ -20,6 +20,7 @@ $GLOBALS['nonce_ok']   = true;
 
 // --- Nucleo simulado ---
 function add_action($h, $f, $p = 10, $a = 1) { $GLOBALS['acciones'][$h][] = $f; }
+function remove_action($h, $f, $p = 10) { return true; }
 function add_filter($h, $f, $p = 10, $a = 1) { $GLOBALS['filtros'][$h][] = $f; }
 function add_shortcode($t, $f) { $GLOBALS['shortcodes'][$t] = $f; }
 function add_meta_box() {}
@@ -76,6 +77,8 @@ class WC_Product {
     private $id; private $stock;
     function __construct($id, $stock = true) { $this->id = $id; $this->stock = $stock; }
     function get_id() { return $this->id; }
+    function get_image_id() { return 0; }
+    function get_gallery_image_ids() { return []; }
     function is_in_stock() { return $this->stock; }
 }
 class WooCommerce {}
