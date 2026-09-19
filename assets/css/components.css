@@ -520,6 +520,10 @@
 }
 
 /* Sin foto propia, la ficha usa texto y todo el ancho disponible. */
+.woocommerce ul.products li.product.cm-producto--sin-imagen > figure {
+  display: none;
+}
+
 .woocommerce div.product.cm-producto--sin-imagen .summary {
   float: none;
   width: 100%;
