@@ -520,6 +520,14 @@
 }
 
 /* Sin foto propia, la ficha usa texto y todo el ancho disponible. */
+.woocommerce ul.products li.product.cm-producto--sin-imagen {
+  padding: var(--wp--preset--spacing--50);
+  border: var(--wp--custom--borde--fino);
+  border-radius: var(--wp--custom--radio--lg);
+  background-color: var(--wp--preset--color--blanco);
+  box-shadow: var(--wp--custom--sombra--carta);
+}
+
 .woocommerce ul.products li.product.cm-producto--sin-imagen > figure {
   display: none;
 }
