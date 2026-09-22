@@ -96,6 +96,12 @@ datos comerciales y de producción, y configurar el cobro con tarjeta.
   conectada y el pago de prueba se completó; faltan pruebas de rechazo y
   reembolso, verificación de liquidaciones y
   la confirmación de Stripe sobre el catálogo y los dos dominios.
+- El 21 de septiembre de 2026 se verificó que el catálogo «Productos» de
+  Stripe está vacío. Esto no bloquea el puente: los artículos y precios se
+  administran en WooCommerce, y la extensión oficial crea el cobro del pedido
+  espejo. No duplicar manualmente el catálogo en Stripe. En el resumen de
+  saldo aparecen MXN 0.00, ninguna transferencia y las transferencias
+  automáticas todavía sin configurar.
 - **Backend receptor**: WordPress/WooCommerce confirmado por el dueño. El repo
   de CoreAdaptogenos contiene tanto el frontend React como el plugin receptor
   WooCommerce. El dominio definitivo es
@@ -367,6 +373,10 @@ portada vacía produciría una medición engañosa.
    llama “Cordyceps · Microdosis 30 cápsulas”, pero necesita su ficha de lote.
 3. **Probar el flujo completo de compra** con SPEI, carga de comprobante y
    confirmación desde el panel.
+4. **Sustituir la portada provisional de CoreAdaptogenos.** El 21 de
+   septiembre de 2026 el dominio público todavía mostraba “Welcome to
+   WordPress” y marcadores `trans-*` en el pie. El receptor de pagos funciona,
+   pero esa presentación no debe acompañar un checkout en vivo.
 
 ### Necesitan datos del cliente
 

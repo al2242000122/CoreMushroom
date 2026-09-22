@@ -286,12 +286,24 @@ Las siete fases de desarrollo. En concreto:
    La página de gracias regresó a CoreMushroom; allí constan el callback de
    pago y las aceptaciones de términos y mayoría de edad. No hubo cargo real.
    Faltan escenarios controlados de rechazo y reembolso antes de pasar a vivo.
+   El 21 de septiembre se comprobó además que la sección «Productos» de
+   Stripe está vacía; no hay que llenarla para este flujo, porque WooCommerce
+   conserva el catálogo y genera el cobro del pedido espejo. El resumen de
+   saldo mostraba MXN 0.00, sin transferencias, y ofrecía configurar las
+   transferencias automáticas. Eso debe resolverse antes del primer cobro real.
    El receptor React está guardado en la rama
    `codex/coremushroom-payment-receiver` del otro repo; no está desplegado.
 
+7. **Corregir la cara pública de CoreAdaptogenos.** El 21 de septiembre la
+   raíz de `coreadaptogenos.app` seguía mostrando el mensaje inicial de
+   WordPress y el pie conservaba marcadores `trans-menu`, `trans-contacts`,
+   `trans-contact_email`, `trans-contact_phone`, `trans-socials` y
+   `trans-newsletter`. El backend receptor y el checkout existen, pero esta
+   portada provisional bloquea una salida pública profesional.
+
 ### Configuración pendiente
 
-7. **Afinar el nombre del envío de $120 si procede.** El dueño definió $120
+8. **Afinar el nombre del envío de $120 si procede.** El dueño definió $120
    para pedidos menores de $900 y se configuró «Precio fijo» en la zona México.
    El 19 de septiembre se verificaron los dos lados del umbral en el carrito,
    además del envío gratis y SPEI en el checkout. Queda decidir si el método
