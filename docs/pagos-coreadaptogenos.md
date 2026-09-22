@@ -7,9 +7,10 @@ espejo y entrega su URL nativa `order-pay`. El plugin receptor está instalado y
 activo en el WordPress temporal, y el secreto compartido ya está guardado en
 ambos paneles. El dominio final funciona por HTTPS. Stripe está conectado en
 pruebas y en vivo; el recorrido con tarjeta de prueba se completó el 19 de
-septiembre de 2026. La tarjeta sigue oculta al público porque Stripe aún
-muestra liquidaciones deshabilitadas y falta la revisión del catálogo y los
-dos dominios. OXXO queda fuera de esta primera versión.
+septiembre de 2026. El 21 de septiembre se activaron transferencias automáticas
+diarias sin saldo mínimo retenido. La tarjeta sigue oculta al público porque
+falta la revisión del catálogo y los dos dominios. OXXO queda fuera de esta
+primera versión.
 
 Actualización del 15 de septiembre de 2026: el dueño confirma WordPress y
 WooCommerce como backend receptor y elige Stripe. Su dominio definitivo es
@@ -39,8 +40,9 @@ El flujo sandbox se ejecutó ese día: pedido #55 en CoreMushroom, pedido espejo
 un cargo simulado. WooCommerce confirmó que el webhook de prueba más reciente
 se procesó correctamente, aunque indicaba otro pendiente al cerrar la revisión.
 El entorno `test` de CoreMushroom solo muestra tarjeta a administradores;
-Stripe no debe pasar a vivo ni exponerse al público hasta resolver las
-liquidaciones y confirmar con Stripe el catálogo real y ambos dominios.
+Stripe no debe pasar a vivo ni exponerse al público hasta confirmar con Stripe
+el catálogo real y ambos dominios. Las transferencias automáticas diarias ya
+están habilitadas.
 
 ## Propósito
 

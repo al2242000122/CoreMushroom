@@ -94,14 +94,14 @@ datos comerciales y de producción, y configurar el cobro con tarjeta.
   Conekta queda previsto solo para ventas directas de CoreAdaptogenos; no
   debe habilitarse en pedidos espejo. La cuenta de Stripe en vivo quedó
   conectada y el pago de prueba se completó; faltan pruebas de rechazo y
-  reembolso, verificación de liquidaciones y
-  la confirmación de Stripe sobre el catálogo y los dos dominios.
+  reembolso y la confirmación de Stripe sobre el catálogo y los dos dominios.
 - El 21 de septiembre de 2026 se verificó que el catálogo «Productos» de
   Stripe está vacío. Esto no bloquea el puente: los artículos y precios se
   administran en WooCommerce, y la extensión oficial crea el cobro del pedido
   espejo. No duplicar manualmente el catálogo en Stripe. En el resumen de
-  saldo aparecen MXN 0.00, ninguna transferencia y las transferencias
-  automáticas todavía sin configurar.
+  saldo aparecen MXN 0.00 y ninguna transferencia. El 21 de septiembre se
+  activaron transferencias automáticas diarias sin saldo mínimo retenido. No
+  se guardan datos de la cuenta bancaria en el repositorio.
 - **Backend receptor**: WordPress/WooCommerce confirmado por el dueño. El repo
   de CoreAdaptogenos contiene tanto el frontend React como el plugin receptor
   WooCommerce. El dominio definitivo es
@@ -137,7 +137,8 @@ La metodología completa y su contrato de seguridad están en
   al entorno real de Stripe (test o live). Pago, reembolso y reversión se
   concilian mediante eventos firmados con deduplicación atómica.
 - La entrada de tarjeta sigue oculta al público hasta que Stripe apruebe la
-  cuenta, el catálogo real y ambos dominios, y habilite las liquidaciones.
+  cuenta, el catálogo real y ambos dominios. Las transferencias automáticas
+  diarias ya están habilitadas.
   El puente y un pago de prueba ya se verificaron sobre
   `https://coreadaptogenos.app`.
 - El repo local de CoreAdaptogenos contiene el plugin receptor WooCommerce que
@@ -214,8 +215,8 @@ sabiendas, no un dominio pantalla.
 - Probar el tramo que sí crea datos: realizar un pedido de prueba, subir un
   comprobante marcado SIN VALOR y confirmarlo desde el panel.
 - Pago aprobado y callback comprobados entre ambos WordPress el 19 de
-  septiembre. Faltan rechazo y reembolso controlados, liquidaciones habilitadas
-  y aprobación del catálogo/dominios antes de mostrar tarjeta al público.
+  septiembre. Faltan rechazo y reembolso controlados y aprobación del
+  catálogo/dominios antes de mostrar tarjeta al público.
 
 ## Reglas del código PHP
 

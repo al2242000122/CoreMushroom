@@ -246,7 +246,7 @@ Las siete fases de desarrollo. En concreto:
    `nebula.dns-parking.com`. El 19 de septiembre se comprobaron registros A,
    HTTPS 200 en raíz y www, WordPress en la raíz y la ruta REST del puente.
    Stripe está conectado en vivo y en pruebas; falta su aprobación del catálogo
-   real y de la relación entre los dos dominios, además de las liquidaciones.
+   real y de la relación entre los dos dominios.
    Se usa la extensión oficial de Stripe y el checkout nativo de WooCommerce.
    CoreMushroom conservará el pedido y redirigirá mediante una
    sesión opaca; el monto se recuperará de servidor a servidor y el pago solo
@@ -271,9 +271,7 @@ Las siete fases de desarrollo. En concreto:
    Se confirmó acceso al WordPress receptor mediante el host temporal de
    Hostinger y se instalaron y activaron el plugin propio y la extensión
    oficial WooCommerce Stripe Gateway 11.0.0. El 19 de septiembre se
-   conectaron la cuenta en vivo y la de pruebas. WooCommerce muestra pagos
-   habilitados y liquidación deshabilitada; el dueño debe revisar las tareas
-   pendientes de su cuenta directamente en Stripe. El webhook en vivo está
+   conectaron la cuenta en vivo y la de pruebas. El webhook en vivo está
    configurado. El de pruebas rechazó sus primeras firmas; se usó el botón
    oficial «Reconfigurar los webhooks», con autorización del dueño. Tras la
    compra de prueba, WooCommerce confirmó que el webhook de las 21:37:48 UTC
@@ -289,8 +287,9 @@ Las siete fases de desarrollo. En concreto:
    El 21 de septiembre se comprobó además que la sección «Productos» de
    Stripe está vacía; no hay que llenarla para este flujo, porque WooCommerce
    conserva el catálogo y genera el cobro del pedido espejo. El resumen de
-   saldo mostraba MXN 0.00, sin transferencias, y ofrecía configurar las
-   transferencias automáticas. Eso debe resolverse antes del primer cobro real.
+   saldo mostraba MXN 0.00 y sin transferencias. Ese mismo día se activaron
+   transferencias automáticas diarias, sin saldo mínimo retenido. No se
+   documenta en Git ningún dato de la cuenta bancaria vinculada.
    El receptor React está guardado en la rama
    `codex/coremushroom-payment-receiver` del otro repo; no está desplegado.
 
