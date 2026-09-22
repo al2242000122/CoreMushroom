@@ -12,6 +12,12 @@ sobre Hostinger. El desarrollo se hace desde Termux en Android con Git, así que
 todo lo declarable en código se declara en código, no en interfaces de
 configuración.
 
+El dominio canónico es **`https://coremushroom.com.mx`**. Sustituye al
+subdominio provisional `core.bancodeesporas.com`. El dominio nuevo tiene una
+copia independiente de la instalación y su propio despliegue Git. Las páginas
+públicas antiguas redirigen al dominio canónico; las páginas de pedidos
+históricos permanecen accesibles en el subdominio.
+
 El repositorio de GitHub es **público**. Nunca se guardan en él credenciales,
 la URL secreta del webhook, datos bancarios, comprobantes de clientes, copias
 de la base de datos ni datos personales. Cada `push` a `main` dispara el
@@ -21,8 +27,8 @@ webhook de Hostinger y publica automáticamente en producción.
 
 Este repositorio corresponde a un solo proyecto. El banco de esporas es un
 negocio distinto, con su propio marco de cumplimiento, y no se mezcla con
-este. Mientras no se compre el dominio definitivo, el sitio vive en un
-subdominio de desarrollo con la indexación bloqueada.
+este. El sitio ya vive en el dominio definitivo; la indexación permanece
+bloqueada mientras se completa el catálogo y la puesta en marcha comercial.
 
 ## Restricciones duras
 
@@ -60,12 +66,23 @@ subdominio de desarrollo con la indexación bloqueada.
   220 644 6651. El enlace usa `https://wa.me/522206446651` y se muestra
   al pie de todas las páginas mediante `inc/contacto.php`; no envía mensajes
   automáticamente. El número anterior 669 163 0086 no debe reutilizarse.
-- Pago activo: SPEI manual con comprobante. Es el único método visible; pagos
-  con cheque y WooPayments están desactivados. La opción de tarjeta permanece
-  oculta hasta integrar el plugin oficial de un procesador aprobado.
+- Pago público activo: SPEI manual con comprobante. Tarjeta mediante Stripe y
+  CoreAdaptógenos funciona en pruebas solo para administradores; no está
+  disponible al público hasta la aprobación comercial de Stripe. Pagos con
+  cheque y WooPayments están desactivados.
 - Tipografía: Fraunces para titulares, Figtree para texto. Autoalojadas.
-- La raíz del repositorio es la carpeta del tema hijo. Se despliega a
-  `public_html/core/wp-content/themes/coremushroom`.
+- La raíz del repositorio es la carpeta del tema hijo. El destino nuevo es
+  `public_html/wp-content/themes/coremushroom` dentro de la instalación
+  independiente de `coremushroom.com.mx`. El sitio antiguo conserva su
+  despliegue en `public_html/core/wp-content/themes/coremushroom` hasta
+  cerrar la migración.
+- El cobro con tarjeta se redirige de forma transparente a
+  `https://coreadaptogenos.app`; el receptor solo acepta como origen exacto
+  `https://coremushroom.com.mx` y confirma el resultado por callback HMAC.
+- El 22 de septiembre de 2026, una compra de prueba desde el nuevo dominio
+  creó CoreMushroom #58 y el espejo CoreAdaptógenos #34 por $900 MXN. Stripe
+  en pruebas cobró con tarjeta de prueba; ambos sitios devolvieron el pedido
+  como «Procesando». No hubo dinero real.
 
 ## Fase 5, pagos y checkout: TERMINADA
 
@@ -411,10 +428,10 @@ papelera.
 ## Hechos verificados contra el servidor
 
 - Hosting: Hostinger, LiteSpeed, PHP 8.3.30, copias diarias activas.
-- El subdominio de desarrollo vive en `public_html/core/`, no en
-  `domains/core.bancodeesporas.com/`. El campo Directory del despliegue por
-  Git lleva el prefijo `core/`. Es relativo al `public_html` de la cuenta,
-  que es compartida entre el dominio principal y el subdominio.
+- La instalación nueva de `coremushroom.com.mx` tiene su propio `public_html`
+  en hPanel. Su tema vive en `public_html/wp-content/themes/coremushroom`.
+  El subdominio antiguo sigue en `public_html/core/` dentro de la instalación
+  de `bancodeesporas.com`; su integración Git usa el prefijo `core/`.
 - Blocksy 2.1.57 (actualizado el 12 de septiembre de 2026). Su handle de estilos es `ct-main-styles` y usa las
   variables `--theme-palette-color-1` a `-8`, `--theme-font-family`,
   `--theme-text-color` y `--theme-normal-container-max-width`.

@@ -34,16 +34,23 @@ tal cual a `wp-content/themes/coremushroom`.
 
 | Dato | Valor |
 |---|---|
-| Sitio escaparate | `core.bancodeesporas.com` |
+| Sitio escaparate | `coremushroom.com.mx` |
 | Sitio receptor de pagos | `coreadaptogenos.app` (HTTPS activo) |
 | Repositorio público | `github.com/al2242000122/CoreMushroom` |
 | Hosting | Hostinger, LiteSpeed, PHP 8.3 |
 | Tema padre | Blocksy 2.1.57; sus archivos no se editan |
 | Tienda | WooCommerce |
 
+El dominio canónico nuevo es `https://coremushroom.com.mx`. Las páginas
+públicas del subdominio anterior redirigen allí; las vistas de pedidos antiguos
+siguen en el WordPress original. Hostinger copió los archivos y la base de
+datos a una instalación independiente el 22 de septiembre de 2026.
+La tienda nueva conserva el catálogo y la configuración que existían al copiar;
+los pedidos posteriores a la copia no se sincronizan automáticamente.
+
 El dominio receptor `coreadaptogenos.app` está registrado en Name.com y ya
 resuelve al WordPress de Hostinger por HTTPS. CoreMushroom vive en
-`core.bancodeesporas.com` y conserva la indexación bloqueada mientras se
+`coremushroom.com.mx` y conserva la indexación bloqueada mientras se
 terminan catálogo y cobro con tarjeta.
 
 ---
@@ -190,7 +197,7 @@ Las siete fases de desarrollo. En concreto:
   únicamente SPEI, términos y mayoría de edad.
 - El plugin receptor propio de CoreAdaptogenos está instalado y activo en el
   WordPress temporal. Su endpoint está habilitado, con origen permitido en
-  `https://core.bancodeesporas.com`.
+  `https://coremushroom.com.mx`.
 - El mismo secreto compartido quedó guardado en ambos paneles. Nunca se escribe
   en Git ni se muestra en esta memoria.
 - La pasarela “Tarjeta mediante CoreAdaptógenos” usa el receptor
@@ -290,6 +297,10 @@ Las siete fases de desarrollo. En concreto:
    webhooks y el callback firmado. No hubo dinero real. Para pasar a vivo solo
    queda la confirmación comercial de Stripe y cambiar, en ese orden, Stripe y
    el emisor CoreMushroom a producción.
+   El 22 de septiembre se repitió el flujo desde el dominio nuevo: pedido
+   CoreMushroom #58, espejo CoreAdaptógenos #34, $900 MXN y envío gratis.
+   El pago con tarjeta de prueba regresó al dominio nuevo y el origen quedó
+   «Procesando». No hubo dinero real.
    El 21 de septiembre se comprobó además que la sección «Productos» de
    Stripe está vacía; no hay que llenarla para este flujo, porque WooCommerce
    conserva el catálogo y genera el cobro del pedido espejo. El resumen de
@@ -369,8 +380,10 @@ apunta directamente a la página existente.
 
 ## Cómo se despliega
 
-Está conectado por Git en hPanel. Cada `push` a `main` publica en unos diez
-segundos gracias a un webhook.
+El dominio nuevo tiene su propia integración Git en hPanel, con `main` desplegado
+en `wp-content/themes/coremushroom`. El subdominio conserva la integración
+antigua. Comprueba que ambos webhooks reciben los `push` a `main` antes de
+considerar automático el despliegue en los dos sitios.
 
 El webhook solo cambia archivos. Para que LiteSpeed no siga sirviendo HTML de
 una versión anterior, cada publicación funcional debe subir el número de
@@ -382,18 +395,21 @@ La URL del webhook contiene un token y no pertenece al repositorio. Tampoco
 se guardan aquí datos bancarios, comprobantes, credenciales, respaldos ni
 información de clientes.
 
-El detalle que costó una tarde: en Hostinger, `bancodeesporas.com` es la
-cuenta de hosting y `core.bancodeesporas.com` es una instalación de WordPress
-dentro de ella. Hay **una sola** pantalla de GIT para toda la cuenta, y el
-campo `Directory` es relativo al `public_html` del dominio principal. Por eso
-la ruta lleva el prefijo `core/`:
+Hostinger muestra una pantalla GIT para cada sitio. El destino de
+`coremushroom.com.mx` es relativo a su propio `public_html`:
+
+```
+wp-content/themes/coremushroom
+```
+
+La integración antigua del subdominio se gestiona desde `bancodeesporas.com`
+y lleva este prefijo:
 
 ```
 core/wp-content/themes/coremushroom
 ```
 
-Sin ese prefijo, el tema se despliega en el sitio del banco de esporas, que es
-otro negocio y está en producción.
+No reutilices la ruta antigua en la pantalla GIT del dominio nuevo.
 
 ---
 

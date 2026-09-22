@@ -26,9 +26,9 @@ La extensión oficial WooCommerce Stripe Gateway 11.0.0 se instaló y activó.
 La cuenta y el modo de pruebas se conectaron el 19 de septiembre; la
 habilitación de cobros reales al público sigue pendiente.
 
-Actualización del 16 de septiembre de 2026: el plugin propio se instaló y
-activó en el receptor temporal. El endpoint acepta únicamente sesiones firmadas
-desde `https://core.bancodeesporas.com`. CoreMushroom conserva el mismo secreto,
+Actualización del 22 de septiembre de 2026: el plugin propio está activo en
+el receptor definitivo. El endpoint acepta únicamente sesiones firmadas
+desde `https://coremushroom.com.mx`. CoreMushroom conserva el mismo secreto,
 el receptor final `https://coreadaptogenos.app` y el entorno `test`, pero la
 pasarela permanece desactivada hasta verificar Stripe y los
 webhooks.

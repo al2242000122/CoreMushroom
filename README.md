@@ -74,24 +74,21 @@ valores de abajo están verificados contra la instalación real, no supuestos.
 
 ### Cómo está montado el hosting
 
-Hostinger trata `bancodeesporas.com` como la **cuenta de hosting** y
-`core.bancodeesporas.com` como una **instalación de WordPress dentro** de ella.
-Consecuencias que importan:
+`coremushroom.com.mx` tiene una instalación independiente de WordPress y su
+propio `public_html` en hPanel. Hostinger copió la tienda desde el subdominio
+provisional el 22 de septiembre de 2026. Consecuencias que importan:
 
-- Hay **una sola** pantalla de GIT para toda la cuenta. No hay una por
-  subdominio. Está en **Avanzado → GIT**, en el menú lateral de hPanel, no
-  dentro de la sección de WordPress.
-- El campo `Directory` es relativo al `public_html` de la **cuenta**, que es
-  el del dominio principal.
-- El subdominio vive en `public_html/core/`. Por eso la ruta lleva el prefijo
-  `core/`. Sin ese prefijo el despliegue cae en el sitio del banco de esporas,
-  que es otro negocio y está en producción.
+- La pantalla de **Avanzado → GIT** del dominio nuevo es independiente de la
+  integración Git antigua del subdominio.
+- El campo `Directory` es relativo al `public_html` de
+  `coremushroom.com.mx`, donde ya está WordPress.
+- El tema copiado vive en `wp-content/themes/coremushroom`. Hostinger exige
+  que la carpeta de destino esté vacía antes de crear la integración Git.
 
 ### 1. Preparar el destino
 
-Instala WordPress en el subdominio, luego Blocksy y WooCommerce desde el panel
-de WordPress. Deja Blocksy **instalado pero sin activar**: se activa
-CoreMushroom, que lo usa como padre.
+WordPress, Blocksy, WooCommerce y el tema hijo ya se copiaron al dominio nuevo.
+Blocksy permanece instalado como padre; CoreMushroom es el tema activo.
 
 ### 2. Conectar el repositorio en hPanel
 
@@ -101,10 +98,11 @@ CoreMushroom, que lo usa como padre.
 |---|---|
 | Repository | `https://github.com/al2242000122/CoreMushroom.git` |
 | Branch | `main` |
-| Directory | `core/wp-content/themes/coremushroom` |
+| Directory | `wp-content/themes/coremushroom` |
 
-Sin barra al inicio. hPanel la agrega al mostrarlo. La carpeta de destino debe
-estar vacía o no existir.
+Sin barra al inicio. La integración quedó creada el 22 de septiembre de 2026:
+se renombró el tema copiado como respaldo y se desplegó `main` en la ruta
+original. Para reinstalarla, la carpeta de destino debe estar vacía.
 
 El repositorio es público, así que Hostinger puede clonarlo sin una *deploy
 key*. No cambies la visibilidad sin preparar primero el acceso de despliegue.
@@ -129,7 +127,8 @@ ya estaba subido hay que desplegarlo con el botón **Deploy**.
 
 ### 4. Activar el tema
 
-**Apariencia → Temas → CoreMushroom → Activar**.
+El tema ya está activo. Si se cambia en el futuro: **Apariencia → Temas →
+CoreMushroom → Activar**.
 
 ---
 
