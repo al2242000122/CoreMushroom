@@ -283,7 +283,13 @@ Las siete fases de desarrollo. En concreto:
    CoreAdaptogenos y ambos quedaron en «Procesando» con $900 MXN pagados.
    La página de gracias regresó a CoreMushroom; allí constan el callback de
    pago y las aceptaciones de términos y mayoría de edad. No hubo cargo real.
-   Faltan escenarios controlados de rechazo y reembolso antes de pasar a vivo.
+   El 21 de septiembre se completó el rechazo controlado: CoreMushroom #56
+   quedó pendiente de pago y el espejo #32 quedó fallido con el mensaje de
+   tarjeta rechazada. También se reembolsó íntegramente el cargo simulado del
+   pedido #55: el espejo #27 y el origen #55 quedaron «Reembolsado» tras los
+   webhooks y el callback firmado. No hubo dinero real. Para pasar a vivo solo
+   queda la confirmación comercial de Stripe y cambiar, en ese orden, Stripe y
+   el emisor CoreMushroom a producción.
    El 21 de septiembre se comprobó además que la sección «Productos» de
    Stripe está vacía; no hay que llenarla para este flujo, porque WooCommerce
    conserva el catálogo y genera el cobro del pedido espejo. El resumen de

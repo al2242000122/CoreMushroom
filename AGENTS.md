@@ -82,8 +82,10 @@ datos comerciales y de producción, y configurar el cobro con tarjeta.
 - **Tarjeta**: Stripe mediante su extensión oficial en el WooCommerce de
   CoreAdaptogenos. El puente propio usa HMAC, nonce, total exacto en centavos,
   pedido espejo transparente y callback servidor a servidor. La compra de
-  prueba se completó el 19 de septiembre de 2026; el modo de pruebas solo
-  muestra la pasarela a administradores. No se abre al público todavía.
+  prueba aprobada se completó el 19 de septiembre de 2026. El 21 de septiembre
+  también se verificaron un rechazo controlado y un reembolso íntegro. El modo
+  de pruebas solo muestra la pasarela a administradores. No se abre al público
+  todavía.
 - En entorno `test` la pasarela de CoreMushroom solo aparece a usuarios con
   capacidad `manage_woocommerce`, para probar el puente sin exponerlo al
   público. En `live` volverá a estar disponible para clientes solo cuando el
@@ -93,8 +95,8 @@ datos comerciales y de producción, y configurar el cobro con tarjeta.
   originados en CoreMushroom mediante el pedido espejo de CoreAdaptogenos.
   Conekta queda previsto solo para ventas directas de CoreAdaptogenos; no
   debe habilitarse en pedidos espejo. La cuenta de Stripe en vivo quedó
-  conectada y el pago de prueba se completó; faltan pruebas de rechazo y
-  reembolso y la confirmación de Stripe sobre el catálogo y los dos dominios.
+  conectada y las pruebas de pago aprobado, rechazo y reembolso se completaron;
+  falta la confirmación de Stripe sobre el catálogo y los dos dominios.
 - El 21 de septiembre de 2026 se verificó que el catálogo «Productos» de
   Stripe está vacío. Esto no bloquea el puente: los artículos y precios se
   administran en WooCommerce, y la extensión oficial crea el cobro del pedido
@@ -139,12 +141,13 @@ La metodología completa y su contrato de seguridad están en
 - La entrada de tarjeta sigue oculta al público hasta que Stripe apruebe la
   cuenta, el catálogo real y ambos dominios. Las transferencias automáticas
   diarias ya están habilitadas.
-  El puente y un pago de prueba ya se verificaron sobre
+  El puente, el pago aprobado, el rechazo y el reembolso ya se verificaron sobre
   `https://coreadaptogenos.app`.
 - El repo local de CoreAdaptogenos contiene el plugin receptor WooCommerce que
   crea el pedido espejo y restringe su checkout a Stripe. El plugin ya está
-  instalado en el WordPress temporal y el endpoint está habilitado; la tarjeta
-  pública sigue cerrada hasta completar Stripe y las pruebas. Ver el
+  instalado en el WordPress receptor y el endpoint está habilitado; la tarjeta
+  pública sigue cerrada hasta completar la revisión comercial de Stripe y
+  cambiar ambos lados a producción. Ver el
   contrato en `CoreAdaptogenos/docs/coremushroom-payment-bridge.md`.
 
 - El 16 de septiembre de 2026 el plugin receptor se instaló y activó en el
@@ -215,8 +218,12 @@ sabiendas, no un dominio pantalla.
 - Probar el tramo que sí crea datos: realizar un pedido de prueba, subir un
   comprobante marcado SIN VALOR y confirmarlo desde el panel.
 - Pago aprobado y callback comprobados entre ambos WordPress el 19 de
-  septiembre. Faltan rechazo y reembolso controlados y aprobación del
-  catálogo/dominios antes de mostrar tarjeta al público.
+  septiembre. El 21 de septiembre se verificó el rechazo: CoreMushroom #56
+  quedó pendiente de pago y el espejo CoreAdaptogenos #32 quedó fallido, sin
+  marcar el origen como pagado. Ese mismo día se reembolsó íntegramente el cargo
+  simulado de $900: CoreAdaptogenos #27 y CoreMushroom #55 quedaron reembolsados
+  mediante webhooks y callback firmado. No hubo dinero real. Falta la aprobación
+  comercial del catálogo/dominios antes de mostrar tarjeta al público.
 
 ## Reglas del código PHP
 

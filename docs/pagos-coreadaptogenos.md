@@ -4,11 +4,12 @@ Estado: el puente de tarjeta está implementado en ambos repositorios y falla
 cerrado. CoreMushroom contiene la pasarela emisora y el callback firmado;
 CoreAdaptogenos contiene el plugin receptor que crea un pedido WooCommerce
 espejo y entrega su URL nativa `order-pay`. El plugin receptor está instalado y
-activo en el WordPress temporal, y el secreto compartido ya está guardado en
+activo en el WordPress definitivo, y el secreto compartido ya está guardado en
 ambos paneles. El dominio final funciona por HTTPS. Stripe está conectado en
-pruebas y en vivo; el recorrido con tarjeta de prueba se completó el 19 de
-septiembre de 2026. El 21 de septiembre se activaron transferencias automáticas
-diarias sin saldo mínimo retenido. La tarjeta sigue oculta al público porque
+pruebas y en vivo; el recorrido con tarjeta aprobada se completó el 19 de
+septiembre de 2026 y los escenarios de rechazo y reembolso el 21 de septiembre.
+Ese día también se activaron transferencias automáticas diarias sin saldo
+mínimo retenido. La tarjeta sigue oculta al público porque
 falta la revisión del catálogo y los dos dominios. OXXO queda fuera de esta
 primera versión.
 
@@ -39,10 +40,14 @@ El flujo sandbox se ejecutó ese día: pedido #55 en CoreMushroom, pedido espejo
 #27 en CoreAdaptogenos, total de $900 MXN y ambos en estado «Procesando» tras
 un cargo simulado. WooCommerce confirmó que el webhook de prueba más reciente
 se procesó correctamente, aunque indicaba otro pendiente al cerrar la revisión.
-El entorno `test` de CoreMushroom solo muestra tarjeta a administradores;
-Stripe no debe pasar a vivo ni exponerse al público hasta confirmar con Stripe
-el catálogo real y ambos dominios. Las transferencias automáticas diarias ya
-están habilitadas.
+El entorno `test` de CoreMushroom solo muestra tarjeta a administradores.
+El rechazo controlado creó CoreMushroom #56 y el espejo #32: el origen conservó
+«Pendiente de pago» y el receptor quedó «Fallido». El reembolso íntegro del
+cargo simulado de $900 actualizó CoreAdaptogenos #27 y CoreMushroom #55 a
+«Reembolsado» mediante el webhook oficial y el callback firmado. No hubo dinero
+real. Stripe no debe pasar a vivo ni exponerse al público hasta confirmar con
+Stripe el catálogo real y ambos dominios. Las transferencias automáticas
+diarias ya están habilitadas.
 
 ## Propósito
 
