@@ -102,7 +102,8 @@ Blocksy permanece instalado como padre; CoreMushroom es el tema activo.
 
 Sin barra al inicio. La integración quedó creada el 22 de septiembre de 2026:
 se renombró el tema copiado como respaldo y se desplegó `main` en la ruta
-original. Para reinstalarla, la carpeta de destino debe estar vacía.
+original. El respaldo se movió fuera de `public_html`. Para reinstalar la
+integración, la carpeta de destino debe estar vacía.
 
 El repositorio es público, así que Hostinger puede clonarlo sin una *deploy
 key*. No cambies la visibilidad sin preparar primero el acceso de despliegue.

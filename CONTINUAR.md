@@ -382,8 +382,9 @@ apunta directamente a la página existente.
 
 El dominio nuevo tiene su propia integración Git en hPanel, con `main` desplegado
 en `wp-content/themes/coremushroom`. El subdominio conserva la integración
-antigua. Comprueba que ambos webhooks reciben los `push` a `main` antes de
-considerar automático el despliegue en los dos sitios.
+antigua. GitHub tiene dos webhooks `push`, uno por sitio; el ping del nuevo
+respondió 200 el 22 de septiembre de 2026. El respaldo del tema copiado se
+movió fuera de `public_html` antes de concluir la migración.
 
 El webhook solo cambia archivos. Para que LiteSpeed no siga sirviendo HTML de
 una versión anterior, cada publicación funcional debe subir el número de
