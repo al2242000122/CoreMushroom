@@ -371,37 +371,27 @@ portada vacía produciría una medición engañosa.
    importados desde `imports/catalogo-borradores.csv`. Todos siguen sin precio,
    inventario ni datos variables de producción. El producto existente ya se
    llama “Cordyceps · Microdosis 30 cápsulas”, pero necesita su ficha de lote.
-3. **Probar el flujo completo de compra** con SPEI, carga de comprobante y
+2. **Probar el flujo completo de compra** con SPEI, carga de comprobante y
    confirmación desde el panel.
-4. **Sustituir la portada provisional de CoreAdaptogenos.** El 21 de
-   septiembre de 2026 el dominio público todavía mostraba “Welcome to
-   WordPress” y marcadores `trans-*` en el pie. El receptor de pagos funciona,
-   pero esa presentación no debe acompañar un checkout en vivo.
-
 ### Necesitan datos del cliente
 
-4. Precio, fotografía, ingredientes, alérgenos, contenido y datos reales de
+3. Precio, fotografía, ingredientes, alérgenos, contenido y datos reales de
    lote para cada producto.
-5. Los avisos temporales se retiraron de los patterns y se ocultan en las
+4. Los avisos temporales se retiraron de los patterns y se ocultan en las
    páginas ya guardadas.
 
 ### Configuración de WordPress
 
-6. La tarifa fija de $120 para pedidos menores de $900 y el envío gratis al
+5. La tarifa fija de $120 para pedidos menores de $900 y el envío gratis al
    alcanzar ese umbral se verificaron en el carrito el 19 de septiembre de
    2026. A $450, el total fue $570; a $900, el total fue $900 con envío gratis.
    En el checkout también se mostraron ambos métodos y SPEI.
-7. Revisar cabecera y pie de las plantillas internas desde Blocksy.
+6. Revisar cabecera y pie de las plantillas internas desde Blocksy.
 
 El sitio ya usa Español de México, zona horaria de Ciudad de México, unidades
 métricas, descripción corta y reseñas solo para compradores verificados. El
 aviso de privacidad está asignado y las antiguas páginas inglesas están en la
 papelera.
-
-### Probar en el navegador
-
-10. Flujo completo de compra: pedido con SPEI, subida del comprobante y
-    confirmación desde el panel.
 
 ### Mejoras sugeridas, no bloqueantes
 
@@ -455,3 +445,10 @@ papelera.
 - La portada publicada corrige al renderizar sus enlaces históricos de tienda
   a `/catalogo/`, `/carrito/` y `/mi-cuenta/`, y muestra Microdosis como nombre
   de la línea de cápsulas.
+- Verificación pública del 21 de septiembre de 2026: CoreAdaptogenos usa una
+  portada estática propia titulada “Completa tu pago con claridad”, identifica
+  a Stripe y CoreMushroom, enlaza al WhatsApp 220 644 6651 y explica la
+  verificación del importe y el regreso al pedido original. El pie ya no
+  contiene `trans-*`; muestra contacto y enlaces al sitio de origen. El nombre
+  del sitio es “CoreAdaptógenos” y su descripción corta identifica su función
+  de pago.

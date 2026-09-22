@@ -294,16 +294,19 @@ Las siete fases de desarrollo. En concreto:
    El receptor React está guardado en la rama
    `codex/coremushroom-payment-receiver` del otro repo; no está desplegado.
 
-7. **Corregir la cara pública de CoreAdaptogenos.** El 21 de septiembre la
-   raíz de `coreadaptogenos.app` seguía mostrando el mensaje inicial de
-   WordPress y el pie conservaba marcadores `trans-menu`, `trans-contacts`,
-   `trans-contact_email`, `trans-contact_phone`, `trans-socials` y
-   `trans-newsletter`. El backend receptor y el checkout existen, pero esta
-   portada provisional bloquea una salida pública profesional.
+### CoreAdaptogenos público
+
+El 21 de septiembre de 2026 se sustituyó la portada predeterminada por una
+página estática propia. Explica de forma visible que CoreAdaptogenos procesa
+con Stripe los pagos de pedidos iniciados en CoreMushroom, muestra el importe
+verificado, el regreso al pedido original y el WhatsApp 220 644 6651. El pie
+se reescribió por completo y ya no contiene marcadores `trans-*`. El título
+del sitio quedó como “CoreAdaptógenos” y la descripción corta como “Pagos con
+tarjeta para pedidos CoreMushroom”.
 
 ### Configuración pendiente
 
-8. **Afinar el nombre del envío de $120 si procede.** El dueño definió $120
+7. **Afinar el nombre del envío de $120 si procede.** El dueño definió $120
    para pedidos menores de $900 y se configuró «Precio fijo» en la zona México.
    El 19 de septiembre se verificaron los dos lados del umbral en el carrito,
    además del envío gratis y SPEI en el checkout. Queda decidir si el método
