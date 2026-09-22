@@ -81,6 +81,7 @@ if ('con-woo' === $MODO) {
 require $TEMA . '/functions.php';
 
 $siempre = [
+    'coremushroom_destino_dominio',
     'coremushroom_recortar',
     'coremushroom_nombre_provisional',
     'coremushroom_descripcion',

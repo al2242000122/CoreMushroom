@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Solo se usa como respaldo cuando un archivo de assets no existe en disco.
  */
 if ( ! defined( 'COREMUSHROOM_VERSION' ) ) {
-	define( 'COREMUSHROOM_VERSION', '0.3.0' );
+	define( 'COREMUSHROOM_VERSION', '0.3.1' );
 }
 
 /**
@@ -274,6 +274,7 @@ function coremushroom_cargar_modulos() {
 	// metadatos para buscadores y el aligerado de scripts sirven igual en un
 	// sitio sin tienda.
 	$siempre = array(
+		'inc/dominio.php',
 		'inc/seo.php',
 		'inc/rendimiento.php',
 		'inc/portada.php',
