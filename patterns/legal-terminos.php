@@ -69,7 +69,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
-<p class="has-base-font-size">Actualmente aceptamos transferencia SPEI. El pedido se considera confirmado cuando verificamos el abono y el comprobante correspondiente. Un pedido con pago pendiente puede cancelarse si no se liquida dentro de las 24 horas siguientes a su creacion.</p>
+<p class="has-base-font-size">Aceptamos transferencia SPEI y, cuando el metodo este disponible, tarjeta mediante el checkout identificado de CoreAdaptogenos operado con Stripe. CoreMushroom conserva el pedido y CoreAdaptogenos realiza solamente el cobro. Los pagos SPEI se confirman al verificar el abono y el comprobante; los pagos con tarjeta se confirman por webhook firmado. Un pedido pendiente puede cancelarse si no se liquida dentro de las 24 horas siguientes a su creacion.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":2,"fontSize":"xl"} -->

@@ -58,3 +58,5 @@ Los productos ofrecidos en este sitio son vendidos por [[RAZON SOCIAL]], con Reg
 # Advertencias de seguridad. Remiten a un profesional en vez de afirmar nada.
 Si usted esta embarazada o lactando, toma algun medicamento, tiene alguna condicion de salud, o va a dar el producto a un menor, consulte a un profesional de la salud antes de consumirlo.
 No son medicamentos y no sustituyen la consulta con un profesional de la salud.
+Stripe y las instituciones participantes reciben los datos necesarios para procesar, prevenir fraude, confirmar, reembolsar o disputar el pago.
+CoreAdaptogenos y Stripe, cuando usted elige tarjeta, para iniciar el cobro, prevenir fraude, confirmar el resultado y gestionar reembolsos o disputas.

@@ -63,7 +63,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /wp:list -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
-<p class="has-base-font-size">Actualmente no solicitamos ni almacenamos numeros de tarjeta. Los pedidos se pagan mediante transferencia SPEI y el comprobante que el cliente adjunta se utiliza exclusivamente para verificar el pago.</p>
+<p class="has-base-font-size">No almacenamos numeros completos de tarjeta. Los pedidos pueden pagarse por transferencia SPEI o, cuando se elige tarjeta, en el checkout de CoreAdaptogenos mediante la extension oficial de Stripe para WooCommerce. CoreMushroom conserva el pedido comercial y CoreAdaptogenos crea un pedido espejo limitado al cobro. Stripe y las instituciones participantes reciben los datos necesarios para procesar, prevenir fraude, confirmar, reembolsar o disputar el pago.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"fontSize":"base"} -->
@@ -129,6 +129,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <!-- wp:list-item -->
 <li>Las instituciones bancarias que intervienen en la transferencia SPEI, para cobrar o reembolsar.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>CoreAdaptogenos y Stripe, cuando usted elige tarjeta, para iniciar el cobro, prevenir fraude, confirmar el resultado y gestionar reembolsos o disputas.</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
