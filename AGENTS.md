@@ -81,8 +81,9 @@ bloqueada mientras se completa el catálogo y la puesta en marcha comercial.
   `https://coremushroom.com.mx` y confirma el resultado por callback HMAC.
 - El 22 de septiembre de 2026, una compra de prueba desde el nuevo dominio
   creó CoreMushroom #58 y el espejo CoreAdaptógenos #34 por $900 MXN. Stripe
-  en pruebas cobró con tarjeta de prueba; ambos sitios devolvieron el pedido
-  como «Procesando». No hubo dinero real.
+  en pruebas cobró con tarjeta de prueba; ambos sitios marcaron «Procesando».
+  Después se reembolsaron los $900 MXN simulados desde el receptor y los dos
+  pedidos quedaron «Reembolsado» por callback firmado. No hubo dinero real.
 
 ## Fase 5, pagos y checkout: TERMINADA
 

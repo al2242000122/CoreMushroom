@@ -300,7 +300,9 @@ Las siete fases de desarrollo. En concreto:
    El 22 de septiembre se repitió el flujo desde el dominio nuevo: pedido
    CoreMushroom #58, espejo CoreAdaptógenos #34, $900 MXN y envío gratis.
    El pago con tarjeta de prueba regresó al dominio nuevo y el origen quedó
-   «Procesando». No hubo dinero real.
+   «Procesando». Luego se reembolsaron íntegramente los $900 MXN simulados:
+   ambos pedidos quedaron «Reembolsado» y el receptor registró pago neto $0.
+   No hubo dinero real.
    El 21 de septiembre se comprobó además que la sección «Productos» de
    Stripe está vacía; no hay que llenarla para este flujo, porque WooCommerce
    conserva el catálogo y genera el cobro del pedido espejo. El resumen de
