@@ -56,6 +56,10 @@ subdominio de desarrollo con la indexación bloqueada.
   El copy alrededor de esa línea se mantiene estrictamente sensorial: nada de
   efecto, beneficio ni resultado.
 - Envío gratis a partir de 900 pesos.
+- WhatsApp Business público para CoreMushroom y CoreAdaptogenos:
+  220 644 6651. El enlace usa `https://wa.me/522206446651` y se muestra
+  al pie de todas las páginas mediante `inc/contacto.php`; no envía mensajes
+  automáticamente. El número anterior 669 163 0086 no debe reutilizarse.
 - Pago activo: SPEI manual con comprobante. Es el único método visible; pagos
   con cheque y WooPayments están desactivados. La opción de tarjeta permanece
   oculta hasta integrar el plugin oficial de un procesador aprobado.

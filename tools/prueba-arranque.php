@@ -92,6 +92,7 @@ $siempre = [
     'coremushroom_avisar_identidad_sin_configurar',
     'coremushroom_actualizar_portada_publicada',
     'coremushroom_retirar_aviso_revision_legal',
+    'coremushroom_mostrar_contacto_whatsapp',
 ];
 
 $esperadas = [
@@ -132,6 +133,12 @@ foreach ($siempre as $fn) {
     printf("%s siempre   %s
 ", $ok ? 'OK   ' : 'FALLA', $fn);
 }
+
+$contacto_registrado = in_array('coremushroom_mostrar_contacto_whatsapp', $GLOBALS['ganchos']['wp_footer'] ?? [], true);
+if (!$contacto_registrado) { $fallos++; }
+printf("%s gancho    wp_footer:coremushroom_mostrar_contacto_whatsapp\n",
+    $contacto_registrado ? 'OK   ' : 'FALLA');
+
 foreach ($esperadas as $fn) {
     $existe = function_exists($fn);
     $ok = ($existe === $debe_existir);

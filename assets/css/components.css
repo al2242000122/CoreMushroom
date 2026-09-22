@@ -685,3 +685,30 @@
   border-color: var(--wp--preset--color--hueso);
   background-color: var(--wp--preset--color--hueso);
 }
+
+/* Contacto por WhatsApp al pie de todas las plantillas, sin tapar el checkout. */
+.cm-contacto-wa {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--wp--preset--spacing--35);
+  padding: var(--wp--preset--spacing--40);
+  background-color: var(--wp--preset--color--hueso);
+  color: var(--wp--preset--color--tinta);
+  font-family: var(--wp--preset--font-family--texto);
+  font-size: var(--wp--preset--font-size--sm);
+  text-align: center;
+}
+
+.cm-contacto-wa a {
+  color: var(--wp--preset--color--bosque);
+  font-weight: var(--wp--custom--tipografia--peso-fuerte);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cm-contacto-wa a:hover,
+.cm-contacto-wa a:focus-visible {
+  color: var(--wp--preset--color--tinta);
+}

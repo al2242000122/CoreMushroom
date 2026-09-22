@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Solo se usa como respaldo cuando un archivo de assets no existe en disco.
  */
 if ( ! defined( 'COREMUSHROOM_VERSION' ) ) {
-	define( 'COREMUSHROOM_VERSION', '0.2.8' );
+	define( 'COREMUSHROOM_VERSION', '0.2.9' );
 }
 
 /**
@@ -278,6 +278,7 @@ function coremushroom_cargar_modulos() {
 		'inc/rendimiento.php',
 		'inc/portada.php',
 		'inc/legal.php',
+		'inc/contacto.php',
 	);
 
 	// Estos si dependen de WooCommerce: usan sus ganchos y la clase

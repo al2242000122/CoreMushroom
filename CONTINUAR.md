@@ -182,6 +182,10 @@ Las siete fases de desarrollo. En concreto:
   Microdosis y con su slug definitivo.
 - CLABE y beneficiario capturados en la pasarela SPEI.
 - LiteSpeed Cache instalado y activo.
+- Contacto WhatsApp Business público de ambas marcas: 220 644 6651;
+  enlace `https://wa.me/522206446651`. CoreMushroom lo declara en
+  `inc/contacto.php` y aparece al pie de todas sus páginas. El número
+  anterior 669 163 0086 se sustituyó.
 - La tienda dejó el modo “Próximamente” y ya es pública. El checkout muestra
   únicamente SPEI, términos y mayoría de edad.
 - El plugin receptor propio de CoreAdaptogenos está instalado y activo en el
