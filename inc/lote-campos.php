@@ -13,7 +13,7 @@
  * @package CoreMushroom
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
@@ -38,77 +38,116 @@ const COREMUSHROOM_META_PREFIJO = '_coremushroom_';
  *
  * @return array<string, array<string, mixed>>
  */
-function coremushroom_campos_lote() {
+function coremushroom_campos_lote()
+{
 	return array(
-		'lote'               => array(
-			'etiqueta' => __( 'Código de lote', 'coremushroom' ),
-			'tipo'     => 'text',
-			'ayuda'    => __( 'Ejemplo: CM-2609-C4', 'coremushroom' ),
+		'lote' => array(
+			'etiqueta' => __('Código de lote', 'coremushroom'),
+			'tipo' => 'text',
+			'ayuda' => __('Ejemplo: CM-2609-C4', 'coremushroom'),
 		),
-		'especie'            => array(
-			'etiqueta' => __( 'Especie', 'coremushroom' ),
-			'tipo'     => 'select',
+		'especie' => array(
+			'etiqueta' => __('Especie', 'coremushroom'),
+			'tipo' => 'select',
 			'opciones' => array(
-				'cordyceps' => __( 'Cordyceps', 'coremushroom' ),
-				'hericium'  => __( 'Hericium', 'coremushroom' ),
-				'trametes'  => __( 'Trametes', 'coremushroom' ),
-				'ganoderma' => __( 'Ganoderma', 'coremushroom' ),
+				'cordyceps' => __('Cordyceps', 'coremushroom'),
+				'hericium' => __('Hericium', 'coremushroom'),
+				'trametes' => __('Trametes', 'coremushroom'),
+				'ganoderma' => __('Ganoderma', 'coremushroom'),
+				'psilocybe-cubensis' => __('Psilocybe cubensis', 'coremushroom'),
+				'psilocybe-mexicana' => __('Psilocybe mexicana', 'coremushroom'),
+				'psilocybe-tampanensis' => __('Psilocybe tampanensis', 'coremushroom'),
 			),
 		),
-		'formato'            => array(
-			'etiqueta' => __( 'Formato', 'coremushroom' ),
-			'tipo'     => 'select',
+		'cepa' => array(
+			'etiqueta' => __('Cepa', 'coremushroom'),
+			'tipo' => 'text',
+		),
+		'potencia_estimada' => array(
+			'etiqueta' => __('Contenido estimado de psilocibina', 'coremushroom'),
+			'tipo' => 'text',
+			'ayuda' => __('Dato cuantitativo del lote con unidad y método de análisis; dejar vacío si no se midió.', 'coremushroom'),
+		),
+		'dosis_sugerida' => array(
+			'etiqueta' => __('Cantidad de referencia por unidad', 'coremushroom'),
+			'tipo' => 'text',
+			'ayuda' => __('Solo cantidad física y unidad, por ejemplo 0.2 g por cápsula; sin indicaciones de uso.', 'coremushroom'),
+		),
+		'metodo_cultivo' => array(
+			'etiqueta' => __('Método de cultivo', 'coremushroom'),
+			'tipo' => 'text',
+		),
+		'sustrato' => array(
+			'etiqueta' => __('Sustrato', 'coremushroom'),
+			'tipo' => 'text',
+		),
+		'fecha_cosecha' => array(
+			'etiqueta' => __('Fecha de cosecha', 'coremushroom'),
+			'tipo' => 'date',
+		),
+		'fecha_secado' => array(
+			'etiqueta' => __('Fecha de secado', 'coremushroom'),
+			'tipo' => 'date',
+		),
+		'humedad_residual' => array(
+			'etiqueta' => __('Humedad residual', 'coremushroom'),
+			'tipo' => 'text',
+			'ayuda' => __('Porcentaje medido del lote; dejar vacío si no se midió.', 'coremushroom'),
+		),
+		'formato' => array(
+			'etiqueta' => __('Formato', 'coremushroom'),
+			'tipo' => 'select',
 			'opciones' => array(
-				'chocolate' => __( 'Chocolate', 'coremushroom' ),
-				'tisana'    => __( 'Tisana', 'coremushroom' ),
-				'capsula'   => __( 'Cápsula', 'coremushroom' ),
+				'chocolate' => __('Chocolate', 'coremushroom'),
+				'tisana' => __('Tisana', 'coremushroom'),
+				'capsula' => __('Cápsula', 'coremushroom'),
 			),
 		),
-		'preparacion'        => array(
-			'etiqueta' => __( 'Preparación', 'coremushroom' ),
-			'tipo'     => 'select',
+		'preparacion' => array(
+			'etiqueta' => __('Preparación', 'coremushroom'),
+			'tipo' => 'select',
 			'opciones' => array(
-				'extracto'    => __( 'Extracto concentrado', 'coremushroom' ),
-				'liofilizado' => __( 'Liofilizado', 'coremushroom' ),
+				'extracto' => __('Extracto concentrado', 'coremushroom'),
+				'liofilizado' => __('Liofilizado', 'coremushroom'),
 			),
-			'ayuda'    => __( 'Cómo se obtuvo el material, no qué hace.', 'coremushroom' ),
+			'ayuda' => __('Cómo se obtuvo el material, no qué hace.', 'coremushroom'),
 		),
-		'concentracion'      => array(
-			'etiqueta' => __( 'Concentración del extracto', 'coremushroom' ),
-			'tipo'     => 'text',
-			'ayuda'    => __( 'Ejemplo: 8:1, o sea 8 kg de hongo por cada kg de extracto. Se deja vacío en un liofilizado.', 'coremushroom' ),
+		'concentracion' => array(
+			'etiqueta' => __('Concentración del extracto', 'coremushroom'),
+			'tipo' => 'text',
+			'ayuda' => __('Ejemplo: 8:1, o sea 8 kg de hongo por cada kg de extracto. Se deja vacío en un liofilizado.', 'coremushroom'),
 		),
-		'contenido_neto'     => array(
-			'etiqueta' => __( 'Contenido neto', 'coremushroom' ),
-			'tipo'     => 'text',
-			'ayuda'    => __( 'Ejemplo: 60 g, 12 piezas', 'coremushroom' ),
+		'contenido_neto' => array(
+			'etiqueta' => __('Contenido neto', 'coremushroom'),
+			'tipo' => 'text',
+			'ayuda' => __('Ejemplo: 60 g, 12 piezas', 'coremushroom'),
 		),
-		'ingredientes'       => array(
-			'etiqueta' => __( 'Ingredientes', 'coremushroom' ),
-			'tipo'     => 'textarea',
-			'ayuda'    => __( 'En orden decreciente de cantidad, como en la etiqueta física.', 'coremushroom' ),
+		'ingredientes' => array(
+			'etiqueta' => __('Ingredientes', 'coremushroom'),
+			'tipo' => 'textarea',
+			'ayuda' => __('En orden decreciente de cantidad, como en la etiqueta física.', 'coremushroom'),
 		),
 		'extracto_por_pieza' => array(
-			'etiqueta' => __( 'Extracto por pieza', 'coremushroom' ),
-			'tipo'     => 'text',
-			'ayuda'    => __( 'Ejemplo: 500 mg. Es cuanto extracto lleva cada pieza.', 'coremushroom' ),
+			'etiqueta' => __('Extracto por pieza', 'coremushroom'),
+			'tipo' => 'text',
+			'ayuda' => __('Ejemplo: 500 mg. Es cuanto extracto lleva cada pieza.', 'coremushroom'),
 		),
-		'alergenos'          => array(
-			'etiqueta' => __( 'Alérgenos', 'coremushroom' ),
-			'tipo'     => 'textarea',
+		'alergenos' => array(
+			'etiqueta' => __('Alérgenos', 'coremushroom'),
+			'tipo' => 'textarea',
 		),
-		'fecha_elaboracion'  => array(
-			'etiqueta' => __( 'Fecha de elaboración', 'coremushroom' ),
-			'tipo'     => 'date',
+		'fecha_elaboracion' => array(
+			'etiqueta' => __('Fecha de elaboración', 'coremushroom'),
+			'tipo' => 'date',
 		),
 		'consumo_preferente' => array(
-			'etiqueta' => __( 'Consumir preferentemente antes de', 'coremushroom' ),
-			'tipo'     => 'date',
+			'etiqueta' => __('Consumir preferentemente antes de', 'coremushroom'),
+			'tipo' => 'date',
 		),
-		'certificado_url'    => array(
-			'etiqueta' => __( 'Certificado de análisis', 'coremushroom' ),
-			'tipo'     => 'url',
-			'ayuda'    => __( 'Enlace al PDF. Se deja vacío si todavía no existe.', 'coremushroom' ),
+		'certificado_url' => array(
+			'etiqueta' => __('Certificado de análisis', 'coremushroom'),
+			'tipo' => 'url',
+			'ayuda' => __('Enlace al PDF. Se deja vacío si todavía no existe.', 'coremushroom'),
 		),
 	);
 }
@@ -123,20 +162,21 @@ function coremushroom_campos_lote() {
  * @param string $clave       Clave del campo, sin prefijo.
  * @return string
  */
-function coremushroom_obtener_lote( $producto_id, $clave ) {
+function coremushroom_obtener_lote($producto_id, $clave)
+{
 	$campos = coremushroom_campos_lote();
 
-	if ( ! isset( $campos[ $clave ] ) ) {
+	if (!isset($campos[$clave])) {
 		return '';
 	}
 
-	$valor = get_post_meta( (int) $producto_id, COREMUSHROOM_META_PREFIJO . $clave, true );
+	$valor = get_post_meta((int) $producto_id, COREMUSHROOM_META_PREFIJO . $clave, true);
 
-	if ( ! is_string( $valor ) ) {
+	if (!is_string($valor)) {
 		return '';
 	}
 
-	return trim( $valor );
+	return trim($valor);
 }
 
 /**
@@ -151,38 +191,41 @@ function coremushroom_obtener_lote( $producto_id, $clave ) {
  * @param string $valor Valor guardado.
  * @return string
  */
-function coremushroom_etiqueta_opcion( $clave, $valor ) {
+function coremushroom_etiqueta_opcion($clave, $valor)
+{
 	$campos = coremushroom_campos_lote();
 
-	if ( empty( $campos[ $clave ]['opciones'][ $valor ] ) ) {
+	if (empty($campos[$clave]['opciones'][$valor])) {
 		return '';
 	}
 
-	return $campos[ $clave ]['opciones'][ $valor ];
+	return $campos[$clave]['opciones'][$valor];
 }
 
 /**
  * Registra la caja de metadatos en el editor de producto.
  */
-function coremushroom_registrar_caja_lote() {
+function coremushroom_registrar_caja_lote()
+{
 	add_meta_box(
 		'coremushroom-lote',
-		__( 'Ficha de lote', 'coremushroom' ),
+		__('Ficha de lote', 'coremushroom'),
 		'coremushroom_dibujar_caja_lote',
 		'product',
 		'normal',
 		'high'
 	);
 }
-add_action( 'add_meta_boxes_product', 'coremushroom_registrar_caja_lote' );
+add_action('add_meta_boxes_product', 'coremushroom_registrar_caja_lote');
 
 /**
  * Dibuja el formulario de la caja de lote.
  *
  * @param WP_Post $post Producto que se esta editando.
  */
-function coremushroom_dibujar_caja_lote( $post ) {
-	wp_nonce_field( 'coremushroom_guardar_lote_' . $post->ID, 'coremushroom_lote_nonce' );
+function coremushroom_dibujar_caja_lote($post)
+{
+	wp_nonce_field('coremushroom_guardar_lote_' . $post->ID, 'coremushroom_lote_nonce');
 
 	echo '<p class="description">';
 	esc_html_e(
@@ -193,40 +236,40 @@ function coremushroom_dibujar_caja_lote( $post ) {
 
 	echo '<table class="form-table" role="presentation"><tbody>';
 
-	foreach ( coremushroom_campos_lote() as $clave => $campo ) {
-		$id     = COREMUSHROOM_META_PREFIJO . $clave;
-		$valor  = coremushroom_obtener_lote( $post->ID, $clave );
+	foreach (coremushroom_campos_lote() as $clave => $campo) {
+		$id = COREMUSHROOM_META_PREFIJO . $clave;
+		$valor = coremushroom_obtener_lote($post->ID, $clave);
 		$titulo = $campo['etiqueta'];
 
 		echo '<tr>';
 		printf(
 			'<th scope="row"><label for="%1$s">%2$s</label></th>',
-			esc_attr( $id ),
-			esc_html( $titulo )
+			esc_attr($id),
+			esc_html($titulo)
 		);
 		echo '<td>';
 
-		switch ( $campo['tipo'] ) {
+		switch ($campo['tipo']) {
 			case 'textarea':
 				printf(
 					'<textarea id="%1$s" name="%1$s" rows="3" class="large-text">%2$s</textarea>',
-					esc_attr( $id ),
-					esc_textarea( $valor )
+					esc_attr($id),
+					esc_textarea($valor)
 				);
 				break;
 
 			case 'select':
-				printf( '<select id="%1$s" name="%1$s">', esc_attr( $id ) );
+				printf('<select id="%1$s" name="%1$s">', esc_attr($id));
 				printf(
 					'<option value="">%s</option>',
-					esc_html__( '— Sin especificar —', 'coremushroom' )
+					esc_html__('— Sin especificar —', 'coremushroom')
 				);
-				foreach ( $campo['opciones'] as $opcion => $texto ) {
+				foreach ($campo['opciones'] as $opcion => $texto) {
 					printf(
 						'<option value="%1$s"%2$s>%3$s</option>',
-						esc_attr( $opcion ),
-						selected( $valor, $opcion, false ),
-						esc_html( $texto )
+						esc_attr($opcion),
+						selected($valor, $opcion, false),
+						esc_html($texto)
 					);
 				}
 				echo '</select>';
@@ -235,30 +278,30 @@ function coremushroom_dibujar_caja_lote( $post ) {
 			case 'date':
 				printf(
 					'<input type="date" id="%1$s" name="%1$s" value="%2$s" class="regular-text">',
-					esc_attr( $id ),
-					esc_attr( $valor )
+					esc_attr($id),
+					esc_attr($valor)
 				);
 				break;
 
 			case 'url':
 				printf(
 					'<input type="url" id="%1$s" name="%1$s" value="%2$s" class="large-text" placeholder="https://">',
-					esc_attr( $id ),
-					esc_attr( $valor )
+					esc_attr($id),
+					esc_attr($valor)
 				);
 				break;
 
 			default:
 				printf(
 					'<input type="text" id="%1$s" name="%1$s" value="%2$s" class="regular-text">',
-					esc_attr( $id ),
-					esc_attr( $valor )
+					esc_attr($id),
+					esc_attr($valor)
 				);
 				break;
 		}
 
-		if ( ! empty( $campo['ayuda'] ) ) {
-			printf( '<p class="description">%s</p>', esc_html( $campo['ayuda'] ) );
+		if (!empty($campo['ayuda'])) {
+			printf('<p class="description">%s</p>', esc_html($campo['ayuda']));
 		}
 
 		echo '</td></tr>';
@@ -283,49 +326,51 @@ function coremushroom_dibujar_caja_lote( $post ) {
  * @param int     $post_id ID del producto.
  * @param WP_Post $post    Objeto del producto.
  */
-function coremushroom_guardar_lote( $post_id, $post ) {
-	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+function coremushroom_guardar_lote($post_id, $post)
+{
+	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
 		return;
 	}
 
-	if ( ! $post instanceof WP_Post || 'product' !== $post->post_type ) {
+	if (!$post instanceof WP_Post || 'product' !== $post->post_type) {
 		return;
 	}
 
-	if ( ! isset( $_POST['coremushroom_lote_nonce'] ) ) {
+	if (!isset($_POST['coremushroom_lote_nonce'])) {
 		return;
 	}
 
-	$nonce = sanitize_text_field( wp_unslash( $_POST['coremushroom_lote_nonce'] ) );
+	$nonce = sanitize_text_field(wp_unslash($_POST['coremushroom_lote_nonce']));
 
-	if ( ! wp_verify_nonce( $nonce, 'coremushroom_guardar_lote_' . $post_id ) ) {
+	if (!wp_verify_nonce($nonce, 'coremushroom_guardar_lote_' . $post_id)) {
 		return;
 	}
 
-	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+	if (!current_user_can('edit_post', $post_id)) {
 		return;
 	}
 
-	foreach ( coremushroom_campos_lote() as $clave => $campo ) {
+	foreach (coremushroom_campos_lote() as $clave => $campo) {
 		$id = COREMUSHROOM_META_PREFIJO . $clave;
 
-		if ( ! isset( $_POST[ $id ] ) ) {
+		if (!isset($_POST[$id])) {
 			continue;
 		}
 
-		$crudo  = wp_unslash( $_POST[ $id ] );
+		$crudo = wp_unslash($_POST[$id]);
 		$limpio = '';
 
-		if ( is_string( $crudo ) ) {
-			switch ( $campo['tipo'] ) {
+		if (is_string($crudo)) {
+			switch ($campo['tipo']) {
 				case 'textarea':
-					$limpio = sanitize_textarea_field( $crudo );
+					$limpio = sanitize_textarea_field($crudo);
 					break;
 
 				case 'select':
 					// Solo se acepta una de las opciones declaradas. Cualquier
 					// otro valor, venga de donde venga, se descarta.
-					$limpio = isset( $campo['opciones'][ $crudo ] ) ? $crudo : '';
+					$opcion = sanitize_text_field($crudo);
+					$limpio = isset($campo['opciones'][$opcion]) ? $opcion : '';
 					break;
 
 				case 'date':
@@ -336,8 +381,10 @@ function coremushroom_guardar_lote( $post_id, $post ) {
 					// salto pegado al final pasaria el patron y se guardaria con
 					// el salto incluido.
 					$limpio = '';
-					if ( preg_match( '/^(\d{4})-(\d{2})-(\d{2})\z/', $crudo, $partes )
-						&& checkdate( (int) $partes[2], (int) $partes[3], (int) $partes[1] ) ) {
+					if (
+						preg_match('/^(\d{4})-(\d{2})-(\d{2})\z/', $crudo, $partes)
+						&& checkdate((int) $partes[2], (int) $partes[3], (int) $partes[1])
+					) {
 						$limpio = $crudo;
 					}
 					break;
@@ -347,16 +394,16 @@ function coremushroom_guardar_lote( $post_id, $post ) {
 					// esquema como //otrodominio.tld o /wp-admin/algo no lleva
 					// ninguno, asi que pasa entera. Se exige http o https de
 					// forma explicita antes de aceptarla.
-					$limpio  = esc_url_raw( $crudo, array( 'http', 'https' ) );
-					$esquema = strtolower( (string) wp_parse_url( $limpio, PHP_URL_SCHEME ) );
+					$limpio = esc_url_raw($crudo, array('http', 'https'));
+					$esquema = strtolower((string) wp_parse_url($limpio, PHP_URL_SCHEME));
 
-					if ( ! in_array( $esquema, array( 'http', 'https' ), true ) ) {
+					if (!in_array($esquema, array('http', 'https'), true)) {
 						$limpio = '';
 					}
 					break;
 
 				default:
-					$limpio = sanitize_text_field( $crudo );
+					$limpio = sanitize_text_field($crudo);
 					break;
 			}
 		}
@@ -364,15 +411,15 @@ function coremushroom_guardar_lote( $post_id, $post ) {
 		// Tope de longitud. meta_value es longtext, asi que sin esto un valor
 		// de varios megabytes se guardaria y se imprimiria en cada tarjeta del
 		// catalogo. Los limites son holgados para el uso real de estos campos.
-		$tope   = ( 'textarea' === $campo['tipo'] ) ? 2000 : 300;
-		$limpio = mb_substr( $limpio, 0, $tope );
+		$tope = ('textarea' === $campo['tipo']) ? 2000 : 300;
+		$limpio = mb_substr($limpio, 0, $tope);
 
-		if ( '' === $limpio ) {
-			delete_post_meta( $post_id, $id );
+		if ('' === $limpio) {
+			delete_post_meta($post_id, $id);
 			continue;
 		}
 
-		update_post_meta( $post_id, $id, $limpio );
+		update_post_meta($post_id, $id, $limpio);
 	}
 }
-add_action( 'save_post_product', 'coremushroom_guardar_lote', 10, 2 );
+add_action('save_post_product', 'coremushroom_guardar_lote', 10, 2);

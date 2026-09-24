@@ -10,93 +10,275 @@
 define('ABSPATH', __DIR__);
 $TEMA = $argv[1];
 
-$GLOBALS['meta']       = [];
-$GLOBALS['posts']      = [];
-$GLOBALS['acciones']   = [];
-$GLOBALS['filtros']    = [];
+$GLOBALS['meta'] = [];
+$GLOBALS['posts'] = [];
+$GLOBALS['acciones'] = [];
+$GLOBALS['filtros'] = [];
 $GLOBALS['shortcodes'] = [];
-$GLOBALS['cap']        = true;
-$GLOBALS['nonce_ok']   = true;
+$GLOBALS['cap'] = true;
+$GLOBALS['nonce_ok'] = true;
+$GLOBALS['atributos_wc'] = ['formato' => ['id' => 44, 'name' => 'Formato existente']];
+$GLOBALS['atributos_creados'] = [];
 
 // --- Nucleo simulado ---
-function add_action($h, $f, $p = 10, $a = 1) { $GLOBALS['acciones'][$h][] = $f; }
-function remove_action($h, $f, $p = 10) { return true; }
-function add_filter($h, $f, $p = 10, $a = 1) { $GLOBALS['filtros'][$h][] = $f; }
-function add_shortcode($t, $f) { $GLOBALS['shortcodes'][$t] = $f; }
-function add_meta_box() {}
-function wp_nonce_field() {}
-function wp_verify_nonce($n, $a) {
-    if (!$GLOBALS['nonce_ok']) { return false; }
+function add_action($h, $f, $p = 10, $a = 1)
+{
+    $GLOBALS['acciones'][$h][] = $f;
+}
+function remove_action($h, $f, $p = 10)
+{
+    return true;
+}
+function add_filter($h, $f, $p = 10, $a = 1)
+{
+    $GLOBALS['filtros'][$h][] = $f;
+}
+function add_shortcode($t, $f)
+{
+    $GLOBALS['shortcodes'][$t] = $f;
+}
+function add_meta_box()
+{
+}
+function wp_nonce_field()
+{
+}
+function wp_verify_nonce($n, $a)
+{
+    if (!$GLOBALS['nonce_ok']) {
+        return false;
+    }
     // El nonce solo vale para la accion exacta con la que se emitio.
     return ($n === $a) ? 1 : false;
 }
-function current_user_can($c, $id = 0) { return $GLOBALS['cap']; }
-function wp_unslash($v) { return is_string($v) ? stripslashes($v) : $v; }
-function __($t, $d = '') { return $t; }
-function esc_html__($t, $d = '') { return htmlspecialchars($t, ENT_QUOTES, 'UTF-8'); }
-function esc_html_e($t, $d = '') { echo esc_html__($t); }
-function esc_html($t) { return htmlspecialchars((string) $t, ENT_QUOTES, 'UTF-8'); }
-function esc_attr($t) { return htmlspecialchars((string) $t, ENT_QUOTES, 'UTF-8'); }
-function esc_textarea($t) { return htmlspecialchars((string) $t, ENT_QUOTES, 'UTF-8'); }
-function esc_url($u) {
+function current_user_can($c, $id = 0)
+{
+    return $GLOBALS['cap'];
+}
+function wp_unslash($v)
+{
+    return is_string($v) ? stripslashes($v) : $v;
+}
+function __($t, $d = '')
+{
+    return $t;
+}
+function esc_html__($t, $d = '')
+{
+    return htmlspecialchars($t, ENT_QUOTES, 'UTF-8');
+}
+function esc_html_e($t, $d = '')
+{
+    echo esc_html__($t);
+}
+function esc_html($t)
+{
+    return htmlspecialchars((string) $t, ENT_QUOTES, 'UTF-8');
+}
+function esc_attr($t)
+{
+    return htmlspecialchars((string) $t, ENT_QUOTES, 'UTF-8');
+}
+function esc_textarea($t)
+{
+    return htmlspecialchars((string) $t, ENT_QUOTES, 'UTF-8');
+}
+function esc_url($u)
+{
     $u = trim((string) $u);
     $esq = strtolower((string) parse_url($u, PHP_URL_SCHEME));
-    if (!in_array($esq, ['http', 'https'], true)) { return ''; }
+    if (!in_array($esq, ['http', 'https'], true)) {
+        return '';
+    }
     return htmlspecialchars($u, ENT_QUOTES, 'UTF-8');
 }
-function esc_url_raw($u, $protocolos = null) {
+function esc_url_raw($u, $protocolos = null)
+{
     $u = trim((string) $u);
     $permitidos = $protocolos ?: ['http', 'https'];
     $esq = strtolower((string) parse_url($u, PHP_URL_SCHEME));
-    if (!in_array($esq, $permitidos, true)) { return ''; }
+    if (!in_array($esq, $permitidos, true)) {
+        return '';
+    }
     return $u;
 }
-function sanitize_text_field($t) { return trim(preg_replace('/\s+/', ' ', strip_tags((string) $t))); }
-function sanitize_textarea_field($t) { return trim(strip_tags((string) $t)); }
-function sanitize_html_class($c) { return preg_replace('/[^A-Za-z0-9_-]/', '', (string) $c); }
-function selected($a, $b, $e = true) { return $a === $b ? ' selected' : ''; }
-function date_i18n($f, $m) { return date('Y-m-d', $m); }
-function is_singular($t = '') { return true; }
-function get_the_ID() { return $GLOBALS['post_actual'] ?? 0; }
-function get_post_type($id) { return $GLOBALS['posts'][$id]['type'] ?? false; }
-function get_post_status($id) { return $GLOBALS['posts'][$id]['status'] ?? false; }
-function post_password_required($id = null) { return !empty($GLOBALS['posts'][$id]['pass']); }
-function wp_parse_url($u, $c = -1) { return parse_url($u, $c); }
-function get_stylesheet_directory() { global $TEMA; return $TEMA; }
-function shortcode_atts($pares, $atts, $sc = '') {
-    $atts = (array) $atts; $out = [];
-    foreach ($pares as $k => $v) { $out[$k] = array_key_exists($k, $atts) ? $atts[$k] : $v; }
+function sanitize_text_field($t)
+{
+    return trim(preg_replace('/\s+/', ' ', strip_tags((string) $t)));
+}
+function sanitize_textarea_field($t)
+{
+    return trim(strip_tags((string) $t));
+}
+function sanitize_html_class($c)
+{
+    return preg_replace('/[^A-Za-z0-9_-]/', '', (string) $c);
+}
+function selected($a, $b, $e = true)
+{
+    return $a === $b ? ' selected' : '';
+}
+function date_i18n($f, $m)
+{
+    return date('Y-m-d', $m);
+}
+function is_singular($t = '')
+{
+    return true;
+}
+function get_the_ID()
+{
+    return $GLOBALS['post_actual'] ?? 0;
+}
+function get_post_type($id)
+{
+    return $GLOBALS['posts'][$id]['type'] ?? false;
+}
+function get_post_status($id)
+{
+    return $GLOBALS['posts'][$id]['status'] ?? false;
+}
+function post_password_required($id = null)
+{
+    return !empty($GLOBALS['posts'][$id]['pass']);
+}
+function wp_parse_url($u, $c = -1)
+{
+    return parse_url($u, $c);
+}
+function get_stylesheet_directory()
+{
+    global $TEMA;
+    return $TEMA;
+}
+function shortcode_atts($pares, $atts, $sc = '')
+{
+    $atts = (array) $atts;
+    $out = [];
+    foreach ($pares as $k => $v) {
+        $out[$k] = array_key_exists($k, $atts) ? $atts[$k] : $v;
+    }
     return $out;
 }
-function get_post_meta($id, $k, $single = false) { return $GLOBALS['meta'][$id][$k] ?? ''; }
-function update_post_meta($id, $k, $v) { $GLOBALS['meta'][$id][$k] = $v; return true; }
-function delete_post_meta($id, $k) { unset($GLOBALS['meta'][$id][$k]); return true; }
-
-class WP_Post { public $ID; public $post_type; function __construct($id, $t = 'product') { $this->ID = $id; $this->post_type = $t; } }
-class WC_Product {
-    private $id; private $stock;
-    function __construct($id, $stock = true) { $this->id = $id; $this->stock = $stock; }
-    function get_id() { return $this->id; }
-    function get_image_id() { return 0; }
-    function get_gallery_image_ids() { return []; }
-    function is_in_stock() { return $this->stock; }
+function get_post_meta($id, $k, $single = false)
+{
+    return $GLOBALS['meta'][$id][$k] ?? '';
 }
-class WooCommerce {}
+function update_post_meta($id, $k, $v)
+{
+    $GLOBALS['meta'][$id][$k] = $v;
+    return true;
+}
+function delete_post_meta($id, $k)
+{
+    unset($GLOBALS['meta'][$id][$k]);
+    return true;
+}
+function wc_attribute_taxonomy_id_by_name($slug)
+{
+    return $GLOBALS['atributos_wc'][$slug]['id'] ?? 0;
+}
+function wc_create_attribute($args)
+{
+    $slug = $args['slug'];
+    $id = count($GLOBALS['atributos_wc']) + 1;
+    $GLOBALS['atributos_wc'][$slug] = ['id' => $id] + $args;
+    $GLOBALS['atributos_creados'][] = $slug;
+    return $id;
+}
+function is_wp_error($valor)
+{
+    return false;
+}
 
-require $TEMA . '/inc/lote-campos.php';
-require $TEMA . '/inc/lote-tabla.php';
-require $TEMA . '/inc/tarjeta-producto.php';
+class WP_Post
+{
+    public $ID;
+    public $post_type;
+    function __construct($id, $t = 'product')
+    {
+        $this->ID = $id;
+        $this->post_type = $t;
+    }
+}
+class WC_Product
+{
+    private $id;
+    private $stock;
+    function __construct($id, $stock = true)
+    {
+        $this->id = $id;
+        $this->stock = $stock;
+    }
+    function get_id()
+    {
+        return $this->id;
+    }
+    function get_image_id()
+    {
+        return 0;
+    }
+    function get_gallery_image_ids()
+    {
+        return [];
+    }
+    function is_in_stock()
+    {
+        return $this->stock;
+    }
+}
+class WooCommerce
+{
+}
+
+require $TEMA . '/functions.php';
 
 $GLOBALS['fallos'] = 0;
-function af($cond, $msg) {
-    if ($cond) { echo "OK    $msg\n"; } else { echo "FALLA $msg\n"; $GLOBALS['fallos']++; }
+function af($cond, $msg)
+{
+    if ($cond) {
+        echo "OK    $msg\n";
+    } else {
+        echo "FALLA $msg\n";
+        $GLOBALS['fallos']++;
+    }
 }
-function guardar($id, array $campos, $tipo = 'product') {
+function guardar($id, array $campos, $tipo = 'product')
+{
     $_POST = ['coremushroom_lote_nonce' => 'coremushroom_guardar_lote_' . $id];
-    foreach ($campos as $k => $v) { $_POST[COREMUSHROOM_META_PREFIJO . $k] = $v; }
+    foreach ($campos as $k => $v) {
+        $_POST[COREMUSHROOM_META_PREFIJO . $k] = $v;
+    }
     coremushroom_guardar_lote($id, new WP_Post($id, $tipo));
 }
-function leer($id, $k) { return $GLOBALS['meta'][$id][COREMUSHROOM_META_PREFIJO . $k] ?? null; }
+function leer($id, $k)
+{
+    return $GLOBALS['meta'][$id][COREMUSHROOM_META_PREFIJO . $k] ?? null;
+}
+
+echo "--- Atributos globales de WooCommerce ---\n";
+af(in_array('coremushroom_registrar_atributos_producto', $GLOBALS['acciones']['init'] ?? [], true), 'registra los atributos en init');
+coremushroom_registrar_atributos_producto();
+$t_atributos = ['especie', 'cepa', 'potencia', 'dosis_por_unidad', 'formato', 'contenido_psilocibina'];
+foreach ($t_atributos as $t_slug) {
+    af(wc_attribute_taxonomy_id_by_name($t_slug) > 0, 'existe el atributo global ' . $t_slug);
+}
+af($GLOBALS['atributos_wc']['formato']['id'] === 44, 'conserva el atributo preexistente');
+af(count($GLOBALS['atributos_creados']) === 5, 'crea solo los cinco atributos faltantes');
+coremushroom_registrar_atributos_producto();
+af(count($GLOBALS['atributos_creados']) === 5, 'el registro es idempotente');
+
+$t_nuevos = [
+    'especie', 'cepa', 'potencia_estimada', 'dosis_sugerida',
+    'metodo_cultivo', 'sustrato', 'fecha_cosecha', 'fecha_secado',
+    'humedad_residual',
+];
+$t_definiciones = coremushroom_campos_lote();
+foreach ($t_nuevos as $t_clave) {
+    af(isset($t_definiciones[$t_clave]), 'declara el campo ' . $t_clave);
+}
+af(isset($t_definiciones['especie']['opciones']['cordyceps']), 'conserva la especie anterior');
+af(isset($t_definiciones['especie']['opciones']['psilocybe-cubensis']), 'agrega Psilocybe cubensis');
 
 echo "--- Guardado: puertas de seguridad ---\n";
 $_POST = [COREMUSHROOM_META_PREFIJO . 'lote' => 'SIN-NONCE'];
@@ -118,15 +300,15 @@ af(leer(1, 'lote') === null, 'sobre un tipo que no es producto no escribe nada')
 
 echo "\n--- Guardado: saneado ---\n";
 guardar(2, [
-    'lote'               => '  CM-2609-C4  ',
-    'especie'            => 'cordyceps',
-    'formato'            => 'chocolate',
-    'contenido_neto'     => '60 g, 12 piezas',
-    'ingredientes'       => "Cacao 70%\nExtracto de Cordyceps",
-    'alergenos'          => 'Puede contener leche',
-    'fecha_elaboracion'  => '2026-09-01',
+    'lote' => '  CM-2609-C4  ',
+    'especie' => 'cordyceps',
+    'formato' => 'chocolate',
+    'contenido_neto' => '60 g, 12 piezas',
+    'ingredientes' => "Cacao 70%\nExtracto de Cordyceps",
+    'alergenos' => 'Puede contener leche',
+    'fecha_elaboracion' => '2026-09-01',
     'consumo_preferente' => '2027-03-15',
-    'certificado_url'    => 'https://ejemplo.test/coa.pdf',
+    'certificado_url' => 'https://ejemplo.test/coa.pdf',
 ]);
 af(leer(2, 'lote') === 'CM-2609-C4', 'guarda el texto recortado');
 af(leer(2, 'especie') === 'cordyceps', 'guarda una opcion valida del select');
@@ -144,6 +326,52 @@ guardar(2, ['especie' => 'cordyceps', 'preparacion' => 'extracto']);
 
 guardar(3, ['especie' => 'psilocybe']);
 af(leer(3, 'especie') === null, 'descarta un valor de select que no esta en las opciones');
+
+echo "\n--- Nuevos datos micológicos ---\n";
+guardar(12, [
+    'especie' => 'psilocybe-cubensis',
+    'cepa' => '  Mazatapec  ',
+    'potencia_estimada' => '<b>12 mg por g</b>',
+    'dosis_sugerida' => '0.2 g por cápsula',
+    'metodo_cultivo' => 'Cultivo en interior',
+    'sustrato' => 'Grano y fibra de coco',
+    'fecha_cosecha' => '2026-09-15',
+    'fecha_secado' => '2026-09-17',
+    'humedad_residual' => '8 %',
+]);
+af(leer(12, 'especie') === 'psilocybe-cubensis', 'guarda la nueva especie permitida');
+af(leer(12, 'cepa') === 'Mazatapec', 'sanea y guarda la cepa');
+af(leer(12, 'potencia_estimada') === '12 mg por g', 'elimina HTML de la medición');
+af(leer(12, 'dosis_sugerida') === '0.2 g por cápsula', 'guarda solo la cantidad descriptiva');
+af(leer(12, 'metodo_cultivo') === 'Cultivo en interior', 'guarda el método de cultivo');
+af(leer(12, 'sustrato') === 'Grano y fibra de coco', 'guarda el sustrato');
+af(leer(12, 'fecha_cosecha') === '2026-09-15', 'guarda la fecha de cosecha');
+af(leer(12, 'fecha_secado') === '2026-09-17', 'guarda la fecha de secado');
+af(leer(12, 'humedad_residual') === '8 %', 'guarda la humedad residual');
+
+guardar(13, ['fecha_cosecha' => '2026-02-31', 'fecha_secado' => '17/09/2026']);
+af(leer(13, 'fecha_cosecha') === null, 'rechaza fecha de cosecha inexistente');
+af(leer(13, 'fecha_secado') === null, 'rechaza fecha de secado no ISO');
+
+$GLOBALS['meta'][14] = [
+    COREMUSHROOM_META_PREFIJO . 'cepa' => '" onfocus="alert(1)',
+    COREMUSHROOM_META_PREFIJO . 'sustrato' => '<script>alert(1)</script>',
+];
+ob_start();
+coremushroom_dibujar_caja_lote(new WP_Post(14));
+$t_formulario = ob_get_clean();
+af(str_contains($t_formulario, 'value="&quot; onfocus=&quot;alert(1)"'), 'escapa el atributo de un campo nuevo en el editor');
+af(str_contains($t_formulario, 'value="&lt;script&gt;alert(1)&lt;/script&gt;"'), 'escapa el valor HTML de un campo nuevo en el editor');
+af(!str_contains($t_formulario, '<script>'), 'el editor no imprime HTML de los datos guardados');
+
+$t_tabla_nueva = coremushroom_tabla_lote_html(12);
+af(substr_count($t_tabla_nueva, '<tr>') === 9, 'muestra las nueve filas nuevas del lote');
+af(str_contains($t_tabla_nueva, 'Psilocybe cubensis'), 'muestra la etiqueta botánica de la especie');
+af(str_contains($t_tabla_nueva, 'Mazatapec') && str_contains($t_tabla_nueva, '8 %'), 'muestra los nuevos valores descriptivos');
+af(!str_contains($t_tabla_nueva, '<b>'), 'la tabla no imprime etiquetas del valor saneado');
+
+guardar(12, ['humedad_residual' => '']);
+af(leer(12, 'humedad_residual') === null, 'borrar un campo nuevo elimina su metadato');
 
 guardar(3, ['fecha_elaboracion' => '2026-02-31']);
 af(leer(3, 'fecha_elaboracion') === null, 'descarta el 31 de febrero, que encaja con el patron pero no existe');
@@ -164,8 +392,10 @@ af(leer(4, 'lote') === null, 'un campo vaciado borra el metadato en vez de guard
 af(leer(4, 'especie') === 'hericium', 'los demas campos no se tocan al vaciar uno');
 
 echo "\n--- Guardado: hallazgos de la revision ---\n";
-$_POST = ['coremushroom_lote_nonce' => 'coremushroom_guardar_lote_2',
-          COREMUSHROOM_META_PREFIJO . 'lote' => 'CRUZADO'];
+$_POST = [
+    'coremushroom_lote_nonce' => 'coremushroom_guardar_lote_2',
+    COREMUSHROOM_META_PREFIJO . 'lote' => 'CRUZADO'
+];
 coremushroom_guardar_lote(5, new WP_Post(5));
 af(leer(5, 'lote') === null, 'un nonce emitido para otro producto no sirve');
 
@@ -198,10 +428,10 @@ echo "\n--- Escapado en la salida ---\n";
 // Se inyecta directo en el almacen, saltandose el saneado de guardado, para
 // comprobar que la salida escapa aunque la base traiga basura de antes.
 $GLOBALS['meta'][7] = [
-    COREMUSHROOM_META_PREFIJO . 'lote'            => '<script>alert(1)</script>',
-    COREMUSHROOM_META_PREFIJO . 'ingredientes'    => '<img src=x onerror=alert(1)>',
+    COREMUSHROOM_META_PREFIJO . 'lote' => '<script>alert(1)</script>',
+    COREMUSHROOM_META_PREFIJO . 'ingredientes' => '<img src=x onerror=alert(1)>',
     COREMUSHROOM_META_PREFIJO . 'certificado_url' => 'javascript:alert(1)',
-    COREMUSHROOM_META_PREFIJO . 'contenido_neto'  => '" onmouseover="alert(1)',
+    COREMUSHROOM_META_PREFIJO . 'contenido_neto' => '" onmouseover="alert(1)',
 ];
 $t_h7 = coremushroom_tabla_lote_html(7);
 af(!str_contains($t_h7, '<script'), 'no deja pasar una etiqueta script');
@@ -209,6 +439,9 @@ af(!str_contains($t_h7, '<img'), 'no deja pasar una etiqueta img');
 af(str_contains($t_h7, '&lt;script&gt;'), 'la imprime escapada');
 af(!preg_match('/href="javascript:/i', $t_h7), 'no genera un enlace con esquema javascript');
 af(!preg_match('/<t[dh][^>]*\son\w+=/i', $t_h7), 'ninguna celda queda con un atributo de evento');
+$GLOBALS['meta'][15] = [COREMUSHROOM_META_PREFIJO . 'cepa' => '<img src=x onerror=alert(1)>'];
+$t_h15 = coremushroom_tabla_lote_html(15);
+af(str_contains($t_h15, '&lt;img') && !str_contains($t_h15, '<img'), 'escapa un campo nuevo aunque la base contenga HTML');
 
 echo "\n--- Shortcode ---\n";
 $t_sc = $GLOBALS['shortcodes']['coremushroom_ficha'];
@@ -227,11 +460,15 @@ af($t_sc(['id' => 11]) === '', 'no publica la ficha de un producto con contrasen
 
 echo "\n--- Tarjeta del bucle ---\n";
 $GLOBALS['product'] = new WC_Product(2, true);
-ob_start(); coremushroom_badge_especie_bucle(); $t_badge = ob_get_clean();
+ob_start();
+coremushroom_badge_especie_bucle();
+$t_badge = ob_get_clean();
 af(str_contains($t_badge, 'cm-badge--cordyceps'), 'el badge toma el color de la especie');
 af(str_contains($t_badge, '>Cordyceps<'), 'el badge muestra la etiqueta legible');
 
-ob_start(); coremushroom_meta_producto_bucle(); $t_meta = ob_get_clean();
+ob_start();
+coremushroom_meta_producto_bucle();
+$t_meta = ob_get_clean();
 af(str_contains($t_meta, 'Chocolate'), 'la meta muestra el formato');
 af(str_contains($t_meta, '60 g, 12 piezas'), 'la meta muestra el contenido neto');
 af(str_contains($t_meta, 'Disponible'), 'la meta muestra disponibilidad');
@@ -239,11 +476,15 @@ af(!str_contains($t_meta, 'cm-badge--oferta'), 'disponible no reutiliza el color
 af(!preg_match('/\d+\s*(en existencia|disponibles|unidades)/i', $t_meta), 'no muestra el numero de unidades');
 
 $GLOBALS['product'] = new WC_Product(2, false);
-ob_start(); coremushroom_meta_producto_bucle(); $t_meta2 = ob_get_clean();
+ob_start();
+coremushroom_meta_producto_bucle();
+$t_meta2 = ob_get_clean();
 af(str_contains($t_meta2, 'Agotado') && str_contains($t_meta2, 'cm-badge--agotado'), 'agotado usa su propio badge');
 
 $GLOBALS['product'] = new WC_Product(999, true);
-ob_start(); coremushroom_badge_especie_bucle(); $t_vacio = ob_get_clean();
+ob_start();
+coremushroom_badge_especie_bucle();
+$t_vacio = ob_get_clean();
 af($t_vacio === '', 'producto sin especie no imprime badge');
 
 $t_clases = coremushroom_clases_bucle(['product'], new WC_Product(2, true));

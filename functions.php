@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Solo se usa como respaldo cuando un archivo de assets no existe en disco.
  */
 if ( ! defined( 'COREMUSHROOM_VERSION' ) ) {
-	define( 'COREMUSHROOM_VERSION', '0.3.1' );
+	define( 'COREMUSHROOM_VERSION', '0.3.2' );
 }
 
 /**
@@ -250,6 +250,49 @@ function coremushroom_patrones_condicionales() {
 	}
 }
 add_action( 'init', 'coremushroom_patrones_condicionales', 20 );
+
+/**
+ * Crea una sola vez los atributos globales del catálogo de WooCommerce.
+ *
+ * El tema carga después de los plugins y antes de init. La prioridad 0 permite
+ * que WooCommerce registre las nuevas taxonomías en la misma petición.
+ * No se crean términos ni se modifica ningún atributo preexistente.
+ */
+function coremushroom_registrar_atributos_producto() {
+	if ( ! function_exists( 'wc_create_attribute' ) || ! function_exists( 'wc_attribute_taxonomy_id_by_name' ) ) {
+		return;
+	}
+
+	$atributos = array(
+		'especie'               => __( 'Especie', 'coremushroom' ),
+		'cepa'                  => __( 'Cepa', 'coremushroom' ),
+		'potencia'              => __( 'Potencia', 'coremushroom' ),
+		'dosis_por_unidad'      => __( 'Cantidad por unidad', 'coremushroom' ),
+		'formato'               => __( 'Formato', 'coremushroom' ),
+		'contenido_psilocibina' => __( 'Contenido de psilocibina', 'coremushroom' ),
+	);
+
+	foreach ( $atributos as $slug => $etiqueta ) {
+		if ( wc_attribute_taxonomy_id_by_name( $slug ) ) {
+			continue;
+		}
+
+		$resultado = wc_create_attribute(
+			array(
+				'name'         => $etiqueta,
+				'slug'         => $slug,
+				'type'         => 'select',
+				'order_by'     => 'menu_order',
+				'has_archives' => false,
+			)
+		);
+
+		if ( is_wp_error( $resultado ) ) {
+			error_log( 'CoreMushroom: no se pudo crear el atributo ' . $slug . ': ' . $resultado->get_error_message() );
+		}
+	}
+}
+add_action( 'init', 'coremushroom_registrar_atributos_producto', 0 );
 
 /**
  * Carga los modulos del tema.
